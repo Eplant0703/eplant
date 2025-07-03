@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VOCA AI - 영어발전소</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -46,7 +48,6 @@
             font-size: 1.2rem;
         }
 
-        /* 소리 버튼 */
         .sound-toggle {
             position: absolute;
             top: 20px;
@@ -102,32 +103,191 @@
             gap: 10px;
         }
 
-        /* 단어장 선택 */
-        .textbook-selection {
+        /* 즐겨찾기 */
+        .favorites-container {
+            margin-bottom: 20px;
+        }
+
+        .favorites-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .favorite-item {
+            background: #FFF7ED;
+            border: 2px solid #FF8C00;
+            border-radius: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .favorite-item:hover {
+            background: #FF8C00;
+            color: white;
+        }
+
+        .favorite-remove {
+            margin-left: 8px;
+            color: #6B7280;
+            cursor: pointer;
+        }
+
+        .favorite-remove:hover {
+            color: #EF4444;
+        }
+
+        /* 검색 */
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #FF8C00;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+
+        .search-results {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .search-result-item:hover {
+            background: #FFF7ED;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-category {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-left: auto;
+        }
+
+        /* PC용 드롭다운 */
+        .pc-selection {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
 
-        .textbook-option {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: #F9FAFB;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+        .category-dropdown {
+            position: relative;
         }
 
-        .textbook-option:hover, .textbook-option.selected {
+        .dropdown-button {
+            width: 100%;
+            padding: 15px;
+            background: #F9FAFB;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .dropdown-button:hover, .dropdown-button.active {
             background: #FFF7ED;
             border-color: #FF8C00;
         }
 
-        .textbook-option input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.2);
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-item:hover {
+            background: #FFF7ED;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        /* 모바일용 단계별 선택 */
+        .mobile-selection {
+            display: none;
+        }
+
+        .step-container {
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .step-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .step-option {
+            padding: 10px;
+            background: #F9FAFB;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .step-option:hover, .step-option.selected {
+            background: #FFF7ED;
+            border-color: #FF8C00;
         }
 
         /* 범위 선택 */
@@ -357,7 +517,6 @@
             transition: width 0.3s;
         }
 
-        /* 시간 표시 */
         .time-display {
             position: absolute;
             top: 20px;
@@ -370,7 +529,6 @@
             font-weight: 600;
         }
 
-        /* 다음 버튼 */
         .next-btn {
             background: #10B981;
             color: white;
@@ -523,17 +681,6 @@
             background: #4B5563;
         }
 
-        /* 로딩 메시지 */
-        .loading-message {
-            text-align: center;
-            padding: 20px;
-            background: #F0F9FF;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            color: #FF8C00;
-            font-weight: 600;
-        }
-
         /* 모바일 최적화 */
         @media (max-width: 768px) {
             .container {
@@ -568,6 +715,42 @@
                 height: 40px;
                 font-size: 1.2rem;
             }
+
+            .pc-selection {
+                display: none;
+            }
+
+            .mobile-selection {
+                display: block;
+            }
+
+            .favorites-list {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 10px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-selection {
+                display: none;
+            }
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            color: #FFC107;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .star-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -575,47 +758,128 @@
     <div class="container">
         <!-- 헤더 -->
         <header class="header">
-            <button id="soundToggle" class="sound-toggle" title="소리 켜기/끄기">🔊</button>
-            <h1>🤖 VOCA AI</h1>
+            <button id="soundToggle" class="sound-toggle" title="소리 켜기/끄기"><i class="fas fa-volume-up"></i></button>
+            <h1><i class="fas fa-robot"></i> VOCA AI</h1>
             <p>영어발전소 스마트 단어 학습 시스템</p>
         </header>
 
         <!-- 설정 화면 -->
         <div id="settingScreen" class="setting-box">
-            <!-- 단어장 로딩 상태 -->
-            <div id="loadingMessage" class="loading-message" style="display: none;">
-                📚 단어장 로딩 중...
+            
+            <!-- 즐겨찾기 -->
+            <div class="setting-section">
+                <h2><i class="fas fa-star"></i> 즐겨찾기</h2>
+                <div class="favorites-container">
+                    <div class="favorites-list" id="favoritesList">
+                        <!-- 즐겨찾기 목록이 여기에 동적으로 생성됩니다 -->
+                    </div>
+                    <div id="noFavorites" class="text-gray-500" style="display: none;">
+                        <i class="fas fa-info-circle"></i> 자주 사용하는 단어장을 즐겨찾기에 추가해보세요!
+                    </div>
+                </div>
             </div>
 
             <!-- 단어장 선택 -->
             <div class="setting-section">
-                <h2>📚 단어장 선택</h2>
-                <div class="textbook-selection">
-                    <label class="textbook-option">
-                        <input type="radio" name="textbook" value="wordmaster_2000" checked>
-                        워드마스터 수능2000
-                    </label>
-                    <label class="textbook-option">
-                        <input type="radio" name="textbook" value="wordmaster_basic">
-                        워드마스터 기본편
-                    </label>
-                    <label class="textbook-option">
-                        <input type="radio" name="textbook" value="wordmaster_intermediate">
-                        워드마스터 중급편
-                    </label>
-                    <label class="textbook-option">
-                        <input type="radio" name="textbook" value="wordmaster_advanced">
-                        워드마스터 고급편
-                    </label>
+                <h2><i class="fas fa-book"></i> 단어장 선택</h2>
+                
+                <!-- 검색 -->
+                <div class="search-container">
+                    <div class="relative">
+                        <input type="text" id="searchInput" class="search-input" placeholder="🔍 단어장 검색... (예: 워드마스터, 중1, 천재, 6월)">
+                        <div id="searchResults" class="search-results">
+                            <!-- 검색 결과가 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PC용 카테고리 드롭다운 -->
+                <div class="pc-selection">
+                    <div class="category-dropdown">
+                        <button class="dropdown-button" data-category="middle">
+                            <span><i class="fas fa-book"></i> 중등교과서</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="middleDropdown">
+                            <!-- 중등교과서 목록 -->
+                        </div>
+                    </div>
+
+                    <div class="category-dropdown">
+                        <button class="dropdown-button" data-category="high">
+                            <span><i class="fas fa-graduation-cap"></i> 고등교과서</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="highDropdown">
+                            <!-- 고등교과서 목록 -->
+                        </div>
+                    </div>
+
+                    <div class="category-dropdown">
+                        <button class="dropdown-button" data-category="mock">
+                            <span><i class="fas fa-file-alt"></i> 모의고사</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="mockDropdown">
+                            <!-- 모의고사 목록 -->
+                        </div>
+                    </div>
+
+                    <div class="category-dropdown">
+                        <button class="dropdown-button" data-category="commercial">
+                            <span><i class="fas fa-store"></i> 시중단어장</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="commercialDropdown">
+                            <!-- 시중단어장 목록 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 모바일용 단계별 선택 -->
+                <div class="mobile-selection">
+                    <div class="step-container">
+                        <div class="step-title">1단계: 카테고리 선택</div>
+                        <div class="step-options">
+                            <div class="step-option" data-step="1" data-value="textbook">
+                                <i class="fas fa-book"></i><br>교과서
+                            </div>
+                            <div class="step-option" data-step="1" data-value="mock">
+                                <i class="fas fa-file-alt"></i><br>모의고사
+                            </div>
+                            <div class="step-option" data-step="1" data-value="commercial">
+                                <i class="fas fa-store"></i><br>시중교재
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-container hidden" id="step2Container">
+                        <div class="step-title" id="step2Title">2단계: 세부 선택</div>
+                        <div class="step-options" id="step2Options">
+                            <!-- 2단계 옵션들이 여기에 동적으로 생성됩니다 -->
+                        </div>
+                    </div>
+
+                    <div class="step-container hidden" id="step3Container">
+                        <div class="step-title" id="step3Title">3단계: 최종 선택</div>
+                        <div class="step-options" id="step3Options">
+                            <!-- 3단계 옵션들이 여기에 동적으로 생성됩니다 -->
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: #F0F9FF; border-radius: 10px; border-left: 4px solid #FF8C00;">
+                    <strong style="color: #FF8C00;">선택된 단어장:</strong> 
+                    <span id="selectedTextbook" style="color: #374151;">선택된 단어장이 없습니다</span>
                 </div>
             </div>
 
             <!-- 범위 선택 -->
             <div class="setting-section">
-                <h2>📝 범위 선택</h2>
+                <h2><i class="fas fa-list-ol"></i> 범위 선택</h2>
                 <div class="range-selection">
                     <div class="range-method">
-                        <h3 style="color: #374151; margin-bottom: 15px;">📊 범위 지정</h3>
+                        <h3 style="color: #374151; margin-bottom: 15px;"><i class="fas fa-sliders-h"></i> 범위 지정</h3>
                         <div class="range-inputs">
                             <input type="number" id="startRange" min="1" max="50" value="1" placeholder="시작">
                             <span style="color: #6B7280; font-weight: 600;">~</span>
@@ -625,7 +889,7 @@
                     </div>
                     
                     <div class="range-method">
-                        <h3 style="color: #374151; margin-bottom: 15px;">☑️ 개별 선택</h3>
+                        <h3 style="color: #374151; margin-bottom: 15px;"><i class="fas fa-check-square"></i> 개별 선택</h3>
                         <div class="checkbox-grid" id="dayCheckboxes">
                             <!-- Day 체크박스들이 여기에 동적으로 생성됩니다 -->
                         </div>
@@ -634,32 +898,32 @@
                 
                 <div style="margin-top: 20px; padding: 15px; background: #F0F9FF; border-radius: 10px; border-left: 4px solid #FF8C00;">
                     <strong style="color: #FF8C00;">선택된 범위:</strong> 
-                    <span id="selectedRange" style="color: #374151;">Day 1 ~ Day 5</span>
+                    <span id="selectedRange" style="color: #374151;">Day 1, Day 2, Day 3, Day 4, Day 5</span>
                 </div>
             </div>
 
             <!-- 테스트 유형 -->
             <div class="setting-section">
-                <h2>🎯 테스트 유형</h2>
+                <h2><i class="fas fa-target"></i> 테스트 유형</h2>
                 <div class="test-type">
                     <label class="test-option">
-                        <input type="radio" name="testType" value="spelling" checked>
+                        <input type="radio" name="testType" value="meaning" checked>
                         <div class="test-option-content">
-                            <div class="test-option-title">✍️ 스펠링 테스트</div>
-                            <div class="test-option-desc">한글 뜻 3초 → 영어 단어 쓰기 6초</div>
+                            <div class="test-option-title"><i class="fas fa-book-open"></i> 한글뜻 테스트</div>
+                            <div class="test-option-desc">영어 단어 3초 → 한글 뜻 쓰기 4초</div>
                         </div>
                     </label>
                     <label class="test-option">
-                        <input type="radio" name="testType" value="meaning">
+                        <input type="radio" name="testType" value="spelling">
                         <div class="test-option-content">
-                            <div class="test-option-title">📖 한글뜻 테스트</div>
-                            <div class="test-option-desc">영어 단어 3초 → 한글 뜻 쓰기 4초</div>
+                            <div class="test-option-title"><i class="fas fa-pencil-alt"></i> 스펠링 테스트</div>
+                            <div class="test-option-desc">한글 뜻 3초 → 영어 단어 쓰기 6초</div>
                         </div>
                     </label>
                 </div>
             </div>
 
-            <button id="startTest" class="start-btn">🚀 테스트 시작 (랜덤 30문제)</button>
+            <button id="startTest" class="start-btn"><i class="fas fa-rocket"></i> 테스트 시작 (랜덤 30문제)</button>
         </div>
 
         <!-- 테스트 화면 -->
@@ -675,24 +939,24 @@
                 <div class="time-display" id="timeDisplay">3</div>
                 준비 중...
             </div>
-            <div id="blackScreen" class="black-screen">🤔</div>
+            <div id="blackScreen" class="black-screen"><i class="fas fa-brain"></i></div>
             
-            <button id="nextBtn" class="next-btn">➡️ 다음 문제</button>
+            <button id="nextBtn" class="next-btn"><i class="fas fa-arrow-right"></i> 다음 문제</button>
         </div>
 
         <!-- 완료 화면 -->
         <div id="completeScreen" class="complete-screen">
             <div class="complete-box">
-                <div class="complete-title">🎉 테스트 완료!</div>
+                <div class="complete-title"><i class="fas fa-trophy"></i> 테스트 완료!</div>
                 <div class="complete-message">30문제가 모두 끝났습니다.<br>수고하셨습니다!</div>
-                <button id="showAnswers" class="answer-btn">📋 정답 확인하기</button>
-                <button id="restartTest" class="restart-btn">🔄 다시 테스트</button>
+                <button id="showAnswers" class="answer-btn"><i class="fas fa-list"></i> 정답 확인하기</button>
+                <button id="restartTest" class="restart-btn"><i class="fas fa-redo"></i> 다시 테스트</button>
             </div>
         </div>
 
         <!-- 정답 화면 -->
         <div id="answerScreen" class="answer-screen">
-            <button id="backToComplete" class="back-btn">← 돌아가기</button>
+            <button id="backToComplete" class="back-btn"><i class="fas fa-arrow-left"></i> 돌아가기</button>
             <div class="answer-table">
                 <table>
                     <thead>
@@ -712,55 +976,113 @@
     </div>
 
     <script>
-        // VOCA AI - 영어발전소 스마트 단어 학습 시스템
+        // VOCA AI - 완전 버전
         let currentTest = {
             words: [],
             currentIndex: 0,
-            testType: 'spelling',
+            testType: 'meaning',
             selectedDays: [1, 2, 3, 4, 5],
-            selectedTextbook: 'wordmaster_2000',
-            soundEnabled: true
+            selectedTextbook: '',
+            soundEnabled: true,
+            selectedCategory: '',
+            selectedSubCategory: ''
         };
 
         let currentTimer = null;
         let currentTimeLeft = 0;
+        let favorites = JSON.parse(localStorage.getItem('vocaAIFavorites') || '[]');
 
-        // 효과음 시스템
-        const soundEffects = {
-            wordShow: () => playBeep(800, 150),
-            wordHide: () => playBeep(400, 150),
-            timeUp: () => playBeep(600, 300),
-            complete: () => playBeep(1000, 500)
+        // 단어장 데이터
+        const allTextbooks = {
+            // 중등교과서
+            middle: {
+                '중1 천재교육 (이재영)': { id: 'middle_1_chunjae_lee', days: 20 },
+                '중1 동아출판 (윤정미)': { id: 'middle_1_donga_yoon', days: 18 },
+                '중1 비상교육 (김진완)': { id: 'middle_1_bisang_kim', days: 16 },
+                '중2 천재교육 (이재영)': { id: 'middle_2_chunjae_lee', days: 22 },
+                '중2 동아출판 (윤정미)': { id: 'middle_2_donga_yoon', days: 20 },
+                '중2 비상교육 (김진완)': { id: 'middle_2_bisang_kim', days: 18 },
+                '중3 천재교육 (이재영)': { id: 'middle_3_chunjae_lee', days: 24 },
+                '중3 동아출판 (윤정미)': { id: 'middle_3_donga_yoon', days: 22 },
+                '중3 비상교육 (김진완)': { id: 'middle_3_bisang_kim', days: 20 }
+            },
+            // 고등교과서
+            high: {
+                '고1 천재교육 (이재영)': { id: 'high_1_chunjae_lee', days: 30 },
+                '고1 동아출판 (권혁승)': { id: 'high_1_donga_kwon', days: 28 },
+                '고1 비상교육 (홍민표)': { id: 'high_1_bisang_hong', days: 26 },
+                '고1 YBM (박준언)': { id: 'high_1_ybm_park', days: 32 },
+                '고2 천재교육 (이재영)': { id: 'high_2_chunjae_lee', days: 35 },
+                '고2 동아출판 (권혁승)': { id: 'high_2_donga_kwon', days: 33 },
+                '고2 비상교육 (홍민표)': { id: 'high_2_bisang_hong', days: 31 },
+                '고2 YBM (박준언)': { id: 'high_2_ybm_park', days: 37 },
+                '고3 천재교육 (이재영)': { id: 'high_3_chunjae_lee', days: 40 },
+                '고3 동아출판 (권혁승)': { id: 'high_3_donga_kwon', days: 38 },
+                '고3 비상교육 (홍민표)': { id: 'high_3_bisang_hong', days: 36 },
+                '고3 YBM (박준언)': { id: 'high_3_ybm_park', days: 42 }
+            },
+            // 모의고사
+            mock: {
+                '2025년 고1 3월 모의고사': { id: 'mock_2025_1_03', days: 1 },
+                '2025년 고1 6월 모의고사': { id: 'mock_2025_1_06', days: 1 },
+                '2025년 고1 9월 모의고사': { id: 'mock_2025_1_09', days: 1 },
+                '2025년 고1 11월 모의고사': { id: 'mock_2025_1_11', days: 1 },
+                '2025년 고2 3월 모의고사': { id: 'mock_2025_2_03', days: 1 },
+                '2025년 고2 6월 모의고사': { id: 'mock_2025_2_06', days: 1 },
+                '2025년 고2 9월 모의고사': { id: 'mock_2025_2_09', days: 1 },
+                '2025년 고2 11월 모의고사': { id: 'mock_2025_2_11', days: 1 },
+                '2025년 고3 3월 모의고사': { id: 'mock_2025_3_03', days: 1 },
+                '2025년 고3 6월 모의고사': { id: 'mock_2025_3_06', days: 1 },
+                '2025년 고3 9월 모의고사': { id: 'mock_2025_3_09', days: 1 },
+                '2025년 고3 11월 모의고사': { id: 'mock_2025_3_11', days: 1 },
+                '2024년 고1 3월 모의고사': { id: 'mock_2024_1_03', days: 1 },
+                '2024년 고1 6월 모의고사': { id: 'mock_2024_1_06', days: 1 },
+                '2024년 고1 9월 모의고사': { id: 'mock_2024_1_09', days: 1 },
+                '2024년 고1 11월 모의고사': { id: 'mock_2024_1_11', days: 1 },
+                '2024년 고2 3월 모의고사': { id: 'mock_2024_2_03', days: 1 },
+                '2024년 고2 6월 모의고사': { id: 'mock_2024_2_06', days: 1 },
+                '2024년 고2 9월 모의고사': { id: 'mock_2024_2_09', days: 1 },
+                '2024년 고2 11월 모의고사': { id: 'mock_2024_2_11', days: 1 },
+                '2024년 고3 3월 모의고사': { id: 'mock_2024_3_03', days: 1 },
+                '2024년 고3 6월 모의고사': { id: 'mock_2024_3_06', days: 1 },
+                '2024년 고3 9월 모의고사': { id: 'mock_2024_3_09', days: 1 },
+                '2024년 고3 11월 모의고사': { id: 'mock_2024_3_11', days: 1 },
+                '2023년 고1 3월 모의고사': { id: 'mock_2023_1_03', days: 1 },
+                '2023년 고1 6월 모의고사': { id: 'mock_2023_1_06', days: 1 },
+                '2023년 고1 9월 모의고사': { id: 'mock_2023_1_09', days: 1 },
+                '2023년 고1 11월 모의고사': { id: 'mock_2023_1_11', days: 1 },
+                '2023년 고2 3월 모의고사': { id: 'mock_2023_2_03', days: 1 },
+                '2023년 고2 6월 모의고사': { id: 'mock_2023_2_06', days: 1 },
+                '2023년 고2 9월 모의고사': { id: 'mock_2023_2_09', days: 1 },
+                '2023년 고2 11월 모의고사': { id: 'mock_2023_2_11', days: 1 },
+                '2023년 고3 3월 모의고사': { id: 'mock_2023_3_03', days: 1 },
+                '2023년 고3 6월 모의고사': { id: 'mock_2023_3_06', days: 1 },
+                '2023년 고3 9월 모의고사': { id: 'mock_2023_3_09', days: 1 },
+                '2023년 고3 11월 모의고사': { id: 'mock_2023_3_11', days: 1 }
+            },
+            // 시중단어장
+            commercial: {
+                '워드마스터 수능2000 (2022년)': { id: 'wordmaster_2000_2022', days: 30 },
+                '워드마스터 수능2000 (2019년)': { id: 'wordmaster_2000_2019', days: 30 },
+                '워드마스터 중등 기초': { id: 'wordmaster_middle_basic', days: 20 },
+                '워드마스터 중등 실력 (2022년)': { id: 'wordmaster_middle_skill_2022', days: 25 },
+                '워드마스터 중등 고난도': { id: 'wordmaster_middle_advanced', days: 30 },
+                '영단기 수능VOCA': { id: 'youngdangi_suneung', days: 35 },
+                '영단기 기출VOCA': { id: 'youngdangi_previous', days: 25 },
+                '영단기 숙어': { id: 'youngdangi_idiom', days: 20 },
+                '해커스 보카': { id: 'hackers_voca', days: 40 },
+                '해커스 기출보카': { id: 'hackers_previous', days: 30 },
+                '해커스 토익보카': { id: 'hackers_toeic', days: 50 },
+                '시나공 토익': { id: 'sinagong_toeic', days: 45 },
+                '다락원 중학 VOCA': { id: 'darakwon_middle', days: 18 },
+                '능률 고교 VOCA': { id: 'neungyul_high', days: 35 },
+                'YBM 올인원': { id: 'ybm_allinone', days: 40 }
+            }
         };
 
-        // 비프 사운드 생성
-        function playBeep(frequency, duration) {
-            if (!currentTest.soundEnabled) return;
-            
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.value = frequency;
-                oscillator.type = 'sine';
-                
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + duration / 1000);
-            } catch (error) {
-                console.log('오디오 재생 오류:', error);
-            }
-        }
-
-        // 단어 데이터 (CSV에서 로드되거나 기본 데이터 사용)
-        let wordData = {
-            wordmaster_2000: [
+        // 샘플 단어 데이터
+        const wordData = {
+            wordmaster_2000_2022: [
                 { day: 1, english: 'provide', korean: '공급하다, 준비하다' },
                 { day: 1, english: 'develop', korean: '개발하다, 발달하다' },
                 { day: 1, english: 'service', korean: '서비스, 봉사' },
@@ -796,75 +1118,45 @@
                 { day: 7, english: 'consider', korean: '고려하다' },
                 { day: 7, english: 'suggest', korean: '제안하다' },
                 { day: 7, english: 'achieve', korean: '달성하다' }
-            ],
-            wordmaster_basic: [],
-            wordmaster_intermediate: [],
-            wordmaster_advanced: []
+            ]
         };
 
-        // CSV 파일에서 단어 데이터 로드
-        async function loadWordsFromCSV(fileName) {
+        // 효과음 시스템
+        const soundEffects = {
+            wordShow: () => playBeep(800, 150),
+            wordHide: () => playBeep(400, 150),
+            timeUp: () => playBeep(600, 300),
+            complete: () => playBeep(1000, 500)
+        };
+
+        // 비프 사운드 생성
+        function playBeep(frequency, duration) {
+            if (!currentTest.soundEnabled) return;
+            
             try {
-                const response = await fetch(`./data/${fileName}.csv`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
                 
-                const csvText = await response.text();
-                const lines = csvText.split('\n');
-                const words = [];
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
                 
-                for (let i = 1; i < lines.length; i++) {
-                    const line = lines[i].trim();
-                    if (line) {
-                        const [day, english, korean] = line.split(',');
-                        if (day && english && korean) {
-                            words.push({
-                                day: parseInt(day),
-                                english: english.trim().replace(/"/g, ''),
-                                korean: korean.trim().replace(/"/g, '')
-                            });
-                        }
-                    }
-                }
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
                 
-                return words;
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration / 1000);
             } catch (error) {
-                console.error(`CSV 파일 로딩 오류 (${fileName}):`, error);
-                return [];
+                console.log('오디오 재생 오류:', error);
             }
         }
 
         // 페이지 로드
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', function() {
             console.log('🤖 VOCA AI 시작!');
-            
-            // 로딩 메시지 표시
-            document.getElementById('loadingMessage').style.display = 'block';
-            
-            // CSV 파일에서 단어 데이터 로드 시도
-            try {
-                const loadedData = await Promise.all([
-                    loadWordsFromCSV('wordmaster_2000'),
-                    loadWordsFromCSV('wordmaster_basic'),
-                    loadWordsFromCSV('wordmaster_intermediate'),
-                    loadWordsFromCSV('wordmaster_advanced')
-                ]);
-                
-                // 로드된 데이터가 있으면 기본 데이터 대체
-                if (loadedData[0].length > 0) wordData.wordmaster_2000 = loadedData[0];
-                if (loadedData[1].length > 0) wordData.wordmaster_basic = loadedData[1];
-                if (loadedData[2].length > 0) wordData.wordmaster_intermediate = loadedData[2];
-                if (loadedData[3].length > 0) wordData.wordmaster_advanced = loadedData[3];
-                
-                console.log('CSV 데이터 로드 완료:', wordData);
-            } catch (error) {
-                console.log('CSV 로드 실패, 기본 데이터 사용:', error);
-            }
-            
-            // 로딩 메시지 숨기기
-            document.getElementById('loadingMessage').style.display = 'none';
-            
             initializePage();
             setupEventListeners();
         });
@@ -874,6 +1166,9 @@
             generateDayCheckboxes();
             updateSelectedRange();
             updateStartButton();
+            updateFavoritesList();
+            setupDropdowns();
+            updateSelectedTextbook();
         }
 
         // 이벤트 설정
@@ -885,23 +1180,26 @@
             document.getElementById('nextBtn').addEventListener('click', goToNextQuestion);
             document.getElementById('soundToggle').addEventListener('click', toggleSound);
 
-            document.querySelectorAll('input[name="textbook"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    currentTest.selectedTextbook = this.value;
-                    generateDayCheckboxes();
-                    updateSelectedRange();
-                    updateStartButton();
-                });
-            });
+            // 검색 기능
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            document.getElementById('searchInput').addEventListener('focus', showSearchResults);
+            document.addEventListener('click', hideSearchResults);
 
+            // 테스트 유형 선택
             document.querySelectorAll('input[name="testType"]').forEach(radio => {
                 radio.addEventListener('change', function() {
                     currentTest.testType = this.value;
                 });
             });
 
+            // 범위 입력
             document.getElementById('startRange').addEventListener('input', updateStartButton);
             document.getElementById('endRange').addEventListener('input', updateStartButton);
+
+            // 모바일 단계별 선택
+            document.querySelectorAll('.step-option').forEach(option => {
+                option.addEventListener('click', handleStepSelection);
+            });
         }
 
         // 소리 토글
@@ -910,23 +1208,347 @@
             const button = document.getElementById('soundToggle');
             
             if (currentTest.soundEnabled) {
-                button.textContent = '🔊';
+                button.innerHTML = '<i class="fas fa-volume-up"></i>';
                 button.classList.remove('muted');
                 button.title = '소리 끄기';
                 soundEffects.wordShow();
             } else {
-                button.textContent = '🔇';
+                button.innerHTML = '<i class="fas fa-volume-mute"></i>';
                 button.classList.add('muted');
                 button.title = '소리 켜기';
+            }
+        }
+
+        // 즐겨찾기 관련 함수들
+        function updateFavoritesList() {
+            const favoritesList = document.getElementById('favoritesList');
+            const noFavorites = document.getElementById('noFavorites');
+            
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = '';
+                noFavorites.style.display = 'block';
+            } else {
+                noFavorites.style.display = 'none';
+                favoritesList.innerHTML = favorites.map(fav => 
+                    `<div class="favorite-item" onclick="selectTextbook('${fav}')">
+                        ${fav}
+                        <span class="favorite-remove" onclick="event.stopPropagation(); removeFavorite('${fav}')">&times;</span>
+                     </div>`
+                ).join('');
+            }
+        }
+
+        function addToFavorites(textbook) {
+            if (!favorites.includes(textbook) && favorites.length < 7) {
+                favorites.push(textbook);
+                saveFavorites();
+                updateFavoritesList();
+            }
+        }
+
+        function removeFavorite(textbook) {
+            favorites = favorites.filter(fav => fav !== textbook);
+            saveFavorites();
+            updateFavoritesList();
+        }
+
+        function saveFavorites() {
+            localStorage.setItem('vocaAIFavorites', JSON.stringify(favorites));
+        }
+
+        // 검색 기능
+        function handleSearch(event) {
+            const query = event.target.value.toLowerCase().trim();
+            const searchResults = document.getElementById('searchResults');
+            
+            if (query.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            const results = searchTextbooks(query);
+            displaySearchResults(results);
+        }
+
+        function searchTextbooks(query) {
+            const results = [];
+            
+            Object.entries(allTextbooks).forEach(([category, textbooks]) => {
+                Object.entries(textbooks).forEach(([name, data]) => {
+                    if (name.toLowerCase().includes(query)) {
+                        results.push({
+                            name: name,
+                            category: getCategoryName(category),
+                            id: data.id,
+                            days: data.days
+                        });
+                    }
+                });
+            });
+            
+            return results.slice(0, 10); // 최대 10개 결과
+        }
+
+        function getCategoryName(category) {
+            const categoryNames = {
+                middle: '중등교과서',
+                high: '고등교과서',
+                mock: '모의고사',
+                commercial: '시중단어장'
+            };
+            return categoryNames[category] || category;
+        }
+
+        function displaySearchResults(results) {
+            const searchResults = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-result-item">검색 결과가 없습니다.</div>';
+            } else {
+                searchResults.innerHTML = results.map(result => 
+                    `<div class="search-result-item" onclick="selectTextbook('${result.name}')">
+                        <span>${result.name}</span>
+                        <span class="search-result-category">${result.category}</span>
+                        <button class="star-btn" onclick="event.stopPropagation(); addToFavorites('${result.name}')" title="즐겨찾기 추가">
+                            <i class="fas fa-star"></i>
+                        </button>
+                     </div>`
+                ).join('');
+            }
+            
+            searchResults.style.display = 'block';
+        }
+
+        function showSearchResults() {
+            const searchResults = document.getElementById('searchResults');
+            if (searchResults.innerHTML.trim() !== '') {
+                searchResults.style.display = 'block';
+            }
+        }
+
+        function hideSearchResults(event) {
+            const searchContainer = document.querySelector('.search-container');
+            if (!searchContainer.contains(event.target)) {
+                document.getElementById('searchResults').style.display = 'none';
+            }
+        }
+
+        // 드롭다운 설정
+        function setupDropdowns() {
+            // PC용 드롭다운 메뉴 생성
+            populateDropdown('middleDropdown', allTextbooks.middle);
+            populateDropdown('highDropdown', allTextbooks.high);
+            populateDropdown('mockDropdown', allTextbooks.mock);
+            populateDropdown('commercialDropdown', allTextbooks.commercial);
+
+            // 드롭다운 버튼 이벤트
+            document.querySelectorAll('.dropdown-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const category = button.dataset.category;
+                    toggleDropdown(category);
+                });
+            });
+
+            // 외부 클릭시 드롭다운 닫기
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function populateDropdown(dropdownId, textbooks) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.innerHTML = Object.entries(textbooks).map(([name, data]) => 
+                `<div class="dropdown-item" onclick="selectTextbook('${name}')">
+                    <span>${name}</span>
+                    <button class="star-btn" onclick="event.stopPropagation(); addToFavorites('${name}')" title="즐겨찾기 추가">
+                        <i class="fas fa-star"></i>
+                    </button>
+                 </div>`
+            ).join('');
+        }
+
+        function toggleDropdown(category) {
+            closeAllDropdowns();
+            const dropdown = document.getElementById(category + 'Dropdown');
+            const button = document.querySelector(`[data-category="${category}"]`);
+            
+            dropdown.style.display = 'block';
+            button.classList.add('active');
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.style.display = 'none';
+            });
+            document.querySelectorAll('.dropdown-button').forEach(button => {
+                button.classList.remove('active');
+            });
+        }
+
+        // 모바일 단계별 선택
+        function handleStepSelection(event) {
+            const option = event.target.closest('.step-option');
+            const step = parseInt(option.dataset.step);
+            const value = option.dataset.value;
+
+            // 같은 단계의 다른 옵션들 선택 해제
+            document.querySelectorAll(`[data-step="${step}"]`).forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+
+            if (step === 1) {
+                handleStep1Selection(value);
+            } else if (step === 2) {
+                handleStep2Selection(value);
+            } else if (step === 3) {
+                handleStep3Selection(value);
+            }
+        }
+
+        function handleStep1Selection(category) {
+            currentTest.selectedCategory = category;
+            
+            const step2Container = document.getElementById('step2Container');
+            const step3Container = document.getElementById('step3Container');
+            const step2Title = document.getElementById('step2Title');
+            const step2Options = document.getElementById('step2Options');
+
+            step3Container.classList.add('hidden');
+
+            if (category === 'textbook') {
+                step2Title.textContent = '2단계: 학급 선택';
+                step2Options.innerHTML = `
+                    <div class="step-option" data-step="2" data-value="middle">중등</div>
+                    <div class="step-option" data-step="2" data-value="high">고등</div>
+                `;
+            } else if (category === 'mock') {
+                step2Title.textContent = '2단계: 학년 선택';
+                step2Options.innerHTML = `
+                    <div class="step-option" data-step="2" data-value="1">고1</div>
+                    <div class="step-option" data-step="2" data-value="2">고2</div>
+                    <div class="step-option" data-step="2" data-value="3">고3</div>
+                `;
+            } else if (category === 'commercial') {
+                // 시중교재는 바로 3단계로
+                step2Container.classList.add('hidden');
+                showCommercialTextbooks();
+                return;
+            }
+
+            step2Container.classList.remove('hidden');
+            
+            // 2단계 옵션들에 이벤트 리스너 추가
+            step2Options.querySelectorAll('.step-option').forEach(option => {
+                option.addEventListener('click', handleStepSelection);
+            });
+        }
+
+        function handleStep2Selection(value) {
+            const step3Container = document.getElementById('step3Container');
+            const step3Title = document.getElementById('step3Title');
+            const step3Options = document.getElementById('step3Options');
+
+            if (currentTest.selectedCategory === 'textbook') {
+                if (value === 'middle') {
+                    step3Title.textContent = '3단계: 중등교과서 선택';
+                    step3Options.innerHTML = Object.keys(allTextbooks.middle).map(name => 
+                        `<div class="step-option" data-step="3" data-value="${name}" style="min-width: 150px; font-size: 0.8rem;">${name}</div>`
+                    ).join('');
+                } else if (value === 'high') {
+                    step3Title.textContent = '3단계: 고등교과서 선택';
+                    step3Options.innerHTML = Object.keys(allTextbooks.high).map(name => 
+                        `<div class="step-option" data-step="3" data-value="${name}" style="min-width: 150px; font-size: 0.8rem;">${name}</div>`
+                    ).join('');
+                }
+            } else if (currentTest.selectedCategory === 'mock') {
+                step3Title.textContent = '3단계: 모의고사 선택';
+                const grade = value;
+                const mockTests = Object.keys(allTextbooks.mock).filter(name => name.includes(`고${grade}`));
+                step3Options.innerHTML = mockTests.map(name => 
+                    `<div class="step-option" data-step="3" data-value="${name}" style="min-width: 120px; font-size: 0.7rem;">${name}</div>`
+                ).join('');
+            }
+
+            step3Container.classList.remove('hidden');
+            
+            // 3단계 옵션들에 이벤트 리스너 추가
+            step3Options.querySelectorAll('.step-option').forEach(option => {
+                option.addEventListener('click', handleStepSelection);
+            });
+        }
+
+        function handleStep3Selection(textbookName) {
+            selectTextbook(textbookName);
+        }
+
+        function showCommercialTextbooks() {
+            const step3Container = document.getElementById('step3Container');
+            const step3Title = document.getElementById('step3Title');
+            const step3Options = document.getElementById('step3Options');
+
+            step3Title.textContent = '2단계: 시중단어장 선택';
+            step3Options.innerHTML = Object.keys(allTextbooks.commercial).map(name => 
+                `<div class="step-option" data-step="3" data-value="${name}" style="min-width: 140px; font-size: 0.8rem;">${name}</div>`
+            ).join('');
+
+            step3Container.classList.remove('hidden');
+            
+            // 옵션들에 이벤트 리스너 추가
+            step3Options.querySelectorAll('.step-option').forEach(option => {
+                option.addEventListener('click', handleStepSelection);
+            });
+        }
+
+        // 단어장 선택
+        function selectTextbook(textbookName) {
+            currentTest.selectedTextbook = textbookName;
+            updateSelectedTextbook();
+            
+            // 검색 결과 숨기기
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('searchInput').value = '';
+
+            // 드롭다운 닫기
+            closeAllDropdowns();
+
+            // Day 체크박스 업데이트
+            generateDayCheckboxes();
+            updateSelectedRange();
+            updateStartButton();
+        }
+
+        function updateSelectedTextbook() {
+            const selectedSpan = document.getElementById('selectedTextbook');
+            if (currentTest.selectedTextbook) {
+                selectedSpan.textContent = currentTest.selectedTextbook;
+                selectedSpan.style.color = '#374151';
+            } else {
+                selectedSpan.textContent = '선택된 단어장이 없습니다';
+                selectedSpan.style.color = '#EF4444';
             }
         }
 
         // Day 체크박스 생성
         function generateDayCheckboxes() {
             const container = document.getElementById('dayCheckboxes');
-            const selectedTextbook = currentTest.selectedTextbook;
-            const words = wordData[selectedTextbook] || [];
-            const maxDay = Math.max(...words.map(w => w.day), 5);
+            
+            if (!currentTest.selectedTextbook) {
+                container.innerHTML = '<div style="text-align: center; color: #6B7280; padding: 20px;">단어장을 먼저 선택해주세요</div>';
+                return;
+            }
+
+            // 선택된 단어장의 정보 찾기
+            let maxDay = 7; // 기본값
+            let textbookId = '';
+            
+            Object.values(allTextbooks).forEach(category => {
+                Object.entries(category).forEach(([name, data]) => {
+                    if (name === currentTest.selectedTextbook) {
+                        maxDay = data.days;
+                        textbookId = data.id;
+                    }
+                });
+            });
             
             container.innerHTML = '';
             
@@ -957,7 +1579,7 @@
             
             document.querySelectorAll('.day-checkbox').forEach(div => {
                 const checkbox = div.querySelector('input');
-                if (checkbox.checked) {
+                if (checkbox && checkbox.checked) {
                     div.classList.add('checked');
                 } else {
                     div.classList.remove('checked');
@@ -1007,16 +1629,38 @@
         // 시작 버튼 상태 업데이트
         function updateStartButton() {
             const startBtn = document.getElementById('startTest');
-            const selectedTextbook = currentTest.selectedTextbook;
-            const words = wordData[selectedTextbook] || [];
+            
+            if (!currentTest.selectedTextbook) {
+                startBtn.disabled = true;
+                startBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 단어장을 먼저 선택해주세요';
+                return;
+            }
+            
+            if (currentTest.selectedDays.length === 0) {
+                startBtn.disabled = true;
+                startBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 범위를 선택해주세요';
+                return;
+            }
+
+            // 선택된 단어장의 데이터 찾기
+            let textbookId = '';
+            Object.values(allTextbooks).forEach(category => {
+                Object.entries(category).forEach(([name, data]) => {
+                    if (name === currentTest.selectedTextbook) {
+                        textbookId = data.id;
+                    }
+                });
+            });
+
+            const words = wordData[textbookId] || wordData.wordmaster_2000_2022; // 기본값
             const availableWords = words.filter(w => currentTest.selectedDays.includes(w.day));
             
             if (availableWords.length < 30) {
                 startBtn.disabled = true;
-                startBtn.textContent = `🚀 테스트 시작 (최소 30개 단어 필요, 현재 ${availableWords.length}개)`;
+                startBtn.innerHTML = `<i class="fas fa-exclamation-triangle"></i> 최소 30개 단어 필요 (현재 ${availableWords.length}개)`;
             } else {
                 startBtn.disabled = false;
-                startBtn.textContent = `🚀 테스트 시작 (랜덤 30문제)`;
+                startBtn.innerHTML = '<i class="fas fa-rocket"></i> 테스트 시작 (랜덤 30문제)';
             }
         }
 
@@ -1034,7 +1678,6 @@
             
             currentTimer = setInterval(() => {
                 currentTimeLeft--;
-                
                 if (timeDisplay) {
                     timeDisplay.textContent = currentTimeLeft;
                 }
@@ -1058,8 +1701,17 @@
 
         // 테스트 시작
         function startTest() {
-            const selectedTextbook = currentTest.selectedTextbook;
-            const words = wordData[selectedTextbook] || [];
+            // 선택된 단어장의 데이터 찾기
+            let textbookId = '';
+            Object.values(allTextbooks).forEach(category => {
+                Object.entries(category).forEach(([name, data]) => {
+                    if (name === currentTest.selectedTextbook) {
+                        textbookId = data.id;
+                    }
+                });
+            });
+
+            const words = wordData[textbookId] || wordData.wordmaster_2000_2022; // 기본값
             const availableWords = words.filter(w => currentTest.selectedDays.includes(w.day));
             
             if (availableWords.length < 30) {
@@ -1099,7 +1751,6 @@
             blackScreen.style.display = 'none';
             wordDisplay.style.display = 'flex';
             
-            // 효과음
             try {
                 soundEffects.wordShow();
             } catch (error) {
@@ -1120,7 +1771,7 @@
                     
                     wordDisplay.style.display = 'none';
                     blackScreen.style.display = 'flex';
-                    blackScreen.textContent = '✍️';
+                    blackScreen.innerHTML = '<i class="fas fa-pencil-alt"></i>';
                     
                     startTimer(6, () => {
                         try {
@@ -1149,7 +1800,7 @@
                     
                     wordDisplay.style.display = 'none';
                     blackScreen.style.display = 'flex';
-                    blackScreen.textContent = '🤔';
+                    blackScreen.innerHTML = '<i class="fas fa-brain"></i>';
                     
                     startTimer(4, () => {
                         try {
@@ -1189,19 +1840,16 @@
 
         // 정답 화면 표시
         function showAnswerScreen() {
-            const tbody = document.getElementById('answerTableBody');
-            tbody.innerHTML = '';
+            const answerTableBody = document.getElementById('answerTableBody');
             
-            currentTest.words.forEach((word, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+            answerTableBody.innerHTML = currentTest.words.map((word, index) => `
+                <tr>
                     <td style="font-weight: 600;">${index + 1}</td>
                     <td style="font-weight: 600; color: #FF8C00;">${word.english}</td>
                     <td style="color: #10B981;">${word.korean}</td>
                     <td style="color: #6B7280;">Day ${word.day}</td>
-                `;
-                tbody.appendChild(row);
-            });
+                </tr>
+            `).join('');
             
             showScreen('answerScreen');
         }
@@ -1228,6 +1876,34 @@
                 [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
             }
             return shuffled;
+        }
+
+        // CSV 파일 로드 함수 (향후 확장용)
+        async function loadWordsFromCSV(fileName) {
+            try {
+                const response = await fetch(`./data/${fileName}.csv`);
+                const csvText = await response.text();
+                
+                const lines = csvText.split('\n');
+                const words = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line) {
+                        const [day, english, korean] = line.split(',');
+                        words.push({
+                            day: parseInt(day),
+                            english: english.trim(),
+                            korean: korean.trim()
+                        });
+                    }
+                }
+                
+                return words;
+            } catch (error) {
+                console.error('CSV 파일 로딩 오류:', error);
+                return [];
+            }
         }
     </script>
 </body>
