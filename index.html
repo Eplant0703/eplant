@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>영어발전소 워드마스터</title>
+    <title>VOCA AI - 영어발전소</title>
     <style>
         * {
             margin: 0;
@@ -523,6 +523,17 @@
             background: #4B5563;
         }
 
+        /* 로딩 메시지 */
+        .loading-message {
+            text-align: center;
+            padding: 20px;
+            background: #F0F9FF;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #FF8C00;
+            font-weight: 600;
+        }
+
         /* 모바일 최적화 */
         @media (max-width: 768px) {
             .container {
@@ -565,12 +576,17 @@
         <!-- 헤더 -->
         <header class="header">
             <button id="soundToggle" class="sound-toggle" title="소리 켜기/끄기">🔊</button>
-            <h1>🚀 영어발전소</h1>
-            <p>워드마스터 테스트 시스템</p>
+            <h1>🤖 VOCA AI</h1>
+            <p>영어발전소 스마트 단어 학습 시스템</p>
         </header>
 
         <!-- 설정 화면 -->
         <div id="settingScreen" class="setting-box">
+            <!-- 단어장 로딩 상태 -->
+            <div id="loadingMessage" class="loading-message" style="display: none;">
+                📚 단어장 로딩 중...
+            </div>
+
             <!-- 단어장 선택 -->
             <div class="setting-section">
                 <h2>📚 단어장 선택</h2>
@@ -696,7 +712,7 @@
     </div>
 
     <script>
-        // 영어발전소 워드마스터 - 완전 버전
+        // VOCA AI - 영어발전소 스마트 단어 학습 시스템
         let currentTest = {
             words: [],
             currentIndex: 0,
@@ -742,8 +758,8 @@
             }
         }
 
-        // 단어 데이터
-        const wordData = {
+        // 단어 데이터 (CSV에서 로드되거나 기본 데이터 사용)
+        let wordData = {
             wordmaster_2000: [
                 { day: 1, english: 'provide', korean: '공급하다, 준비하다' },
                 { day: 1, english: 'develop', korean: '개발하다, 발달하다' },
@@ -780,12 +796,75 @@
                 { day: 7, english: 'consider', korean: '고려하다' },
                 { day: 7, english: 'suggest', korean: '제안하다' },
                 { day: 7, english: 'achieve', korean: '달성하다' }
-            ]
+            ],
+            wordmaster_basic: [],
+            wordmaster_intermediate: [],
+            wordmaster_advanced: []
         };
 
+        // CSV 파일에서 단어 데이터 로드
+        async function loadWordsFromCSV(fileName) {
+            try {
+                const response = await fetch(`./data/${fileName}.csv`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const csvText = await response.text();
+                const lines = csvText.split('\n');
+                const words = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line) {
+                        const [day, english, korean] = line.split(',');
+                        if (day && english && korean) {
+                            words.push({
+                                day: parseInt(day),
+                                english: english.trim().replace(/"/g, ''),
+                                korean: korean.trim().replace(/"/g, '')
+                            });
+                        }
+                    }
+                }
+                
+                return words;
+            } catch (error) {
+                console.error(`CSV 파일 로딩 오류 (${fileName}):`, error);
+                return [];
+            }
+        }
+
         // 페이지 로드
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 영어발전소 워드마스터 시작!');
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🤖 VOCA AI 시작!');
+            
+            // 로딩 메시지 표시
+            document.getElementById('loadingMessage').style.display = 'block';
+            
+            // CSV 파일에서 단어 데이터 로드 시도
+            try {
+                const loadedData = await Promise.all([
+                    loadWordsFromCSV('wordmaster_2000'),
+                    loadWordsFromCSV('wordmaster_basic'),
+                    loadWordsFromCSV('wordmaster_intermediate'),
+                    loadWordsFromCSV('wordmaster_advanced')
+                ]);
+                
+                // 로드된 데이터가 있으면 기본 데이터 대체
+                if (loadedData[0].length > 0) wordData.wordmaster_2000 = loadedData[0];
+                if (loadedData[1].length > 0) wordData.wordmaster_basic = loadedData[1];
+                if (loadedData[2].length > 0) wordData.wordmaster_intermediate = loadedData[2];
+                if (loadedData[3].length > 0) wordData.wordmaster_advanced = loadedData[3];
+                
+                console.log('CSV 데이터 로드 완료:', wordData);
+            } catch (error) {
+                console.log('CSV 로드 실패, 기본 데이터 사용:', error);
+            }
+            
+            // 로딩 메시지 숨기기
+            document.getElementById('loadingMessage').style.display = 'none';
+            
             initializePage();
             setupEventListeners();
         });
@@ -842,12 +921,12 @@
             }
         }
 
-                // Day 체크박스 생성
+        // Day 체크박스 생성
         function generateDayCheckboxes() {
             const container = document.getElementById('dayCheckboxes');
             const selectedTextbook = currentTest.selectedTextbook;
             const words = wordData[selectedTextbook] || [];
-            const maxDay = Math.max(...words.map(w => w.day));
+            const maxDay = Math.max(...words.map(w => w.day), 5);
             
             container.innerHTML = '';
             
@@ -941,16 +1020,13 @@
             }
         }
 
-        // 타이머 시작 (안전한 버전)
+        // 타이머 시작
         function startTimer(seconds, callback) {
             if (currentTimer) {
                 clearInterval(currentTimer);
             }
             
             currentTimeLeft = seconds;
-            console.log(`타이머 시작: ${seconds}초`);
-            
-            // timeDisplay 요소가 있을 때만 업데이트
             const timeDisplay = document.getElementById('timeDisplay');
             if (timeDisplay) {
                 timeDisplay.textContent = currentTimeLeft;
@@ -958,16 +1034,13 @@
             
             currentTimer = setInterval(() => {
                 currentTimeLeft--;
-                console.log(`남은 시간: ${currentTimeLeft}초`);
                 
-                // timeDisplay 요소가 있을 때만 업데이트
                 if (timeDisplay) {
                     timeDisplay.textContent = currentTimeLeft;
                 }
                 
                 if (currentTimeLeft <= 0) {
                     clearInterval(currentTimer);
-                    console.log('타이머 완료!');
                     if (callback && typeof callback === 'function') {
                         callback();
                     }
@@ -997,8 +1070,6 @@
             currentTest.words = shuffleArray([...availableWords]).slice(0, 30);
             currentTest.currentIndex = 0;
             
-            console.log('선택된 단어들:', currentTest.words);
-            
             showScreen('testScreen');
             
             setTimeout(() => {
@@ -1006,7 +1077,7 @@
             }, 1000);
         }
 
-        // 다음 문제 표시 (완전 자동 진행 + 정답 확인 버전)
+        // 다음 문제 표시
         function showNextQuestion() {
             if (currentTest.currentIndex >= currentTest.words.length) {
                 showTestComplete();
@@ -1028,8 +1099,6 @@
             blackScreen.style.display = 'none';
             wordDisplay.style.display = 'flex';
             
-            console.log(`문제 ${currentTest.currentIndex + 1}: 시작`);
-            
             // 효과음
             try {
                 soundEffects.wordShow();
@@ -1042,10 +1111,7 @@
                 wordDisplay.textContent = currentWord.korean;
                 wordDisplay.style.color = '#10B981';
                 
-                console.log(`스펠링 테스트 - 한글: ${currentWord.korean}`);
-                
                 startTimer(3, () => {
-                    console.log('한글 3초 완료 → 검은화면 6초');
                     try {
                         soundEffects.wordHide();
                     } catch (error) {
@@ -1057,7 +1123,6 @@
                     blackScreen.textContent = '✍️';
                     
                     startTimer(6, () => {
-                        console.log('쓰기 6초 완료 → 다음 문제');
                         try {
                             soundEffects.timeUp();
                         } catch (error) {
@@ -1075,10 +1140,7 @@
                 wordDisplay.textContent = currentWord.english;
                 wordDisplay.style.color = '#FF8C00';
                 
-                console.log(`한글뜻 테스트 - 영어: ${currentWord.english}`);
-                
                 startTimer(3, () => {
-                    console.log('영어 3초 완료 → 검은화면 4초');
                     try {
                         soundEffects.wordHide();
                     } catch (error) {
@@ -1090,7 +1152,6 @@
                     blackScreen.textContent = '🤔';
                     
                     startTimer(4, () => {
-                        console.log('쓰기 4초 완료 → 다음 문제');
                         try {
                             soundEffects.timeUp();
                         } catch (error) {
@@ -1116,7 +1177,6 @@
         // 테스트 완료 화면
         function showTestComplete() {
             stopTimer();
-            console.log('🎉 테스트 완료!');
             
             try {
                 soundEffects.complete();
@@ -1124,73 +1184,26 @@
                 console.log('사운드 에러:', error);
             }
             
-            document.querySelector('.container').innerHTML = `
-                <div style="text-align: center; padding: 40px;">
-                    <div style="background: #FFFFFF; padding: 50px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
-                        <div style="font-size: 3rem; color: #FF8C00; margin-bottom: 30px;">🎉 테스트 완료!</div>
-                        <div style="font-size: 1.5rem; color: #6B7280; margin-bottom: 40px;">
-                            ${currentTest.words.length}문제가 모두 끝났습니다.<br>수고하셨습니다!
-                        </div>
-                        <button onclick="showAnswerList()" style="background: #10B981; color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px; transition: all 0.3s;">📋 정답 확인하기</button>
-                        <button onclick="location.reload()" style="background: #FF8C00; color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px; transition: all 0.3s;">🔄 다시 테스트</button>
-                    </div>
-                </div>
-            `;
+            showScreen('completeScreen');
         }
 
-        // 정답 목록 표시
-        function showAnswerList() {
-            let answerTableHTML = `
-                <div style="padding: 40px;">
-                    <button onclick="showTestComplete()" style="background: #6B7280; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; margin-bottom: 20px;">← 돌아가기</button>
-                    
-                    <div style="background: #FFFFFF; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="background: #FF8C00; color: white;">
-                                    <th style="padding: 20px; text-align: left; font-weight: 600;">번호</th>
-                                    <th style="padding: 20px; text-align: left; font-weight: 600;">영어 단어</th>
-                                    <th style="padding: 20px; text-align: left; font-weight: 600;">한글 뜻</th>
-                                    <th style="padding: 20px; text-align: left; font-weight: 600;">출처</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-            `;
+        // 정답 화면 표시
+        function showAnswerScreen() {
+            const tbody = document.getElementById('answerTableBody');
+            tbody.innerHTML = '';
             
             currentTest.words.forEach((word, index) => {
-                answerTableHTML += `
-                    <tr style="border-bottom: 1px solid #F3F4F6;" onmouseover="this.style.background='#FFF7ED'" onmouseout="this.style.background='white'">
-                        <td style="padding: 15px 20px; font-weight: 600;">${index + 1}</td>
-                        <td style="padding: 15px 20px; font-weight: 600; color: #FF8C00;">${word.english}</td>
-                        <td style="padding: 15px 20px; color: #10B981;">${word.korean}</td>
-                        <td style="padding: 15px 20px; color: #6B7280;">Day ${word.day}</td>
-                    </tr>
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight: 600;">${index + 1}</td>
+                    <td style="font-weight: 600; color: #FF8C00;">${word.english}</td>
+                    <td style="color: #10B981;">${word.korean}</td>
+                    <td style="color: #6B7280;">Day ${word.day}</td>
                 `;
+                tbody.appendChild(row);
             });
             
-            answerTableHTML += `
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 30px;">
-                        <button onclick="showTestComplete()" style="background: #FF8C00; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; margin: 10px;">← 완료 화면으로</button>
-                        <button onclick="location.reload()" style="background: #10B981; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; margin: 10px;">🔄 새 테스트</button>
-                    </div>
-                </div>
-            `;
-            
-            document.querySelector('.container').innerHTML = answerTableHTML;
-        }
-
-        // 결과 화면 표시 (기존 함수 - 호환성 유지)
-        function showResults() {
-            showTestComplete();
-        }
-
-        // 정답 화면 표시 (기존 함수 - 호환성 유지)
-        function showAnswerScreen() {
-            showAnswerList();
+            showScreen('answerScreen');
         }
 
         // 화면 전환
