@@ -1,0 +1,905 @@
+Day 01,name,이름 
+Day 01,boy,"소년, 남자아이 "
+Day 01,girl,"소녀, 여자아이 "
+Day 01,baby,아기 
+Day 01,man,"(성인) 남자, 남성 "
+Day 01,woman,"(성인) 여자, 여성 "
+Day 01,age,나이 
+Day 01,dear,"사랑하는, 소중한 "
+Day 01,child,"아이, 어린이 "
+Day 01,teenager,십 대 
+Day 01,adult,"성인, 어른 "
+Day 01,someone,"누군가, 어떤 사람 "
+Day 01,everyone,"모두, 모든 사람 "
+Day 01,lady,"여성, 숙녀, 부인 "
+Day 01,gentleman,"신사, 양반 "
+Day 01,person,"사람, 개인 "
+Day 01,people,사람들 
+Day 01,own,자기 자신의 
+Day 01,each other,서로 
+Day 01,be[come] from ,"~출신이다, ~에서 오다 "
+Day 02,family,가족 
+Day 02,father,아버지 
+Day 02,mother,어머니 
+Day 02,son,아들 
+Day 02,daughter,딸 
+Day 02,brother,"형, 오빠, 남동생 "
+Day 02,sister,"언니, 누나, 여동생 "
+Day 02,marry,결혼하다 
+Day 02,husband,남편 
+Day 02,wife,"아내, 부인 "
+Day 02,parent(-s) ,부모 
+Day 02,uncle,삼촌 
+Day 02,aunt,"고모, 이모, 숙모 "
+Day 02,grandparent(-s) ,조부모 
+Day 02,cousin,사촌 
+Day 02,member,"구성원, 일원 "
+Day 02,pet,반려동물 
+Day 02,relative,친척 
+Day 02,be born,태어나다 
+Day 02,take care of ,~을 돌보다 
+Day 03,friend,친구 
+Day 03,together,"함께, 같이 "
+Day 03,club,"동아리, 클럽 "
+Day 03,join,"가입하다, 함께하다 "
+Day 03,fight,싸우다 
+Day 03,group,"무리, 집단, 그룹 "
+Day 03,classmate,"급우, 반 친구 "
+Day 03,partner,"파트너, 짝 "
+Day 03,alone,혼자 
+Day 03,friendship,우정 
+Day 03,share,함께 쓰다; 나누다 
+Day 03,neighbor,이웃 
+Day 03,favor,"호의, 부탁 "
+Day 03,introduce,소개하다 
+Day 03,harmony,"조화, 화합 "
+Day 03,nickname,별명 
+Day 03,welcome,환영하다 
+Day 03,strange,이상한; 낯선 
+Day 03,hang out (with) ,"(~와) 시간을 보내다, 어울려 놀다 "
+Day 03,make fun of ,~을 놀리다 
+Day 04,body,"몸, 신체 "
+Day 04,ear,귀 
+Day 04,eye,눈 
+Day 04,nose,코 
+Day 04,mouth,입 
+Day 04,skin,피부 
+Day 04,tooth,"이, 치아 "
+Day 04,tongue,혀 
+Day 04,head,머리 
+Day 04,hair,"머리카락, 털 "
+Day 04,arm,팔 
+Day 04,shoulder,어깨 
+Day 04,hand,손 
+Day 04,finger,손가락 
+Day 04,leg,다리 
+Day 04,knee,무릎 
+Day 04,foot,발 
+Day 04,toe,발가락 
+Day 04,grow up,"성장하다, 자라다 "
+Day 04,watch out,조심하다 
+Day 05,old,"늙은, 나이 많은; 오래된 "
+Day 05,young,"어린, 젊은 "
+Day 05,short,"키가 작은, 짧은 "
+Day 05,tall,"키가 큰, 높은 "
+Day 05,long,긴 
+Day 05,pretty,"예쁜, 귀여운 "
+Day 05,ugly,"못생긴, 보기 싫은 "
+Day 05,handsome,잘생긴 
+Day 05,face,얼굴 
+Day 05,thin,"날씬한, 마른; 얇은, 가는 "
+Day 05,fat,"뚱뚱한, 살찐 "
+Day 05,curly,곱슬곱슬한 
+Day 05,blond,금발인 
+Day 05,change,바꾸다; 변하다 
+Day 05,lovely,사랑스러운 
+Day 05,cute,귀여운 
+Day 05,normal,"평범한, 정상적인 "
+Day 05,beautiful,아름다운 
+Day 05,look like ,~처럼 보이다 
+Day 05,show up,나타나다 
+Day 06,kind,"친절한; 종류, 유형 "
+Day 06,funny,"웃기는, 재미있는 "
+Day 06,quiet,조용한 
+Day 06,careful,"주의 깊은, 조심하는 "
+Day 06,shy,수줍음[부끄럼]을 많이 타는 
+Day 06,stupid,"어리석은, 멍청한 "
+Day 06,lazy,게으른 
+Day 06,calm,"차분한, 침착한 "
+Day 06,smart,"똑똑한, 영리한 "
+Day 06,clever,"영리한, 똑똑한 "
+Day 06,wise,"지혜로운, 현명한 "
+Day 06,honest,"정직한, 솔직한 "
+Day 06,polite,"예의 바른, 공손한 "
+Day 06,friendly,"친절한, 우호적인 "
+Day 06,active,활동적인 
+Day 06,brave,용감한 
+Day 06,curious,"호기심이 많은, 궁금해하는 "
+Day 06,character,"성격, 기질; 특징; 등장인물 "
+Day 06,on time,"시간을 어기지 않고, 제시간에 "
+Day 06,on one's own,혼자 힘으로 
+Day 07,job,"일, 직장, 직업 "
+Day 07,firefighter,소방관 
+Day 07,librarian,(도서관의) 사서 
+Day 07,pilot,"조종사, 비행사 "
+Day 07,want,"원하다, ~하고 싶다 "
+Day 07,police officer,경찰관 
+Day 07,scientist,과학자 
+Day 07,worker,"노동자, 근로자 "
+Day 07,become ,"~이 되다, ~해지다 "
+Day 07,reporter,기자 
+Day 07,farmer,"농부, 농장주 "
+Day 07,writer,작가 
+Day 07,engineer,"기사, 기술자 "
+Day 07,work,"일하다, 근무하다 "
+Day 07,company,"회사; 동료, 일행 "
+Day 07,director,"감독, 연출자 "
+Day 07,future,미래 
+Day 07,experience,경험; 경험하다 
+Day 07,be interested in ,~에 관심이[흥미가] 있다 
+Day 07,come true,"이루어지다, 실현되다 "
+Day 08,play,놀다 
+Day 08,walk,걷다; 산책시키다; 걷기 
+Day 08,run,"달리다, 뛰다 "
+Day 08,kick,(발로) 차다 
+Day 08,jump,"뛰다, 도약하다 "
+Day 08,throw,던지다 
+Day 08,use,"쓰다, 사용하다; 사용 "
+Day 08,close,닫다 
+Day 08,cry,울다 
+Day 08,act,연기하다; 행동하다 
+Day 08,move,움직이다; 이사하다 
+Day 08,shout,소리[고함]치다 
+Day 08,carry,나르다; 가지고 다니다 
+Day 08,drop,떨어뜨리다 
+Day 08,try,"노력하다, 애를 쓰다; 시도하다 "
+Day 08,check,"확인하다, 점검하다 "
+Day 08,bring,"가져오다, 데려오다 "
+Day 08,laugh,(소리 내어) 웃다 
+Day 08,have[take] a seat,자리에 앉다 
+Day 08,get out of ,~에서 나가[오]다; ~에서 내리다 
+Day 09,sad,슬픈 
+Day 09,happy,행복한 
+Day 09,afraid,"무서워하는, 겁내는 "
+Day 09,angry,"화난, 성난 "
+Day 09,glad,"기쁜, 반가운 "
+Day 09,lonely,"외로운, 쓸쓸한 "
+Day 09,serious,"심각한, 진지한 "
+Day 09,nervous,"불안해하는, 긴장한 "
+Day 09,scared,"무서워하는, 겁먹은 "
+Day 09,upset,"속상한, 화난 "
+Day 09,surprised,"놀란, 놀라는 "
+Day 09,bored,"지루해하는, 지루한 "
+Day 09,pleased,"기쁜, 만족해하는 "
+Day 09,excited,"신이 난, 흥분한 "
+Day 09,worry,걱정하다 
+Day 09,miss,그리워하다; 놓치다 
+Day 09,excuse,용서하다; 양해를 구하다; 변명 
+Day 09,complain,"불평하다, 항의하다 "
+Day 09,be proud of ,~을 자랑스러워하다 
+Day 09,would like to-v ,~하고 싶다 
+Day 10,idea,"발상, 생각 "
+Day 10,dream,꿈; 꿈을 꾸다 
+Day 10,believe,"믿다, 생각하다 "
+Day 10,think,생각하다 
+Day 10,know,"알다, 알고 있다 "
+Day 10,need,필요로 하다 
+Day 10,hope,"바라다, 희망하다; 희망 "
+Day 10,wish,"원하다, 바라다; 소원 "
+Day 10,decide,"결정하다, 결심하다 "
+Day 10,guess,추측하다; 추측 
+Day 10,forget,"잊다, 잊어버리다 "
+Day 10,remember,기억하다 
+Day 10,wonder,"궁금하다, 궁금해하다 "
+Day 10,keep,"유지하다, 지키다 "
+Day 10,understand,이해하다 
+Day 10,plan,계획; 계획하다 
+Day 10,mind,"마음, 정신 "
+Day 10,question,"질문, 문제 "
+Day 10,feel like -ing ,~하고 싶다 
+Day 10,give up,포기하다 
+Day 11,talk,"말하다, 이야기하다 "
+Day 11,speak,"말하다, 이야기하다 "
+Day 11,call,부르다; 전화하다 
+Day 11,tell,"알리다, 말하다 "
+Day 11,say,말하다 
+Day 11,ask,"묻다, 질문하다 "
+Day 11,answer,(대)답하다; 대답; 해답 
+Day 11,show,"보여 주다, 드러내다; 쇼, 공연 "
+Day 11,express,"나타내다, 표현하다 "
+Day 11,message,"메시지, 전갈 "
+Day 11,mean,의미하다 
+Day 11,discuss,"상의하다, 논의하다 "
+Day 11,explain,설명하다 
+Day 11,problem,"문제, 어려움 "
+Day 11,agree,"동의하다, 찬성하다 "
+Day 11,allow,"허락하다, 허용하다 "
+Day 11,accept,"받아들이다, 수락하다 "
+Day 11,promise,약속하다; 약속 
+Day 11,find out,"알아내다, 발견하다 "
+Day 11,say hello to ,"~에게 안부를 전하다, ~에게 인사하다 "
+Day 12,hear,"듣다, 들리다 "
+Day 12,listen,"듣다, 귀 기울이다 "
+Day 12,see,보다 
+Day 12,watch,"보다, 지켜보다 "
+Day 12,look ,"~해 보이다, 보다 "
+Day 12,voice,"목소리, 음성 "
+Day 12,feel,"느끼다, ~한 기분이 들다 "
+Day 12,smell,냄새[향기]가 나다; 냄새 
+Day 12,sound ,~하게 들리다; 소리 
+Day 12,taste,맛이 나다; 맛 
+Day 12,loud,"(소리가) 큰, 시끄러운 "
+Day 12,touch,만지다 
+Day 12,soft,"부드러운, 푹신한 "
+Day 12,hard,"단단한, 딱딱한; 어려운; 열심히 "
+Day 12,sweet,"달콤한, 단 "
+Day 12,sharp,"날카로운, 뾰족한 "
+Day 12,same,"같은, 동일한 "
+Day 12,color,"색, 색깔 "
+Day 12,be good at ,~을 잘하다 
+Day 12,make a noise,"시끄럽게 하다, 소란을 피우다 "
+Day 13,visit,방문하다 
+Day 13,zoo,동물원 
+Day 13,bank,은행 
+Day 13,park,공원 
+Day 13,airport,공항 
+Day 13,place,장소 
+Day 13,town,"(소)도시, 마을 "
+Day 13,village,"마을, 부락 "
+Day 13,city,도시 
+Day 13,bookstore,서점 
+Day 13,market,시장 
+Day 13,square,광장; 정사각형 
+Day 13,theater,극장 
+Day 13,bakery,"빵집, 제과점 "
+Day 13,space,공간; 우주 
+Day 13,station,"역, 정류장 "
+Day 13,museum,"박물관, 미술관 "
+Day 13,gallery,"미술관, 화랑 "
+Day 13,line up,줄을 서다 
+Day 13,stop by ,~에 잠시 들르다 
+Day 14,wall,"담, 벽 "
+Day 14,garden,"정원, 뜰 "
+Day 14,bathroom,"욕실, 화장실 "
+Day 14,stair,계단 
+Day 14,wash,"씻다, 빨래하다 "
+Day 14,gate,"문, 출입구 "
+Day 14,umbrella,우산 
+Day 14,roof,지붕 
+Day 14,kitchen,"부엌, 주방 "
+Day 14,refrigerator,냉장고 
+Day 14,floor,"바닥, 층 "
+Day 14,living room,거실 
+Day 14,bedroom,침실 
+Day 14,address,주소 
+Day 14,stay,머무르다 
+Day 14,garbage,쓰레기 
+Day 14,housework,"가사, 집안일 "
+Day 14,comfortable,"편안한, 쾌적한 "
+Day 14,turn off ,~을 끄다 
+Day 14,go to bed,잠자리에 들다 
+Day 15,salt,소금 
+Day 15,sugar,설탕 
+Day 15,meat,고기 
+Day 15,snack,"간단한 식사, 간식 "
+Day 15,fresh,"신선한, 상쾌한 "
+Day 15,sauce,"소스, 양념 "
+Day 15,rice,"쌀, 밥 "
+Day 15,bottle,병 
+Day 15,heat,가열하다; 열기 
+Day 15,bake,굽다 
+Day 15,meal,"식사, 끼니 "
+Day 15,cook,요리하다; 요리사 
+Day 15,mix,"섞다, 혼합하다 "
+Day 15,pour,"붓다, 따르다 "
+Day 15,melt,"녹다, 녹이다 "
+Day 15,delicious,아주 맛있는 
+Day 15,freeze,"얼다, 얼리다 "
+Day 15,recipe,"요리법, 레시피 "
+Day 15,such as ,~와 같은 
+Day 15,do the dishes,설거지를 하다 
+Day 16,eat,먹다 
+Day 16,drink,마시다 
+Day 16,knife,칼 
+Day 16,cup,"컵, 잔 "
+Day 16,dish,접시; 요리 
+Day 16,juice,"주스, 즙 "
+Day 16,soup,"수프, 국 "
+Day 16,salad,샐러드 
+Day 16,seafood,해산물 
+Day 16,menu,"메뉴, 식단표 "
+Day 16,hungry,배고픈 
+Day 16,thirsty,목이 마른 
+Day 16,open,열다; 열린 
+Day 16,order,주문하다 
+Day 16,chef,"요리사, 주방장 "
+Day 16,serve,"(음식을) 제공하다, 차려 내다 "
+Day 16,dessert,"디저트, 후식 "
+Day 16,restaurant,"식당, 레스토랑 "
+Day 16,eat out,외식하다 
+Day 16,wait for ,~을 기다리다 
+Day 17,pants,바지 
+Day 17,belt,"벨트, 허리띠 "
+Day 17,shirt,셔츠 
+Day 17,skirt,치마 
+Day 17,socks,양말 
+Day 17,shoes,신발 
+Day 17,hat,(테가 있는) 모자 
+Day 17,cap,(앞에 챙이 달린) 모자 
+Day 17,sweater,스웨터 
+Day 17,jacket,"재킷, 상의 "
+Day 17,gloves,장갑 
+Day 17,pocket,주머니 
+Day 17,clothes,"옷, 의복 "
+Day 17,wear,"입다, 쓰다, 신다 "
+Day 17,fashion,패션 
+Day 17,design,"디자인[설계]하다; 디자인, 설계 "
+Day 17,popular,"인기 있는, 대중적인 "
+Day 17,style,스타일; 방식 
+Day 17,put on ,"~을 입다[신다, 쓰다] "
+Day 17,take off ,~을 벗다; (비행기가) 이륙하다 
+Day 18,subway,지하철 
+Day 18,bike,자전거 
+Day 18,airplane,비행기 
+Day 18,truck,트럭 
+Day 18,boat,"보트, 배 "
+Day 18,ride,"타다, 몰다 "
+Day 18,street,"거리, 도로 "
+Day 18,road,"도로, 길 "
+Day 18,drive,운전하다 
+Day 18,right,오른쪽; 오른쪽의; 오른쪽으로 
+Day 18,left,왼쪽; 왼쪽의; 왼쪽으로 
+Day 18,block,"막다, 차단하다; 블록, 구역 "
+Day 18,straight,"곧은, 똑바른; 똑바로, 곧장 "
+Day 18,bridge,다리 
+Day 18,across,"가로질러, 맞은편에 "
+Day 18,sign,표지판; 서명하다 
+Day 18,corner,"모퉁이, 구석 "
+Day 18,stop,멈추다; 정류장 
+Day 18,get on ,~에 타다 
+Day 18,hurry up,서두르다 
+Day 19,teacher,"교사, 선생 "
+Day 19,student,학생 
+Day 19,test,"시험; 검사, 실험 "
+Day 19,library,도서관 
+Day 19,playground,"운동장, 놀이터 "
+Day 19,gym,체육관 
+Day 19,contest,"대회, 콘테스트 "
+Day 19,follow,"따르다, 따라가다 "
+Day 19,school uniform,교복 
+Day 19,hall,"복도, 홀, 강당 "
+Day 19,cafeteria,"구내식당, 카페테리아 "
+Day 19,locker,사물함 
+Day 19,homeroom,"홈룸, 출석 반 "
+Day 19,grade,성적; 학년 
+Day 19,teach,가르치다 
+Day 19,learn,배우다 
+Day 19,subject,과목 
+Day 19,borrow,빌리다 
+Day 19,make friends (with) ,"(~와) 친구가 되다, 친해지다 "
+Day 19,after school,방과 후에 
+Day 20,homework,"숙제, 과제 "
+Day 20,lesson,수업; (교재의) 과; 교훈 
+Day 20,study,공부하다 
+Day 20,difficult,어려운 
+Day 20,classroom,교실 
+Day 20,review,"재검토하다, 복습하다 "
+Day 20,write,쓰다 
+Day 20,solve,"해결하다, 풀다 "
+Day 20,correct,"옳은, 맞는 "
+Day 20,wrong,"틀린, 잘못된 "
+Day 20,diary,일기 
+Day 20,report,보고서; 보고하다 
+Day 20,fail,실패하다; (시험에) 떨어지다 
+Day 20,note(-s) ,필기; 쪽지 
+Day 20,speech,연설 
+Day 20,finish,"끝내다, 끝나다 "
+Day 20,mistake,"실수, 잘못 "
+Day 20,absent,"결석한, (자리에) 없는 "
+Day 20,take a break,휴식을 취하다 
+Day 20,get up,일어나다 
+Day 21,date,날짜 
+Day 21,week,"주, 일주일 "
+Day 21,from ,"~에서, ~부터 "
+Day 21,month,"달, 월 "
+Day 21,year,"한 해, 1년 "
+Day 21,early,일찍; 이른 
+Day 21,today,오늘 
+Day 21,yesterday,어제 
+Day 21,tomorrow,내일 
+Day 21,past,"과거, 지난날 "
+Day 21,tonight,오늘 밤; 오늘 밤에 
+Day 21,hour,"시간, 시각 "
+Day 21,minute,(시간 단위) 분 
+Day 21,soon,"곧, 머지않아 "
+Day 21,calendar,달력 
+Day 21,during ,"~동안[내내], ~ 중에 "
+Day 21,until ,~까지; ~할 때까지 
+Day 21,moment,(특정한) 순간; 잠시 
+Day 21,be late for ,~에 늦다[지각하다] 
+Day 21,at the same time,동시에 
+Day 22,first,첫 번째의 
+Day 22,second,두 번째의 
+Day 22,third,세 번째의 
+Day 22,again,"한 번 더, 다시 "
+Day 22,before ,~전에 
+Day 22,after ,~후에[뒤에] 
+Day 22,never,절대[결코] ~ 않다 
+Day 22,sometimes,"때때로, 가끔 "
+Day 22,often,"자주, 종종 "
+Day 22,usually,"보통, 대개 "
+Day 22,always,"항상, 언제나 "
+Day 22,once,한 번 
+Day 22,final,마지막의 
+Day 22,last,마지막의; 지난 
+Day 22,next,다음의 
+Day 22,step,단계; 걸음 
+Day 22,repeat,"반복하다, 되풀이하다 "
+Day 22,suddenly,갑자기 
+Day 22,all the time,"항상, 줄곧, 내내 "
+Day 22,from time to time,"가끔, 때때로 "
+Day 23,clean,깨끗한 
+Day 23,dirty,더러운 
+Day 23,busy,바쁜 
+Day 23,poor,가난한 
+Day 23,slow,느린 
+Day 23,fast,"빠른; 빨리, 빠르게 "
+Day 23,quickly,"빨리, 빠르게 "
+Day 23,sleepy,"졸린, 졸음이 오는 "
+Day 23,heavy,무거운 
+Day 23,light,가벼운; 밝은; 빛 
+Day 23,safe,안전한 
+Day 23,wet,젖은 
+Day 23,ready,준비가 된 
+Day 23,dark,"어두운, 캄캄한 "
+Day 23,bright,"밝은, 빛나는 "
+Day 23,perfect,완벽한 
+Day 23,different,다른 
+Day 23,terrible,"끔찍한, 형편없는 "
+Day 23,be full of ,~로 가득 차다 
+Day 23,for a while,잠시 동안 
+Day 24,huge,"(크기·양·정도가) 엄청난, 거대한 "
+Day 24,small,"작은, 소규모의 "
+Day 24,narrow,좁은 
+Day 24,wide,넓은 
+Day 24,round,"둥근, 동그란 "
+Day 24,part,부분; 일부 
+Day 24,line,"줄, 선 "
+Day 24,side,"쪽, 면; 옆, 측면 "
+Day 24,shape,"모양, 형태 "
+Day 24,size,크기; 치수 
+Day 24,type,"종류, 유형 "
+Day 24,large,"(규모가) 큰, 넓은 "
+Day 24,high,높은 
+Day 24,low,낮은 
+Day 24,deep,깊은 
+Day 24,thick,"두꺼운, 두툼한 "
+Day 24,flat,"평평한, 납작한 "
+Day 24,object,"물체, 물건 "
+Day 24,for example,예를 들어 
+Day 24,a kind of,일종의 
+Day 25,number,"수, 숫자, 번호 "
+Day 25,some,"몇몇의, 약간의 "
+Day 25,each,각각[각자]의 
+Day 25,every,모든 
+Day 25,all,모든 
+Day 25,only,"유일한; 단지, 오직 "
+Day 25,many,(수가) 많은 
+Day 25,much,(양이) 많은 
+Day 25,half,"반, 절반 "
+Day 25,add,추가하다; 더하다 
+Day 25,empty,"빈, 비어 있는 "
+Day 25,fill,채우다 
+Day 25,count,(수를) 세다 
+Day 25,enough,충분한; 충분히 
+Day 25,total,"전체의; 합계, 총액 "
+Day 25,piece,"조각, 한 개, 한 장 "
+Day 25,nothing,아무것도 ~ 아니다[없다] 
+Day 25,a lot of,"(수, 양이) 많은 "
+Day 25,a few,"(수가) 약간의, 조금의 "
+Day 25,a little,"(양이) 약간의, 조금의 "
+Day 26,south,남쪽; 남쪽의; 남쪽으로 
+Day 26,east,동쪽; 동쪽의; 동쪽으로 
+Day 26,west,서쪽; 서쪽의; 서쪽으로 
+Day 26,north,북쪽; 북쪽의; 북쪽으로 
+Day 26,under ,~아래에 
+Day 26,below,(~보다) 아래에[아래로] 
+Day 26,behind ,~뒤에 
+Day 26,between ,~사이에 
+Day 26,center,"중심, 중앙 "
+Day 26,around ,~주위[둘레]에 
+Day 26,toward ,"~쪽으로, ~을 향하여 "
+Day 26,above,(~보다) 위에[위로] 
+Day 26,over ,~위에[위로] 
+Day 26,far,먼; 멀리 
+Day 26,inside,안에[안으로] 
+Day 26,outside,"밖에(서), 바깥에 "
+Day 26,top,"맨 위, 정상; 맨 위의, 정상의 "
+Day 26,bottom,"맨 아래, 바닥; 맨 아래의 "
+Day 26,next to ,"~옆에, ~ 다음의 "
+Day 26,in front of ,~앞에 
+Day 27,map,지도 
+Day 27,vacation,방학 
+Day 27,beach,"해변, 바닷가 "
+Day 27,trip,여행 
+Day 27,tour,"여행, 관광 "
+Day 27,travel,여행하다; 여행 
+Day 27,backpack,배낭 
+Day 27,climb,"오르다, 올라가다 "
+Day 27,leave,"떠나다, 놓고 가다 "
+Day 27,arrive,도착하다 
+Day 27,return,돌아오다 
+Day 27,guide,안내; 안내원; 안내하다 
+Day 27,tourist,관광객 
+Day 27,view,전망; 견해 
+Day 27,memory,"기억, 추억 "
+Day 27,exciting,"신나는, 흥미진진한 "
+Day 27,adventure,모험 
+Day 27,pack,"짐을 싸다, 챙기다 "
+Day 27,get to ,"~에 도착하다, ~에 이르다 "
+Day 27,take a walk,산책을 하다 
+Day 28,sport,"스포츠, 운동 "
+Day 28,race,"경주, 경기, 달리기 (시합) "
+Day 28,baseball,야구 
+Day 28,basketball,농구 
+Day 28,soccer,축구 
+Day 28,catch,"잡다, 받다 "
+Day 28,win,이기다 
+Day 28,lose,지다; 잃어버리다 
+Day 28,stadium,경기장 
+Day 28,cheer,"환호[응원]하다, 격려하다 "
+Day 28,practice,연습하다; 연습 
+Day 28,rule,규칙 
+Day 28,player,선수 
+Day 28,teamwork,"협동 작업, 팀워크 "
+Day 28,match,"경기, 시합; 성냥 "
+Day 28,hold,개최하다; 잡다 
+Day 28,score,"득점, 점수 "
+Day 28,possible,가능한 
+Day 28,work out,운동하다 
+Day 28,do one's best,최선을 다하다 
+Day 29,gift,"선물; 재능, 재주 "
+Day 29,weekend,주말 
+Day 29,birthday,생일 
+Day 29,photo,사진 
+Day 29,special,특별한 
+Day 29,prize,"상, 상품 "
+Day 29,festival,축제 
+Day 29,firework,폭죽; (-s) 불꽃놀이 
+Day 29,wonderful,"멋진, 훌륭한 "
+Day 29,holiday,"휴가, 휴일 "
+Day 29,fair,"박람회; 공평한, 공정한 "
+Day 29,party,파티 
+Day 29,guest,"손님, 하객 "
+Day 29,invite,초대하다 
+Day 29,meeting,회의 
+Day 29,present,선물 
+Day 29,volunteer,자원봉사자; 자원하는 
+Day 29,interview,"인터뷰, 면접; 인터뷰하다 "
+Day 29,be going to-v ,"~할 것이다, ~할 예정이다 "
+Day 29,take place,(행사가) 열리다 
+Day 30,swim,수영하다 
+Day 30,read,읽다 
+Day 30,draw,그리다 
+Day 30,hobby,취미 
+Day 30,dance,춤추다; 춤 
+Day 30,free,자유로운; 무료의 
+Day 30,collect,"모으다, 수집하다 "
+Day 30,paint,"칠하다, 그리다; (-s) 물감 "
+Day 30,game,"게임, 경기 "
+Day 30,favorite,"마음에 드는, 가장 좋아하는 "
+Day 30,enjoy,즐기다 
+Day 30,exercise,"운동하다, 연습하다 "
+Day 30,activity,활동 
+Day 30,hiking,"하이킹, 도보 여행 "
+Day 30,fishing,낚시 
+Day 30,camping,"캠핑, 야영 "
+Day 30,outdoor,옥외[야외]의 
+Day 30,interesting,"재미있는, 흥미로운 "
+Day 30,have fun,"즐기다, 즐거운 시간을 보내다 "
+Day 30,take a picture of ,~의 사진을 찍다 
+Day 31,art,"미술, 예술 "
+Day 31,music,음악 
+Day 31,singer,가수 
+Day 31,ticket,"표, 입장권 "
+Day 31,film,영화 
+Day 31,story,이야기 
+Day 31,famous,유명한 
+Day 31,band,"악단, 밴드 "
+Day 31,actor,(남자) 배우 
+Day 31,actress,(여자) 배우 
+Day 31,painting,(물감으로 그린) 그림 
+Day 31,stage,무대; 단계 
+Day 31,artist,"화가, 예술가 "
+Day 31,magic,"마법, 마술; 마법[마술]의 "
+Day 31,novel,소설 
+Day 31,concert,"콘서트, 연주회 "
+Day 31,role,역할 
+Day 31,main,주된 
+Day 31,be over,끝나다 
+Day 31,go to the movies,영화를 보러 가다 
+Day 32,buy,"사다, 구입하다 "
+Day 32,sell,"팔다, 팔리다 "
+Day 32,spend,"(돈을) 쓰다, 소비하다 "
+Day 32,list,목록 
+Day 32,item,"물품, 품목 "
+Day 32,sale,판매; 할인 판매 
+Day 32,store,"가게, 상점 "
+Day 32,mall,"쇼핑몰, 쇼핑센터 "
+Day 32,choose,"선택하다, 고르다 "
+Day 32,pay,지불하다 
+Day 32,coupon,"쿠폰, 할인권 "
+Day 32,waste,낭비하다; 낭비 
+Day 32,price,"값, 가격 "
+Day 32,expensive,비싼 
+Day 32,cheap,"값싼, 저렴한 "
+Day 32,customer,"손님, 고객 "
+Day 32,discount,할인; 할인하다 
+Day 32,useful,유용한 
+Day 32,try on ,~을 입어[신어] 보다 
+Day 32,look around,"(주위를) 둘러보다, 구경하다 "
+Day 33,nurse,간호사 
+Day 33,sick,"아픈, 병든 "
+Day 33,weak,"약한, 힘이 없는 "
+Day 33,strong,"튼튼한, 건강한 "
+Day 33,fever,열 
+Day 33,cough,기침; 기침하다 
+Day 33,pain,"고통, 통증 "
+Day 33,hospital,병원 
+Day 33,headache,두통 
+Day 33,medicine,"약, 약물 "
+Day 33,weight,"무게, 체중 "
+Day 33,tired,"피곤한, 지친 "
+Day 33,hurt,다치게 하다; 아프다 
+Day 33,treat,"치료하다; 다루다, 대하다 "
+Day 33,relax,"휴식을 취하다, 쉬다 "
+Day 33,advice,"조언, 충고 "
+Day 33,health,건강 
+Day 33,stomach,"위, 배 "
+Day 33,see a doctor,"병원에 가다, 진찰을 받다 "
+Day 33,catch a cold,감기에 걸리다 
+Day 34,grass,"풀, 잔디 "
+Day 34,flower,꽃 
+Day 34,tree,나무 
+Day 34,leaf,"잎, 나뭇잎 "
+Day 34,stone,돌 
+Day 34,wood,"나무, 목재; (-s) 숲 "
+Day 34,fruit,"과일, 열매 "
+Day 34,branch,나뭇가지 
+Day 34,ground,"땅, 토양 "
+Day 34,soil,"토양, 흙 "
+Day 34,field,"들판, 밭; 현장; 경기장 "
+Day 34,farm,"농장, 농원 "
+Day 34,water,물; 물을 주다 
+Day 34,dig,"파다, 캐내다 "
+Day 34,grow,"재배하다, 기르다; 자라다 "
+Day 34,plant,식물; 심다 
+Day 34,bean,콩 
+Day 34,vegetable,채소 
+Day 34,right away,"즉시, 곧바로 "
+Day 34,pick up ,~을 집다; ~을 (차에) 태우러 가다 
+Day 35,bee,벌 
+Day 35,fly,파리; 날다 
+Day 35,wolf,늑대 
+Day 35,monkey,원숭이 
+Day 35,elephant,코끼리 
+Day 35,zebra,얼룩말 
+Day 35,whale,고래 
+Day 35,chicken,닭 
+Day 35,snake,뱀 
+Day 35,mouse,"쥐, 생쥐 "
+Day 35,sheep,양 
+Day 35,giraffe,기린 
+Day 35,wild,야생의 
+Day 35,animal,동물 
+Day 35,hunt,사냥하다 
+Day 35,tail,꼬리 
+Day 35,colorful,"알록달록한, 다채로운 "
+Day 35,feed,먹이를 주다 
+Day 35,by the way,"그런데, 그나저나 "
+Day 35,look for ,~을 찾다 
+Day 36,hill,언덕 
+Day 36,land,"육지, 땅 "
+Day 36,river,강 
+Day 36,lake,호수 
+Day 36,desert,사막 
+Day 36,forest,숲 
+Day 36,valley,"계곡, 골짜기 "
+Day 36,island,섬 
+Day 36,jungle,"밀림, 정글 "
+Day 36,mountain,산 
+Day 36,pond,연못 
+Day 36,ocean,"대양, 바다 "
+Day 36,cave,동굴 
+Day 36,polar,북극[남극]의 
+Day 36,nature,자연 
+Day 36,mystery,"미스터리, 불가사의 "
+Day 36,wave,"파도, 물결; 흔들다 "
+Day 36,discover,발견하다 
+Day 36,look at ,~을 보다 
+Day 36,take turns,교대로 하다 
+Day 37,warm,따뜻한 
+Day 37,cold,"추운, 차가운 "
+Day 37,cool,시원한; 멋진 
+Day 37,hot,"더운, 뜨거운 "
+Day 37,rain,비가 오다; 비 
+Day 37,snow,눈이 오다; 눈 
+Day 37,clear,(날씨가) 맑은 
+Day 37,sunny,화창한 
+Day 37,windy,바람이 많이 부는 
+Day 37,cloudy,"흐린, 구름 낀 "
+Day 37,spring,봄 
+Day 37,summer,여름 
+Day 37,fall,가을; 떨어지다 
+Day 37,winter,겨울 
+Day 37,season,"계절; 시기, 철 "
+Day 37,blow,(바람이) 불다 
+Day 37,weather,"날씨, 기상 "
+Day 37,forecast,"예측, 예보; 예측하다 "
+Day 37,at first,처음에 
+Day 37,all day (long) ,하루 종일 
+Day 38,event,"사건, 행사 "
+Day 38,start,시작하다; 시작 
+Day 38,end,"끝나다; 끝, 결말 "
+Day 38,enter,들어가다; 참가하다 
+Day 38,luck,"행운, 운 "
+Day 38,important,중요한 
+Day 38,building,건물 
+Day 38,law,법 
+Day 38,history,역사 
+Day 38,hometown,고향 
+Day 38,local,"지역의, 현지의 "
+Day 38,create,"창조하다, 만들다 "
+Day 38,project,계획; 연구 과제 
+Day 38,citizen,"시민, 국민 "
+Day 38,president,대통령; 회장 
+Day 38,information,"정보, 자료 "
+Day 38,program,(TV 등의) 프로그램 
+Day 38,traditional,전통적인 
+Day 38,ask for ,~을 요청[요구]하다 
+Day 38,these days,요즘 
+Day 39,air,"공기, 대기 "
+Day 39,fire,불; 화재 
+Day 39,sand,모래 
+Day 39,rock,"바위, 암석 "
+Day 39,earth,지구 
+Day 39,power,힘; 동력 
+Day 39,glass,유리; 유리잔; (-es) 안경 
+Day 39,reuse,재사용하다; 재사용 
+Day 39,recycle,재활용하다; 재활용 
+Day 39,plastic,플라스틱 
+Day 39,trash,쓰레기 
+Day 39,save,구하다; 절약하다; 저축하다 
+Day 39,energy,에너지 
+Day 39,bill,"청구서, 계산서; 지폐 "
+Day 39,protect,"보호하다, 지키다 "
+Day 39,dangerous,위험한 
+Day 39,float,"(물 위에) 뜨다, 띄우다 "
+Day 39,environment,환경 
+Day 39,throw away,"버리다, 내던지다 "
+Day 39,be worried about ,~에 대해 걱정하다 
+Day 40,help,돕다; 도움 
+Day 40,human,"인간, 사람 "
+Day 40,country,나라; 시골 
+Day 40,peace,평화 
+Day 40,war,전쟁 
+Day 40,website,웹사이트 
+Day 40,spread,퍼지다; 퍼뜨리다 
+Day 40,chat,"수다 떨다, 채팅하다; 잡담, 수다 "
+Day 40,post,"(웹사이트에) 올리다, 게시하다 "
+Day 40,online,온라인의; 온라인으로 
+Day 40,explore,"탐험하다, 답사하다 "
+Day 40,palace,궁전 
+Day 40,actually,사실은; 실제로 
+Day 40,science,과학 
+Day 40,culture,문화 
+Day 40,universe,우주 
+Day 40,language,"언어, 말 "
+Day 40,foreigner,외국인 
+Day 40,believe in ,~을 믿다 
+Day 40,around the world,전 세계에 
+Day 1 Plus,men,"(성인) 남자, 남성(복수형) "
+Day 1 Plus,women,"(성인) 여자, 여성(복수형) "
+Day 1 Plus,kid,"아이, 어린이 "
+Day 1 Plus,children,"아이, 어린이(복수형) "
+Day 1 Plus,teen,십 대 
+Day 1 Plus,grown-up,"성인, 어른 "
+Day 1 Plus,somebody,"누군가, 어떤 사람 "
+Day 1 Plus,everybody,"모두, 모든 사람 "
+Day 2 Plus,dad,아버지 
+Day 2 Plus,mom,어머니
+Day 2 Plus,wives,"아내, 부인(복수형) "
+Day 3 Plus,greet,환영하다 
+Day 4 Plus,feet,발(복수형) 
+Day 4 Plus,teeth,"이, 치아(복수형) "
+Day 5 Plus,straight,"곧은, 똑바로 "
+Day 6 Plus,careless,부주의한 
+Day 6 Plus,"silly, foolish","어리석은, 멍청한 "
+Day 6 Plus,diligent,성실한 
+Day 6 Plus,dishonest,부정직한 
+Day 6 Plus,rude,무례한 
+Day 6 Plus,kind,"친절한, 우호적인 "
+Day 6 Plus,bold,용감한 
+Day 7 Plus,author,작가 
+Day 8 Plus,open,열다 
+Day 8 Plus,weep,울다
+Day 8 Plus,take,"가져오다, 데려오다 "
+Day 10 Plus,answer,대답 
+Day 11 Plus,disagree,동의하지 않다 
+Day 12 Plus,quiet,조용한 
+Day 12 Plus,different,다른 
+Day 13 Plus,bookshop,서점 
+Day 13 Plus,mart,시장
+Day 13 Plus,stop,"역, 정류장 "
+Day 14 Plus,door,"문, 출입구 "
+Day 14 Plus,fridge,냉장고 
+Day 14 Plus,trash,쓰레기 
+Day 14 Plus,turn on ,~을 켜다 
+Day 15 Plus,dressing,"소스, 양념 "
+Day 15 Plus,blend,"섞다, 혼합하다"
+Day 15 Plus,tasty,아주 맛있는 
+Day 16 Plus,have,먹다 
+Day 16 Plus,full,배부른 
+Day 16 Plus,closed,닫힌 
+Day 16 Plus,cook,"요리사, 주방장 "
+Day 17 Plus,clothing,"옷, 의복 "
+Day 18 Plus,bicycle,자전거 
+Day 18 Plus,plane,비행기
+Day 18 Plus,get off ,~에서 내리다 
+Day 19 Plus,pupil,학생 
+Day 19 Plus,exam,"시험; 검사, 실험 "
+Day 19 Plus,lend,빌려 주다 
+Day 20 Plus,easy,쉬운 
+Day 20 Plus,answer,"해결하다, 풀다 "
+Day 20 Plus,right,"옳은, 맞는 "
+Day 20 Plus,succeed,성공하다
+Day 20 Plus,start,시작하다 
+Day 20 Plus,present,출석한 
+Day 20 Plus,wake up,일어나다 
+Day 21 Plus,late,늦게; 늦은 
+Day 23 Plus,rich,부유한 
+Day 23 Plus,quick,빠른 
+Day 23 Plus,slowly,"천천히, 느리게 "
+Day 23 Plus,dangerous,위험한
+Day 23 Plus,dry,건조한 
+Day 23 Plus,same,같은 
+Day 23 Plus,awful,"끔찍한, 형편없는 "
+Day 24 Plus,little,"작은, 소규모의 "
+Day 24 Plus,kind,"종류, 유형 "
+Day 24 Plus,big,"(규모가) 큰, 넓은 "
+Day 24 Plus,thin,얇은 
+Day 25 Plus,full,가득한 
+Day 26 Plus,middle,"중심, 중앙 "
+Day 26 Plus,near,가까운; 가까이 
+Day 27 Plus,boring,지루한 
+Day 27 Plus,go for a walk,산책을 하다 
+Day 28 Plus,impossible,불가능한 
+Day 29 Plus,weekday,평일 
+Day 29 Plus,picture,사진
+Day 29 Plus,award,"상, 상품 "
+Day 30 Plus,indoor,실내의 
+Day 30 Plus,boring,지루한 
+Day 31 Plus,movie,영화 
+Day 32 Plus,shop,"가게, 상점 "
+Day 32 Plus,pick,"선택하다, 고르다 "
+Day 32 Plus,save,절약하다
+Day 32 Plus,helpful,유용한 
+Day 32 Plus,useless,쓸모없는 
+Day 33 Plus,ill,"아픈, 병든 "
+Day 33 Plus,healthy,건강한 
+Day 33 Plus,drug,"약, 약물 "
+Day 33 Plus,have a cold,감기에 걸리다 
+Day 34 Plus,leaves,"잎, 나뭇잎(복수형) "
+Day 34 Plus,rock,돌 
+Day 35 Plus,wolves,늑대(복수형) 
+Day 35 Plus,mice,"쥐, 생쥐(복수형) "
+Day 35 Plus,sheep,양(복수형) 
+Day 36 Plus,woods,숲 
+Day 36 Plus,find,발견하다 
+Day 38 Plus,begin,시작하다 
+Day 39 Plus,garbage,쓰레기 
+Day 39 Plus,waste,낭비하다 
+Day 39 Plus,safe,안전한 
+Day 39 Plus,sink,가라앉다 
+Day 40 Plus,offline,오프라인의[으로] 
+Day 40 Plus,all over the world,전 세계에 

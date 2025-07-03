@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영어발전소 워드마스터</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid #FF8C00;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #FF8C00;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header p {
+            color: #6B7280;
+            font-size: 1.2rem;
+        }
+
+        /* 소리 버튼 */
+        .sound-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #FF8C00;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sound-toggle:hover {
+            background: #E6780A;
+            transform: scale(1.1);
+        }
+
+        .sound-toggle.muted {
+            background: #6B7280;
+        }
+
+        .setting-box {
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .setting-section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #F3F4F6;
+        }
+
+        .setting-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .setting-section h2 {
+            color: #FF8C00;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 단어장 선택 */
+        .textbook-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .textbook-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #F9FAFB;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .textbook-option:hover, .textbook-option.selected {
+            background: #FFF7ED;
+            border-color: #FF8C00;
+        }
+
+        .textbook-option input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        /* 범위 선택 */
+        .range-selection {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .range-method {
+            flex: 1;
+        }
+
+        .range-inputs {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .range-inputs input {
+            padding: 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 80px;
+            text-align: center;
+        }
+
+        .range-inputs input:focus {
+            border-color: #FF8C00;
+            outline: none;
+        }
+
+        .range-inputs button {
+            padding: 10px 20px;
+            background: #FF8C00;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .range-inputs button:hover {
+            background: #E6780A;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #F9FAFB;
+            border-radius: 10px;
+            border: 2px solid #E5E7EB;
+        }
+
+        .day-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .day-checkbox:hover {
+            background: #FFF7ED;
+        }
+
+        .day-checkbox input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.1);
+        }
+
+        .day-checkbox.checked {
+            background: #FFF7ED;
+            border: 1px solid #FF8C00;
+        }
+
+        /* 테스트 유형 */
+        .test-type {
+            display: flex;
+            gap: 20px;
+        }
+
+        .test-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #F9FAFB;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .test-option:hover, .test-option.selected {
+            background: #FFF7ED;
+            border-color: #FF8C00;
+        }
+
+        .test-option input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.3);
+        }
+
+        .test-option-content {
+            flex: 1;
+        }
+
+        .test-option-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 5px;
+        }
+
+        .test-option-desc {
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+
+        /* 버튼 */
+        .start-btn {
+            width: 100%;
+            padding: 25px;
+            background: #FF8C00;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #E6780A;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,140,0,0.3);
+        }
+
+        .start-btn:disabled {
+            background: #D1D5DB;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 테스트 화면 */
+        .test-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .test-screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .word-display {
+            background: #FFFFFF;
+            padding: 80px 40px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border: 4px solid #FF8C00;
+            font-size: 4rem;
+            font-weight: 800;
+            color: #FF8C00;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .black-screen {
+            background: #1F2937;
+            color: #9CA3AF;
+            padding: 80px 40px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            font-size: 5rem;
+            min-height: 250px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6B7280;
+            padding: 25px;
+            background: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #FF8C00, #FFA500);
+            height: 100%;
+            border-radius: 6px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* 시간 표시 */
+        .time-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 140, 0, 0.1);
+            color: #FF8C00;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* 다음 버튼 */
+        .next-btn {
+            background: #10B981;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            display: none;
+        }
+
+        .next-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .next-btn.show {
+            display: inline-block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 완료 화면 */
+        .complete-screen {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .complete-screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .complete-box {
+            background: #FFFFFF;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .complete-title {
+            font-size: 3rem;
+            color: #FF8C00;
+            margin-bottom: 30px;
+        }
+
+        .complete-message {
+            font-size: 1.5rem;
+            color: #6B7280;
+            margin-bottom: 40px;
+        }
+
+        .answer-btn {
+            background: #10B981;
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .answer-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #FF8C00;
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .restart-btn:hover {
+            background: #E6780A;
+            transform: translateY(-2px);
+        }
+
+        /* 정답 화면 */
+        .answer-screen {
+            display: none;
+            padding: 40px;
+        }
+
+        .answer-screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .answer-table {
+            background: #FFFFFF;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .answer-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .answer-table th {
+            background: #FF8C00;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .answer-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .answer-table tr:hover {
+            background: #FFF7ED;
+        }
+
+        .back-btn {
+            background: #6B7280;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #4B5563;
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .word-display {
+                font-size: 2.5rem;
+                padding: 50px 20px;
+                min-height: 180px;
+            }
+            
+            .range-selection {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .test-type {
+                flex-direction: column;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+
+            .sound-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <button id="soundToggle" class="sound-toggle" title="소리 켜기/끄기">🔊</button>
+            <h1>🚀 영어발전소</h1>
+            <p>워드마스터 테스트 시스템</p>
+        </header>
+
+        <!-- 설정 화면 -->
+        <div id="settingScreen" class="setting-box">
+            <!-- 단어장 선택 -->
+            <div class="setting-section">
+                <h2>📚 단어장 선택</h2>
+                <div class="textbook-selection">
+                    <label class="textbook-option">
+                        <input type="radio" name="textbook" value="wordmaster_2000" checked>
+                        워드마스터 수능2000
+                    </label>
+                    <label class="textbook-option">
+                        <input type="radio" name="textbook" value="wordmaster_basic">
+                        워드마스터 기본편
+                    </label>
+                    <label class="textbook-option">
+                        <input type="radio" name="textbook" value="wordmaster_intermediate">
+                        워드마스터 중급편
+                    </label>
+                    <label class="textbook-option">
+                        <input type="radio" name="textbook" value="wordmaster_advanced">
+                        워드마스터 고급편
+                    </label>
+                </div>
+            </div>
+
+            <!-- 범위 선택 -->
+            <div class="setting-section">
+                <h2>📝 범위 선택</h2>
+                <div class="range-selection">
+                    <div class="range-method">
+                        <h3 style="color: #374151; margin-bottom: 15px;">📊 범위 지정</h3>
+                        <div class="range-inputs">
+                            <input type="number" id="startRange" min="1" max="50" value="1" placeholder="시작">
+                            <span style="color: #6B7280; font-weight: 600;">~</span>
+                            <input type="number" id="endRange" min="1" max="50" value="5" placeholder="끝">
+                            <button onclick="applyRange()">적용</button>
+                        </div>
+                    </div>
+                    
+                    <div class="range-method">
+                        <h3 style="color: #374151; margin-bottom: 15px;">☑️ 개별 선택</h3>
+                        <div class="checkbox-grid" id="dayCheckboxes">
+                            <!-- Day 체크박스들이 여기에 동적으로 생성됩니다 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #F0F9FF; border-radius: 10px; border-left: 4px solid #FF8C00;">
+                    <strong style="color: #FF8C00;">선택된 범위:</strong> 
+                    <span id="selectedRange" style="color: #374151;">Day 1 ~ Day 5</span>
+                </div>
+            </div>
+
+            <!-- 테스트 유형 -->
+            <div class="setting-section">
+                <h2>🎯 테스트 유형</h2>
+                <div class="test-type">
+                    <label class="test-option">
+                        <input type="radio" name="testType" value="spelling" checked>
+                        <div class="test-option-content">
+                            <div class="test-option-title">✍️ 스펠링 테스트</div>
+                            <div class="test-option-desc">한글 뜻 3초 → 영어 단어 쓰기 6초</div>
+                        </div>
+                    </label>
+                    <label class="test-option">
+                        <input type="radio" name="testType" value="meaning">
+                        <div class="test-option-content">
+                            <div class="test-option-title">📖 한글뜻 테스트</div>
+                            <div class="test-option-desc">영어 단어 3초 → 한글 뜻 쓰기 4초</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button id="startTest" class="start-btn">🚀 테스트 시작 (랜덤 30문제)</button>
+        </div>
+
+        <!-- 테스트 화면 -->
+        <div id="testScreen" class="test-screen">
+            <div class="progress">
+                문제 <span id="currentQuestion">1</span> / 30
+                <div class="progress-bar">
+                    <div id="progressBar" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div id="wordDisplay" class="word-display">
+                <div class="time-display" id="timeDisplay">3</div>
+                준비 중...
+            </div>
+            <div id="blackScreen" class="black-screen">🤔</div>
+            
+            <button id="nextBtn" class="next-btn">➡️ 다음 문제</button>
+        </div>
+
+        <!-- 완료 화면 -->
+        <div id="completeScreen" class="complete-screen">
+            <div class="complete-box">
+                <div class="complete-title">🎉 테스트 완료!</div>
+                <div class="complete-message">30문제가 모두 끝났습니다.<br>수고하셨습니다!</div>
+                <button id="showAnswers" class="answer-btn">📋 정답 확인하기</button>
+                <button id="restartTest" class="restart-btn">🔄 다시 테스트</button>
+            </div>
+        </div>
+
+        <!-- 정답 화면 -->
+        <div id="answerScreen" class="answer-screen">
+            <button id="backToComplete" class="back-btn">← 돌아가기</button>
+            <div class="answer-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>영어 단어</th>
+                            <th>한글 뜻</th>
+                            <th>범위</th>
+                        </tr>
+                    </thead>
+                    <tbody id="answerTableBody">
+                        <!-- 정답 목록이 여기에 동적으로 생성됩니다 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 영어발전소 워드마스터 - 완전 버전
+        let currentTest = {
+            words: [],
+            currentIndex: 0,
+            testType: 'spelling',
+            selectedDays: [1, 2, 3, 4, 5],
+            selectedTextbook: 'wordmaster_2000',
+            soundEnabled: true
+        };
+
+        let currentTimer = null;
+        let currentTimeLeft = 0;
+
+        // 효과음 시스템
+        const soundEffects = {
+            wordShow: () => playBeep(800, 150),
+            wordHide: () => playBeep(400, 150),
+            timeUp: () => playBeep(600, 300),
+            complete: () => playBeep(1000, 500)
+        };
+
+        // 비프 사운드 생성
+        function playBeep(frequency, duration) {
+            if (!currentTest.soundEnabled) return;
+            
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration / 1000);
+            } catch (error) {
+                console.log('오디오 재생 오류:', error);
+            }
+        }
+
+        // 단어 데이터
+        const wordData = {
+            wordmaster_2000: [
+                { day: 1, english: 'provide', korean: '공급하다, 준비하다' },
+                { day: 1, english: 'develop', korean: '개발하다, 발달하다' },
+                { day: 1, english: 'service', korean: '서비스, 봉사' },
+                { day: 1, english: 'inform', korean: '알리다, 통지하다' },
+                { day: 1, english: 'relationship', korean: '관계' },
+                { day: 2, english: 'emotion', korean: '감정' },
+                { day: 2, english: 'amaze', korean: '놀라게 하다' },
+                { day: 2, english: 'reduce', korean: '줄이다, 낮추다' },
+                { day: 2, english: 'discover', korean: '발견하다' },
+                { day: 2, english: 'decide', korean: '결심하다, 결정하다' },
+                { day: 3, english: 'balance', korean: '균형, 균형을 이루다' },
+                { day: 3, english: 'negative', korean: '부정적인' },
+                { day: 3, english: 'replace', korean: '대체하다' },
+                { day: 3, english: 'constant', korean: '일정한, 불변의' },
+                { day: 3, english: 'expert', korean: '전문가' },
+                { day: 4, english: 'confident', korean: '자신 있는' },
+                { day: 4, english: 'gradually', korean: '점차, 서서히' },
+                { day: 4, english: 'access', korean: '접근, 이용' },
+                { day: 4, english: 'announce', korean: '발표하다, 알리다' },
+                { day: 4, english: 'allow', korean: '허락하다, 인정하다' },
+                { day: 5, english: 'focus', korean: '초점, 집중하다' },
+                { day: 5, english: 'issue', korean: '논란거리, 발행' },
+                { day: 5, english: 'participate', korean: '참여하다, 참가하다' },
+                { day: 5, english: 'demand', korean: '요구하다, 수요' },
+                { day: 5, english: 'occur', korean: '일어나다, 발생하다' },
+                { day: 6, english: 'important', korean: '중요한' },
+                { day: 6, english: 'necessary', korean: '필요한' },
+                { day: 6, english: 'different', korean: '다른' },
+                { day: 6, english: 'possible', korean: '가능한' },
+                { day: 6, english: 'available', korean: '이용 가능한' },
+                { day: 7, english: 'create', korean: '창조하다, 만들다' },
+                { day: 7, english: 'include', korean: '포함하다' },
+                { day: 7, english: 'consider', korean: '고려하다' },
+                { day: 7, english: 'suggest', korean: '제안하다' },
+                { day: 7, english: 'achieve', korean: '달성하다' }
+            ]
+        };
+
+        // 페이지 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 영어발전소 워드마스터 시작!');
+            initializePage();
+            setupEventListeners();
+        });
+
+        // 초기화
+        function initializePage() {
+            generateDayCheckboxes();
+            updateSelectedRange();
+            updateStartButton();
+        }
+
+        // 이벤트 설정
+        function setupEventListeners() {
+            document.getElementById('startTest').addEventListener('click', startTest);
+            document.getElementById('showAnswers').addEventListener('click', showAnswerScreen);
+            document.getElementById('restartTest').addEventListener('click', () => location.reload());
+            document.getElementById('backToComplete').addEventListener('click', () => showScreen('completeScreen'));
+            document.getElementById('nextBtn').addEventListener('click', goToNextQuestion);
+            document.getElementById('soundToggle').addEventListener('click', toggleSound);
+
+            document.querySelectorAll('input[name="textbook"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    currentTest.selectedTextbook = this.value;
+                    generateDayCheckboxes();
+                    updateSelectedRange();
+                    updateStartButton();
+                });
+            });
+
+            document.querySelectorAll('input[name="testType"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    currentTest.testType = this.value;
+                });
+            });
+
+            document.getElementById('startRange').addEventListener('input', updateStartButton);
+            document.getElementById('endRange').addEventListener('input', updateStartButton);
+        }
+
+        // 소리 토글
+        function toggleSound() {
+            currentTest.soundEnabled = !currentTest.soundEnabled;
+            const button = document.getElementById('soundToggle');
+            
+            if (currentTest.soundEnabled) {
+                button.textContent = '🔊';
+                button.classList.remove('muted');
+                button.title = '소리 끄기';
+                soundEffects.wordShow();
+            } else {
+                button.textContent = '🔇';
+                button.classList.add('muted');
+                button.title = '소리 켜기';
+            }
+        }
+
+                // Day 체크박스 생성
+        function generateDayCheckboxes() {
+            const container = document.getElementById('dayCheckboxes');
+            const selectedTextbook = currentTest.selectedTextbook;
+            const words = wordData[selectedTextbook] || [];
+            const maxDay = Math.max(...words.map(w => w.day));
+            
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= maxDay; i++) {
+                const isChecked = currentTest.selectedDays.includes(i);
+                const checkboxDiv = document.createElement('div');
+                checkboxDiv.className = `day-checkbox ${isChecked ? 'checked' : ''}`;
+                checkboxDiv.innerHTML = `
+                    <input type="checkbox" id="day${i}" value="${i}" ${isChecked ? 'checked' : ''}>
+                    <label for="day${i}">Day ${i}</label>
+                `;
+                
+                checkboxDiv.addEventListener('change', function(e) {
+                    updateSelectedDays();
+                    updateSelectedRange();
+                    updateStartButton();
+                });
+                
+                container.appendChild(checkboxDiv);
+            }
+        }
+
+        // 선택된 Day 업데이트
+        function updateSelectedDays() {
+            currentTest.selectedDays = Array.from(document.querySelectorAll('#dayCheckboxes input:checked'))
+                .map(cb => parseInt(cb.value))
+                .sort((a, b) => a - b);
+            
+            document.querySelectorAll('.day-checkbox').forEach(div => {
+                const checkbox = div.querySelector('input');
+                if (checkbox.checked) {
+                    div.classList.add('checked');
+                } else {
+                    div.classList.remove('checked');
+                }
+            });
+        }
+
+        // 범위 적용
+        function applyRange() {
+            const start = parseInt(document.getElementById('startRange').value);
+            const end = parseInt(document.getElementById('endRange').value);
+            
+            if (start > end) {
+                alert('시작 범위가 끝 범위보다 클 수 없습니다!');
+                return;
+            }
+            
+            document.querySelectorAll('#dayCheckboxes input').forEach(cb => {
+                cb.checked = false;
+            });
+            
+            for (let i = start; i <= end; i++) {
+                const checkbox = document.getElementById(`day${i}`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            }
+            
+            updateSelectedDays();
+            updateSelectedRange();
+            updateStartButton();
+        }
+
+        // 선택된 범위 표시 업데이트
+        function updateSelectedRange() {
+            const selectedSpan = document.getElementById('selectedRange');
+            if (currentTest.selectedDays.length === 0) {
+                selectedSpan.textContent = '선택된 범위 없음';
+                selectedSpan.style.color = '#EF4444';
+            } else {
+                const dayText = currentTest.selectedDays.map(d => `Day ${d}`).join(', ');
+                selectedSpan.textContent = dayText;
+                selectedSpan.style.color = '#374151';
+            }
+        }
+
+        // 시작 버튼 상태 업데이트
+        function updateStartButton() {
+            const startBtn = document.getElementById('startTest');
+            const selectedTextbook = currentTest.selectedTextbook;
+            const words = wordData[selectedTextbook] || [];
+            const availableWords = words.filter(w => currentTest.selectedDays.includes(w.day));
+            
+            if (availableWords.length < 30) {
+                startBtn.disabled = true;
+                startBtn.textContent = `🚀 테스트 시작 (최소 30개 단어 필요, 현재 ${availableWords.length}개)`;
+            } else {
+                startBtn.disabled = false;
+                startBtn.textContent = `🚀 테스트 시작 (랜덤 30문제)`;
+            }
+        }
+
+        // 타이머 시작 (안전한 버전)
+        function startTimer(seconds, callback) {
+            if (currentTimer) {
+                clearInterval(currentTimer);
+            }
+            
+            currentTimeLeft = seconds;
+            console.log(`타이머 시작: ${seconds}초`);
+            
+            // timeDisplay 요소가 있을 때만 업데이트
+            const timeDisplay = document.getElementById('timeDisplay');
+            if (timeDisplay) {
+                timeDisplay.textContent = currentTimeLeft;
+            }
+            
+            currentTimer = setInterval(() => {
+                currentTimeLeft--;
+                console.log(`남은 시간: ${currentTimeLeft}초`);
+                
+                // timeDisplay 요소가 있을 때만 업데이트
+                if (timeDisplay) {
+                    timeDisplay.textContent = currentTimeLeft;
+                }
+                
+                if (currentTimeLeft <= 0) {
+                    clearInterval(currentTimer);
+                    console.log('타이머 완료!');
+                    if (callback && typeof callback === 'function') {
+                        callback();
+                    }
+                }
+            }, 1000);
+        }
+
+        // 타이머 정지
+        function stopTimer() {
+            if (currentTimer) {
+                clearInterval(currentTimer);
+                currentTimer = null;
+            }
+        }
+
+        // 테스트 시작
+        function startTest() {
+            const selectedTextbook = currentTest.selectedTextbook;
+            const words = wordData[selectedTextbook] || [];
+            const availableWords = words.filter(w => currentTest.selectedDays.includes(w.day));
+            
+            if (availableWords.length < 30) {
+                alert('테스트를 위해서는 최소 30개의 단어가 필요합니다!');
+                return;
+            }
+            
+            currentTest.words = shuffleArray([...availableWords]).slice(0, 30);
+            currentTest.currentIndex = 0;
+            
+            console.log('선택된 단어들:', currentTest.words);
+            
+            showScreen('testScreen');
+            
+            setTimeout(() => {
+                showNextQuestion();
+            }, 1000);
+        }
+
+        // 다음 문제 표시 (완전 자동 진행 + 정답 확인 버전)
+        function showNextQuestion() {
+            if (currentTest.currentIndex >= currentTest.words.length) {
+                showTestComplete();
+                return;
+            }
+            
+            const currentWord = currentTest.words[currentTest.currentIndex];
+            const wordDisplay = document.getElementById('wordDisplay');
+            const blackScreen = document.getElementById('blackScreen');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // 진행률 업데이트
+            document.getElementById('currentQuestion').textContent = currentTest.currentIndex + 1;
+            const progress = ((currentTest.currentIndex + 1) / currentTest.words.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // 다음 버튼 숨기기
+            nextBtn.style.display = 'none';
+            blackScreen.style.display = 'none';
+            wordDisplay.style.display = 'flex';
+            
+            console.log(`문제 ${currentTest.currentIndex + 1}: 시작`);
+            
+            // 효과음
+            try {
+                soundEffects.wordShow();
+            } catch (error) {
+                console.log('사운드 에러:', error);
+            }
+            
+            // 테스트 유형에 따라 처리
+            if (currentTest.testType === 'spelling') {
+                wordDisplay.textContent = currentWord.korean;
+                wordDisplay.style.color = '#10B981';
+                
+                console.log(`스펠링 테스트 - 한글: ${currentWord.korean}`);
+                
+                startTimer(3, () => {
+                    console.log('한글 3초 완료 → 검은화면 6초');
+                    try {
+                        soundEffects.wordHide();
+                    } catch (error) {
+                        console.log('사운드 에러:', error);
+                    }
+                    
+                    wordDisplay.style.display = 'none';
+                    blackScreen.style.display = 'flex';
+                    blackScreen.textContent = '✍️';
+                    
+                    startTimer(6, () => {
+                        console.log('쓰기 6초 완료 → 다음 문제');
+                        try {
+                            soundEffects.timeUp();
+                        } catch (error) {
+                            console.log('사운드 에러:', error);
+                        }
+                        
+                        currentTest.currentIndex++;
+                        setTimeout(() => {
+                            showNextQuestion();
+                        }, 500);
+                    });
+                });
+                
+            } else {
+                wordDisplay.textContent = currentWord.english;
+                wordDisplay.style.color = '#FF8C00';
+                
+                console.log(`한글뜻 테스트 - 영어: ${currentWord.english}`);
+                
+                startTimer(3, () => {
+                    console.log('영어 3초 완료 → 검은화면 4초');
+                    try {
+                        soundEffects.wordHide();
+                    } catch (error) {
+                        console.log('사운드 에러:', error);
+                    }
+                    
+                    wordDisplay.style.display = 'none';
+                    blackScreen.style.display = 'flex';
+                    blackScreen.textContent = '🤔';
+                    
+                    startTimer(4, () => {
+                        console.log('쓰기 4초 완료 → 다음 문제');
+                        try {
+                            soundEffects.timeUp();
+                        } catch (error) {
+                            console.log('사운드 에러:', error);
+                        }
+                        
+                        currentTest.currentIndex++;
+                        setTimeout(() => {
+                            showNextQuestion();
+                        }, 500);
+                    });
+                });
+            }
+        }
+
+        // 다음 문제로 이동
+        function goToNextQuestion() {
+            stopTimer();
+            currentTest.currentIndex++;
+            showNextQuestion();
+        }
+
+        // 테스트 완료 화면
+        function showTestComplete() {
+            stopTimer();
+            console.log('🎉 테스트 완료!');
+            
+            try {
+                soundEffects.complete();
+            } catch (error) {
+                console.log('사운드 에러:', error);
+            }
+            
+            document.querySelector('.container').innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="background: #FFFFFF; padding: 50px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
+                        <div style="font-size: 3rem; color: #FF8C00; margin-bottom: 30px;">🎉 테스트 완료!</div>
+                        <div style="font-size: 1.5rem; color: #6B7280; margin-bottom: 40px;">
+                            ${currentTest.words.length}문제가 모두 끝났습니다.<br>수고하셨습니다!
+                        </div>
+                        <button onclick="showAnswerList()" style="background: #10B981; color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px; transition: all 0.3s;">📋 정답 확인하기</button>
+                        <button onclick="location.reload()" style="background: #FF8C00; color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px; transition: all 0.3s;">🔄 다시 테스트</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 정답 목록 표시
+        function showAnswerList() {
+            let answerTableHTML = `
+                <div style="padding: 40px;">
+                    <button onclick="showTestComplete()" style="background: #6B7280; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; margin-bottom: 20px;">← 돌아가기</button>
+                    
+                    <div style="background: #FFFFFF; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #FF8C00; color: white;">
+                                    <th style="padding: 20px; text-align: left; font-weight: 600;">번호</th>
+                                    <th style="padding: 20px; text-align: left; font-weight: 600;">영어 단어</th>
+                                    <th style="padding: 20px; text-align: left; font-weight: 600;">한글 뜻</th>
+                                    <th style="padding: 20px; text-align: left; font-weight: 600;">출처</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+            
+            currentTest.words.forEach((word, index) => {
+                answerTableHTML += `
+                    <tr style="border-bottom: 1px solid #F3F4F6;" onmouseover="this.style.background='#FFF7ED'" onmouseout="this.style.background='white'">
+                        <td style="padding: 15px 20px; font-weight: 600;">${index + 1}</td>
+                        <td style="padding: 15px 20px; font-weight: 600; color: #FF8C00;">${word.english}</td>
+                        <td style="padding: 15px 20px; color: #10B981;">${word.korean}</td>
+                        <td style="padding: 15px 20px; color: #6B7280;">Day ${word.day}</td>
+                    </tr>
+                `;
+            });
+            
+            answerTableHTML += `
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button onclick="showTestComplete()" style="background: #FF8C00; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; margin: 10px;">← 완료 화면으로</button>
+                        <button onclick="location.reload()" style="background: #10B981; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; margin: 10px;">🔄 새 테스트</button>
+                    </div>
+                </div>
+            `;
+            
+            document.querySelector('.container').innerHTML = answerTableHTML;
+        }
+
+        // 결과 화면 표시 (기존 함수 - 호환성 유지)
+        function showResults() {
+            showTestComplete();
+        }
+
+        // 정답 화면 표시 (기존 함수 - 호환성 유지)
+        function showAnswerScreen() {
+            showAnswerList();
+        }
+
+        // 화면 전환
+        function showScreen(screenId) {
+            document.getElementById('settingScreen').style.display = 'none';
+            document.getElementById('testScreen').classList.remove('active');
+            document.getElementById('completeScreen').classList.remove('active');
+            document.getElementById('answerScreen').classList.remove('active');
+            
+            if (screenId === 'settingScreen') {
+                document.getElementById('settingScreen').style.display = 'block';
+            } else {
+                document.getElementById(screenId).classList.add('active');
+            }
+        }
+
+        // 배열 섞기
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+    </script>
+</body>
+</html>
