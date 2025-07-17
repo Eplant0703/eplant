@@ -1,1 +1,2000 @@
-
+1,provide,"제공하다, 공급하다, 준비하다"
+1,develop,"개발하다, 발달[발전]하다"
+1,cultural,"문화의, 문화적인"
+1,inform,"알리다, 통지하다"
+1,social,"사회의, 사교적인"
+1,improve,"향상시키다, 향상하다"
+1,individual,"개인; 개인의, 개인적인"
+1,require,"필요로 하다, 요구하다"
+1,volunteer,"자원봉사, 지원자; 자원하다"
+1,behave,(예의 바르게) 행동하다
+1,amount,"총액, 총계, 액수, 양; 총계가 ~이 되다"
+1,relationship,관계
+1,employ,"고용하다, (기술.방법 등을) 쓰다"
+1,attitude,"태도, 입장"
+1,research,"연구; 연구하다, 조사하다"
+1,audience,"청중, 관객"
+1,challenge,"도전, 난제; 도전하다"
+1,influence,"영향, 영향을 미치는 것[사람]; 영향을 끼치다"
+1,material,"자료, 재료, 물질"
+1,opportunity,기회
+1,environment,환경
+1,expense,"비용, 지출"
+1,local,"지방의, 지역의, 장소의"
+1,involve,"포함하다, 관련되다, (사건 등에) 말려들게 하다"
+1,stress,"스트레스, 강조; 강조하다, 압력을 주다"
+1,therefore,"그러므로, 그 결과"
+1,contain,"함유하다, 포함하다, 억제하다"
+1,average,평균; 평균의; 평균 ~이다
+1,ride,"(탈것을) 타다; 타기, 타고 가기"
+1,encourage,"촉구하다, 격려하다"
+1,determine,"결정하다, 결심하다"
+1,international,"국제의, 국제적인"
+1,consume,"소비하다, 먹다[마시다]"
+1,impress,"깊은 인상을 주다, 감동시키다"
+1,object,"물체, 목표; 반대하다"
+1,available,"이용 가능한, 쓸모 있는"
+1,positive,"긍정적인, 확신하는"
+1,recognize,"인지하다, 인정하다"
+1,commodity,"상품, 물품"
+1,comfort,"편안하게 하다, 위로하다; 편안, 위로"
+2,emotion,감정
+2,amaze,놀라게 하다
+2,reduce,"줄이다, 낮추다"
+2,discover,발견하다
+2,decide,"결심하다, 결정하다"
+2,benefit,이익; 이익이 되다
+2,affect,"영향을 미치다, ~인 체하다"
+2,level,"수준, 수평; 수평의; 평평하게 하다"
+2,chemistry,"화학, 교감"
+2,immediate,"즉각적인, 가까이에 있는"
+2,thus,"그러므로, 따라서"
+2,proper,"적절한, 알맞은"
+2,performance,"공연, 성적, 성과"
+2,essence,"(사물의) 본질, 정수"
+2,economic,"경제의, 경제학의"
+2,cell,"세포, 작은 방, 독방"
+2,focus,"초점; 초점을 맞추다, 집중하다"
+2,issue,"화제, 문제, 발행(물); 발행하다"
+2,participate,"참여하다, 참가하다 (in)"
+2,demand,요구하다; 수요
+2,occur,"(사건이) 일어나다, 발생하다"
+2,complex,복잡한; 복합체
+2,define,"정의하다, 한계 짓다, 한정하다"
+2,proud,"자랑스러워하는, 자만하는"
+2,aware,"인지하는, 알고 있는"
+2,contact,접촉; 접촉하다
+2,profession,"전문직, 직종"
+2,detail,세부적인 것; 상술하다
+2,approach,"접근하다; 접근, 접근법"
+2,career,"직업, 경력"
+2,package,"꾸러미, 포장; 포장하다"
+2,disappear,사라지다
+2,novel,(장편) 소설; 참신한
+2,secure,"안전한; 안전하게 하다, 확보하다"
+2,function,"기능; 기능하다, 작용하다"
+2,despite,~에도 불구하고
+2,background,"배경, 배경 지식, 이유"
+2,solution,"해결, 해결책, 용액"
+2,generate,"일으키다, 발생시키다"
+2,eventually,결국
+3,decrease,"줄다[감소하다], 줄이다; 감소"
+3,recycle,재활용하다
+3,desire,"욕망, 욕구; 바라다"
+3,balance,"균형, 은행 잔고; 균형을 이루다"
+3,negative,부정적인
+3,follow,"따라가다, (규칙을) 따르다"
+3,account,"은행 계좌, 이야기, 설명; 설명하다"
+3,publish,"발표하다, 출판하다"
+3,occasion,"경우, 특별한 일"
+3,replace,대체하다
+3,constant,"일정한, 불변의; (수학에서의) 상수"
+3,expert,전문가
+3,term,"용어, 기간, 학기"
+3,relieve,"경감하다, 안도시키다"
+3,describe,"묘사하다, 표현하다"
+3,congratulate,축하하다
+3,due,"만기의, ~하기로 되어 있는"
+3,equipment,"장치, 장비"
+3,biology,생물학
+3,imagine,상상하다
+3,compose,"구성하다, 작곡하다, 작문하다"
+3,genius,"천재, 천재성"
+3,reflect,"반영하다, 반사하다, 숙고하다"
+3,cause,"~의 원인이 되다, 야기하다; 원인"
+3,frequent,빈번한; (장소.모임에) 자주 가다
+3,factor,"요인, 요소"
+3,extreme,"극단의, 극단적인; 극단"
+3,tend,"(~하는) 경향이 있다 (to V), 돌보다"
+3,politics,"정치, 정치학"
+3,insist,주장하다
+3,extend,"연장하다, 넓히다"
+3,lonely,외로운
+3,habitat,"서식지, 주거지"
+3,mental,정신의
+3,steady,"안정된, 한결같은, 꾸준한"
+3,exchange,교환하다; 교환
+3,active,"활동적인, 적극적인"
+3,species,(생물 분류상의) 종
+3,athletic,"운동의, 운동 경기의"
+3,dental,치아의
+4,delight,기쁨; 기쁘게 하다
+4,confident,자신 있는
+4,gradually,"점차, 서서히"
+4,shadow,그림자; 그늘지게 하다
+4,access,"접근, 입장, 이용; 접근하다"
+4,announce,"발표하다, 알리다"
+4,allow,"허락하다, 인정하다"
+4,firm,"확고한, 단단한; 회사"
+4,vary,"바꾸다, 변하다, 다르다"
+4,injure,"상처를 입히다, 손상시키다"
+4,permit,허용[허락]하다
+4,response,"응답, 반응"
+4,increase,"(수량이) 증가하다; 증가, 이자"
+4,electricity,전기
+4,disabled,"장애를 가진, 무능력하게 된"
+4,lack,부족; ~이 부족하다
+4,possibility,"가능성, 가망"
+4,concentrate,집중하다
+4,emphasize,강조하다
+4,astronomy,천문학
+4,flood,홍수; 범람시키다
+4,fuel,연료; 연료를 가하다
+4,manufacture,"제조하다; 제조(업), 제품"
+4,movement,"움직임, 운동"
+4,capable,"할 수 있는, 유능한"
+4,combine,"결합시키다, 겸비하다"
+4,gene,유전자
+4,threat,"위협, 협박"
+4,victim,"희생, 희생자"
+4,pressure,"압력, 압박; 압력을 가하다"
+4,accompany,"동반[동행]하다, 수반하다"
+4,frustrate,좌절시키다
+4,construct,건설하다
+4,launch,"(로켓 등을) 발사하다, (새로운 일을) 시작하다, 출시하다; 발사, 개시, 출시"
+4,commerce,"상업, 교역"
+4,entertain,"접대하다, 즐겁게 하다"
+4,predict,"예언하다, 예측하다"
+4,apologize,사과하다
+4,sight,"시야, 광경, 시력"
+4,quantity,양(量)
+5,conclude,"결론짓다, 끝내다"
+5,donate,기부하다
+5,personality,"개성, 성격, 특색"
+5,struggle,"싸우다, 노력하다; 투쟁, 노력"
+5,advantage,"유리한 점, 이익"
+5,variety,"다양, 다양성"
+5,enable,가능하게 하다
+5,instruction,"지시, 제품 사용 설명서, 가르침"
+5,assume,"추정하다, (태도 등을) 취하다"
+5,attempt,시도하다; 시도
+5,incredible,"믿을 수 없는, (믿기 어려울 만큼) 굉장한"
+5,feature,"특징, 특집 기사, 얼굴 생김새; 특징으로 하다, 주연하다"
+5,confuse,"혼동하다, 혼란시키다"
+5,electronic,"전자의, 전자 공학의"
+5,absorb,"흡수하다, (사람.마음을) 열중시키다"
+5,indicate,"가리키다, 나타내다"
+5,analyze,분석하다
+5,stock,"재고품, 저장, 가축; 저장하다, (물품을) 들여놓다"
+5,resident,"거주하는; 거주자, 레지던트(전문의 수련자)"
+5,labor,"노동, 산고; 노동하다"
+5,remark,"의견을 말하다, ~에 주목하다; 의견, 주목"
+5,moral,도덕적인
+5,embarrassed,당황한
+5,claim,"주장하다; 요구, 주장"
+5,reasonable,"논리적인, 분별력이 있는"
+5,interrupt,"방해하다, 중단하다"
+5,limit,"제한하다, 한정하다; 제한(점)"
+5,creature,"생물, 피조물"
+5,heal,"치료하다, 낫게 하다"
+5,establish,"설립하다, 확립하다, 제정하다"
+5,revolution,"혁명, 갑작스러운 변화, 회전"
+5,criticize,"비난하다, 비평하다"
+5,convince,"확신시키다, 납득시키다"
+5,efficient,"효율적인, 유능한"
+5,stranger,"낯선 사람, 문외한"
+5,tide,"조수(潮水), 흐름"
+5,obtain,"얻다, 획득하다"
+5,assist,도움을 주다
+5,disaster,"재앙, 재난, 재해"
+5,terrific,"굉장한, 훌륭한"
+6,specific,"구체적인, 특정한"
+6,react,"반응하다, 반작용하다"
+6,independent,독립적인
+6,theory,이론
+6,qualify,자격을 얻다
+6,consider,"숙고하다, 고려하다"
+6,recall,"상기하다, 철회하다, 회수하다; 상기, 철회, 회수"
+6,risk,위험; 위험을 감수하다
+6,treatment,"취급, 대우, 치료(법)"
+6,engage,"관여하다, 약속하다, 약혼하다"
+6,motivate,동기를 부여하다
+6,clue,"실마리, 단서"
+6,resource,"자원, (-s) 지략"
+6,probable,"가능한, 개연성이 있는, 그럴싸한"
+6,depress,"우울하게 하다, 의기소침[낙담]하게 하다"
+6,fascinate,"매료시키다, 마음을 빼앗다"
+6,violent,"난폭한, 폭력적인"
+6,alarm,"놀람, 경보"
+6,edge,"가장자리, 날카로움, 우위"
+6,deserve,(보수.벌 등을) 받을 만하다[가치가 있다]
+6,route,"길, 통로, 항로"
+6,psychology,"심리, 심리학"
+6,passion,열정
+6,import,"수입하다, 의미하다; 수입"
+6,purchase,구매하다; 구매
+6,conscience,양심
+6,pose,"자세를 취하다, (문제를) 제기하다; 자세"
+6,length,길이
+6,severe,"심한, 엄격한"
+6,decade,"10년, 10년간"
+6,occupy,"(시간.장소를) 차지하다, 전념하다"
+6,acquire,습득하다
+6,interact,상호 작용하다
+6,brief,간단한; 간단한 보고; 간단히 알리다
+6,observe,"관찰하다, 보다, 준수하다"
+6,poetry,"시, 운문"
+6,salary,"급료, 봉급"
+6,grain,"곡물, 낟알"
+6,skip,"거르다, 깡충깡충 뛰다"
+6,meaningful,"의미 있는, 의미심장한"
+7,survival,생존
+7,comment,"논평, 주석; 논평하다"
+7,leap,"뛰다, 도약하다; 도약"
+7,plain,"평범한, 명백한; 평원, 평야"
+7,typical,"전형적인, 대표적인"
+7,mere,단지 ~에 불과한
+7,mechanic,"기계공, 정비공"
+7,mood,"기분, 분위기"
+7,approve,"찬성하다, 승인하다"
+7,rural,시골의
+7,finance,"재정, 재무, 금융; 자금을 조달하다"
+7,seek,"찾다, 추구하다, 노력하다"
+7,operation,"작업, 운영, 수술"
+7,crime,범죄
+7,awful,"끔찍한, 지독한"
+7,series,"연속, 시리즈물"
+7,exhausted,"고갈된, 기진맥진한"
+7,absolute,"완전한, 절대적인"
+7,surround,둘러싸다
+7,display,"전시하다, 나타내다; 전시"
+7,policy,"정책, 수단, 방법"
+7,mass,"많은 양, 덩어리, 집단, 대중"
+7,committee,(상급 기관에 소속된) 위원회
+7,accurate,정확한
+7,arrange,"정리하다, 준비하다, 각색하다"
+7,facility,"시설, 편의, 재능"
+7,consult,"상담하다, 참고하다"
+7,refer,"언급하다, 위탁하다"
+7,attach,"붙이다, 붙다, 첨부하다, 소속시키다"
+7,recover,"회복하다, 되찾다"
+7,reward,보상; 보답하다
+7,enormous,"엄청난, 거대한"
+7,domestic,"국내의, 가정의"
+7,wealth,"부, 재산"
+7,elementary,"초보의, 기초적인"
+7,gap,"격차, 틈"
+7,except,~을 제외하고는; 제외하다
+7,journey,"여행, 여정"
+7,survey,"설문 조사; 조사하다, 둘러보다"
+7,downtown,도심; 도심의; 도심지에
+8,previous,"앞의, 이전의"
+8,produce,"생산하다, 제조하다"
+8,remain,"여전히 ~이다, 남다"
+8,entitle,"자격[권리]을 주다, 제목을 붙이다"
+8,slight,"약간의, 경미한"
+8,include,포함하다
+8,delay,"연기하다, 미루다; 지연"
+8,file,"서류철, (컴퓨터) 파일; 파일에 철하다, (소송 등을) 제기하다"
+8,ethic,윤리
+8,instant,"즉각의, 즉석의; 순간"
+8,reveal,"드러내다, 폭로하다; 출현, 폭로"
+8,suppose,"가정하다, 추측하다"
+8,leisure,"여가, 자유 시간; 한가한"
+8,urban,도시의
+8,witness,"목격자, 증인; 목격하다"
+8,admit,"인정하다, 입장을 허락하다"
+8,muscle,"근육, 힘, 강제"
+8,device,"장치, 고안, 방책"
+8,borrow,빌리다
+8,owe,"빚지고 있다, (명예.성공 등을) ~에 돌리다"
+8,intend,"(~할) 작정이다, 의도하다"
+8,aspect,"관점, 양상, 면"
+8,potential,잠재적인; 잠재력
+8,award,수여하다; 상
+8,preserve,"보존하다, 보호하다"
+8,spot,"지점, 얼룩; 발견하다, 얼룩지게 하다"
+8,underground,"지하의, 비밀의; 지하"
+8,consequence,"결과, 중요성"
+8,target,"목표, 표적; 목표로 삼다"
+8,spark,"불꽃, 불똥; 불꽃을 일으키다, 촉발하다"
+8,accomplish,"이루다, 성취하다"
+8,adopt,"채택하다, 입양하다"
+8,unique,"독특한, 유일한"
+8,slip,"미끄러지다, 실수하다; 종잇조각"
+8,civilization,문명
+8,row,"열, 줄; 배를 젓다"
+8,horizon,"수평선, 지평선"
+8,atmosphere,"대기, 분위기"
+8,label,"꼬리표, 상표; 라벨을 붙이다, ~을 ...이라고 부르다"
+8,decorate,"장식하다, ~에게 훈장을 주다"
+9,identify,"(신원 등을) 확인하다, 식별하다, 동일시하다"
+9,standard,"기준, 표준; 기준의, 표준의"
+9,scale,"규모, 저울, 비늘"
+9,evident,명백한
+9,seldom,거의 ~ 않는
+9,secretary,"비서, 서기관, 장관"
+9,basis,"기초, 원리, 기준"
+9,automatic,"자동적인, 기계적인"
+9,region,지역
+9,empower,권한을 주다
+9,addict,중독시키다; 중독자
+9,disappoint,실망시키다
+9,artificial,"인공적인, 인조의"
+9,possess,"소유하다, ~의 마음을 사로잡다"
+9,rid,제거하다
+9,realistic,"현실적인, 현실주의의"
+9,encounter,(우연히) 만나다; 마주침
+9,differ,"다르다, 의견을 달리하다"
+9,principle,"원칙, 원리"
+9,memorize,"기억하다, 암기하다"
+9,physics,물리학
+9,evaluate,평가하다
+9,tremendous,"굉장한, 무시무시한"
+9,application,"적용, 신청"
+9,vote,투표; 투표하다
+9,spread,"퍼짐, 확산; 퍼지다, 펼치다"
+9,impact,"충격, 영향; 충격[영향]을 주다"
+9,cooperate,협력하다
+9,emit,(빛.열.소리 등을) 방출하다
+9,request,요청; 요청하다
+9,guarantee,보증하다; 보증
+9,resist,저항하다
+9,fulfill,"달성하다, 이행하다, 실현하다"
+9,stink,"역겹다, 악취를 풍기다; 악취"
+9,grant,"승인하다, 수여하다"
+9,rely,"의지하다, 믿다"
+9,permanent,"영원한, 영구적인"
+9,emergency,비상(사태)
+9,substance,"물질, 본질, 실체"
+9,theme,"주제, 화제, 논제"
+10,hesitate,"주저하다, 망설이다"
+10,location,"장소, 위치"
+10,restrict,"제한하다, 한정하다"
+10,organism,"유기체, 생물, 생명체"
+10,interpret,"해석하다, 통역하다"
+10,offer,"제공하다, 제안하다; 제공, 제안"
+10,distribute,"분배하다, 분포시키다"
+10,rainforest,(열대) 우림
+10,circumstance,"상황, 환경"
+10,resolve,"결심하다, 해결하다, 분해하다"
+10,suitable,"적절한, 적합한"
+10,curve,"곡선(길), 속임수"
+10,annoy,"괴롭히다, 귀찮게 하다"
+10,frighten,겁먹게 하다
+10,estimate,"견적, 평가; 평가하다"
+10,refuse,거절하다
+10,adventure,모험; 위험에 빠뜨리다
+10,entrance,"입장, 입구, 입학"
+10,persuade,설득하다
+10,perceive,"인지하다, 인식하다"
+10,recite,암송하다
+10,rub,"문질러 닦다, 문지르다"
+10,cabin,"오두막집, 객실, 선실"
+10,gear,"장비, 기어; 맞게 조정하다"
+10,ray,광선
+10,release,"놓아주다, 방출하다, 발표하다; 석방, 발표"
+10,rank,"등급, 지위; 매기다, (등급을) 차지하다"
+10,symphony,"교향곡, (소리의) 조화"
+10,envy,부러움; 부러워하다
+10,corporate,"회사의, 법인의"
+10,alternative,대안; 대안의
+10,retire,은퇴하다
+10,appeal,"호소하다, 항의하다, 관심을 끌다; 호소, 항의, 매력"
+10,identical,"동일한, 일란성의"
+10,investment,투자
+10,autograph,"서명, 사인; 서명하다"
+10,slave,노예
+10,harm,"손해, 손상; 해치다"
+10,authority,"권위, 당국"
+10,innocence,"결백, 무죄, 순진"
+11,receive,받다
+11,infant,"유아; 유아의, 미발달의"
+11,calculate,계산하다
+11,charity,"자비, 자선 단체, 구호물자"
+11,accept,"받아들이다, (설명.학설 등을) 인정하다"
+11,depend,의지하다
+11,whereas,~인 반면에
+11,broad,"넓은, 광범위한, (빛 등이) 가득한"
+11,treat,"여기다, 대우하다, 처리하다, 치료하다"
+11,ignorant,"무식한, 모르는"
+11,pure,순수한
+11,extinct,"멸종된, 꺼진"
+11,household,가정; 가정[가족]의
+11,refund,"반환, 환불; 환불하다"
+11,continue,계속하다
+11,institute,"연구소, 협회; 설립하다, 제정하다"
+11,lately,최근에
+11,ashamed,부끄러워하는
+11,dense,"조밀한, 밀집한"
+11,rescue,구조하다; 구조
+11,destination,목적지
+11,expand,확장하다
+11,compete,경쟁하다
+11,evolution,진화
+11,hire,고용하다
+11,genuine,"진짜의, 성실한"
+11,status,"상태, 지위, 현상"
+11,military,군대의; 군대
+11,logic,"논리, 논리학"
+11,gravity,중력
+11,isolate,고립시키다
+11,commit,"(죄를) 저지르다, 전념[충실]하다, 맡기다"
+11,sum,"총합, 합계; 합계하다"
+11,conserve,보존하다
+11,concept,개념
+11,swing,"흔들(리)다, 진동하다; 그네"
+11,sensible,"분별 있는, 현명한"
+11,marriage,"결혼, 혼인"
+11,reproduce,"재생하다, 복제하다, 번식하다"
+11,tone,"어조, 말투, 음, 색조; 어떤 어조로 하다"
+12,cancel,취소하다
+12,return,"돌아오다, 돌려주다; 귀환, 반납, 수익"
+12,invitation,"초대, 초대장"
+12,precise,정확한
+12,formal,"공식적인, 정식의"
+12,apparent,"분명한, 명백한"
+12,departure,출발
+12,visual,시각의
+12,current,"현재의; 해류, 흐름"
+12,agriculture,농업
+12,leak,"새는 곳[구멍]; 새다, 누설하다"
+12,portion,"일부, 부분; 분할하다"
+12,trend,"추세, 경향"
+12,particle,"입자, 극소량"
+12,rite,"(종교적) 의식, 의례"
+12,distinct,"별개의, 뚜렷한"
+12,component,구성 요소; 구성하는
+12,poverty,"빈곤, 가난"
+12,sculpture,조각; 조각하다
+12,descend,"내려오다, 물려주다"
+12,universal,"보편적인, 우주의"
+12,surface,"표면, 수면, 지면"
+12,eager,갈망하는
+12,legal,"법률의, 합법의"
+12,annual,"연례의, 1년의, 1년간의"
+12,trap,"함정; 덫을 놓다, 막다"
+12,demonstrate,"논증하다, 설명하다, 시위하다, 보여 주다"
+12,companion,"동료, 동반자"
+12,democracy,"민주주의, 민주주의 국가"
+12,mature,"성숙한, 익은, 지불 만기의; 성숙해지다"
+12,brilliant,"훌륭한, 명석한"
+12,faith,"신념, 믿음"
+12,aim,겨냥하다; 조준
+12,spare,"여분의, 검소한; 용서하다, 남겨주다"
+12,transfer,"이동하다, 옮기다, 갈아타다"
+12,oppose,반대하다
+12,desperate,"필사적인, 절망적인"
+12,remote,"멀리 떨어진, 희박한, 드문"
+12,offend,"기분을 상하게 하다, (범죄를) 저지르다"
+12,awake,"깨어 있는; 깨우다, 깨다"
+13,option,"선택, 선택권"
+13,insight,"통찰, 통찰력"
+13,achieve,"이루다, 달성하다"
+13,civil,"시민의, 민간의"
+13,pause,"중단; 중단하다, 잠시 멈추다"
+13,prove,"입증하다, (~임이) 판명되다"
+13,lecture,강의; 강의하다
+13,minor,"사소한, 소수의; 미성년자, 부전공; 부전공하다"
+13,duty,"의무, 관세"
+13,vigor,활력
+13,organize,"조직하다, 구성하다, 정리하다"
+13,chief,"주요한, 우두머리의; 우두머리"
+13,complicated,복잡한
+13,digest,"소화하다, (완전히) 이해하다; 요약"
+13,shortage,"부족, 결함"
+13,laboratory,실험실; 실험(실)의
+13,stream,"흐름, 경향, 개울"
+13,forbid,금지하다
+13,laundry,세탁물
+13,transform,"변형시키다, 변환하다"
+13,discipline,"훈련, 규율, 학과, 학문 분야"
+13,generous,"관대한, 넉넉한"
+13,ultimate,"궁극적인, 최후의"
+13,thrive,"번영하다, 발전하다, 잘되다"
+13,fiction,"허구, 소설"
+13,bet,"돈을 걸다, 내기를 하다, (~이) 틀림없다; 내기"
+13,royal,"왕족의, 왕의"
+13,ruin,"파멸, 파산; 망치다, 파멸[파산]시키다"
+13,worship,"예배하다, 숭배하다; 예배, 숭배"
+13,evil,사악한; 악
+13,scarce,"부족한, 드문"
+13,afterward,"나중에, 그 후에"
+13,client,"고객, (변호사 등의) 의뢰인"
+13,insure,"보험을 계약하다, 안전하게 하다"
+13,fancy,"공상, (일시적인) 기호; 공상하다; 화려한"
+13,surgery,외과 수술
+13,assign,"할당하다, 지정하다"
+13,regulate,"규제하다, 조절하다"
+13,mindset,"마음가짐, 사고방식"
+13,utility,"유용(성), (수도.가스 등의) 공익사업"
+14,necessity,"필수, 필수품, 필요"
+14,yield,"생산하다, 양도하다, 굴복하다; 수확(물)"
+14,decline,"감소, 쇠퇴; 감소하다, 쇠퇴하다, (정중히) 거절하다"
+14,apply,"적용하다, 지원하다"
+14,aside,"한쪽으로, 제쳐 두고"
+14,contemporary,"동시대의, 현대의"
+14,bless,"축복하다, 감사하다"
+14,explain,설명하다
+14,prior,"이전의, 우선하는"
+14,tolerate,"참다, 용인하다"
+14,measure,"측정하다; 측정, 수단"
+14,abstract,"추상적인; 추상, 개요"
+14,cottage,오두막집
+14,correct,"올바른, 정확한; 바로잡다, 정정하다"
+14,confirm,"입증[확인]하다, (결심을) 굳게 하다"
+14,imitate,모방하다
+14,prey,"먹이, 희생자"
+14,defeat,패배시키다; 패배
+14,illustrate,"설명하다, 예증하다, 삽화를 넣다"
+14,fuse,"퓨즈, 도화선; 융합하다"
+14,pupil,"학생, 눈동자"
+14,intellect,지성
+14,spice,"향신료, 양념"
+14,tempt,"유혹하다, (관심을) 끌다"
+14,inspire,"영감을 주다, 고무시키다, 격려하다"
+14,dine,"만찬을 대접하다, 식사하다"
+14,literally,문자 그대로
+14,appropriate,적절한
+14,resort,"휴양지, 의지; 의지하다, 자주 가다"
+14,grab,움켜쥐다; 움켜쥠
+14,propose,"제안하다, 청혼하다"
+14,wreck,"난파선, 사고; 난파시키다"
+14,document,"문서, 서류; 기록하다"
+14,suspect,의심하다; 용의자
+14,alien,"외국인, 외계인; 외국의, 이질적인"
+14,prohibit,금지하다
+14,install,설치하다
+14,triumph,승리; 승리하다
+14,scholarship,"학문, 장학금"
+14,execute,"실행하다, 처형하다"
+15,ensure,"확실하게 하다, 보증하다"
+15,receipt,영수증
+15,defect,결점; (국가.당 등을) 버리다
+15,trait,"특성, 특징"
+15,modest,"겸손한, 알맞은"
+15,virtual,"가상의, 사실상의"
+15,compare,비교하다
+15,address,"연설하다; 연설, 인사말"
+15,inner,내부의
+15,contrary,"반대의, 불리한; 반대의 것"
+15,split,"찢다, (세로로) 쪼개다; 틈, 분열"
+15,supervise,"감독하다, 관리하다, 통제하다"
+15,inhabit,"살다, 거주하다"
+15,appear,나타나다
+15,commute,통근; 통근하다
+15,earthquake,"지진, (사회.정치적) 대변동"
+15,enroll,"입학하다, 등록하다"
+15,debate,토론; 토론하다
+15,abandon,"버리다, 포기하다"
+15,conquer,"정복하다, 극복하다"
+15,nevertheless,그럼에도 불구하고
+15,seal,"도장, 봉인, 바다표범; 봉인하다"
+15,greed,탐욕
+15,contract,"계약하다, 수축하다; 계약서"
+15,nutrition,영양
+15,retail,소매; 소매하다
+15,prejudice,"편견, 선입관"
+15,register,"등록하다, 기재하다; 등록"
+15,agency,대리점
+15,nurture,"양육하다, 교육하다; 양육, 교육"
+15,priest,성직자
+15,elegant,"고상한, 우아한"
+15,impose,"부과하다, 강요하다"
+15,arise,"발생하다, 생겨나다"
+15,attack,공격하다; 공격
+15,masterpiece,"명작, 대작"
+15,harsh,"거친, 가혹한"
+15,drought,가뭄
+15,criteria,"(pl.) 기준, 표준"
+15,extraordinary,"비범한, 놀라운"
+16,general,일반적인; (육군.공군.해병대의) 대장
+16,spill,"엎지르다, 흘리다; 엎질러짐, 유출"
+16,usual,"보통의, 통상의"
+16,routine,"일상적인 일, 일과; 일상적인"
+16,eliminate,"제거하다, 배제하다"
+16,deny,"부인하다, 거절하다"
+16,scream,"절규하다, 비명 지르다, 소리치다; 비명, 절규"
+16,sensitive,"민감한, 예민한, 세심한"
+16,swallow,"삼키다; 삼킴, 제비"
+16,glare,"(눈부시게) 빛나다, 노려보다; 눈부신 빛, 노려봄"
+16,tragic,"비극의, 비참한"
+16,deprive,박탈하다
+16,conscious,"의식하고 있는, 의도적인"
+16,interfere,"방해하다, 간섭하다"
+16,temporary,"일시적인, 임시의"
+16,council,"협의회, 회의, 의회"
+16,adolescent,청소년; 청소년기의
+16,associate,"연관 짓다, 교제하다; 동료"
+16,arctic,북극의
+16,capture,"붙잡다, 포획하다; 포획"
+16,dilute,묽은; 희석시키다
+16,figure,"생각[판단]하다, 계산하다; 수치, 계산, 형체"
+16,dim,"흐릿한, 어두운; (불빛이) 흐려지다"
+16,neighbor,"이웃의, 근처에 사는; 이웃 (사람)"
+16,crew,승무원
+16,barrier,"장벽, 장애물"
+16,tradition,"전통, 관습"
+16,pedestrian,보행자; 보행자의
+16,glance,흘긋 보다; 흘긋 봄
+16,irritate,"짜증 나게 하다, 화나게 하다"
+16,cruel,"잔인한, 고통을 주는"
+16,fold,"접다, 포개다; 주름, (동물의) 우리"
+16,trial,"재판, 실험, 시도"
+16,tribe,"부족, 종족"
+16,profound,"깊은, 심오한"
+16,distinguish,"구별하다, 식별하다"
+16,errand,"심부름, 잡일"
+16,welfare,복지
+16,statement,"진술, 성명서"
+16,prevail,"우세하다, 만연하다"
+17,widespread,널리 퍼진
+17,result,결과; (결과로) 생기다
+17,fade,"사라지다, 희미해지다"
+17,progress,"진보하다, 전진하다; 진전, 진보"
+17,weapon,"무기, 병기"
+17,drastic,"격렬한, 과감한"
+17,reinforcement,"강화, 보강"
+17,wonder,"궁금해하다, 놀라다; 경탄, 경이"
+17,pile,"쌓아 올린 더미, 많은 양; 쌓아 올리다, 축적하다"
+17,protect,보호하다
+17,infection,"감염, 전염(병)"
+17,stiffen,굳어지다
+17,endanger,위험에 빠뜨리다
+17,adjust,"조절하다, 조정하다"
+17,peer,"동료, 또래"
+17,renew,"새롭게 하다, 갱신하다"
+17,germ,"미생물, 세균"
+17,atom,원자
+17,realize,"깨닫다, 실현하다"
+17,enrich,"풍성하게 하다, 부유하게 하다"
+17,noble,"귀족의, 고결한"
+17,repair,"수선[수리]하다, (건강 등을) 회복하다; 수선[수리], 회복"
+17,candidate,후보자
+17,ideal,이상적인; 이상
+17,crop,"작물, 수확"
+17,ethnic,"인종의, 민족의"
+17,foretell,"예언하다, 예고하다"
+17,wholesale,도매; 도매의
+17,debt,"빚, 부채"
+17,representative,"대표, 국회의원(R-); 대표하는"
+17,shift,"변화, 이동, 교대; 바꾸다, 이동하다"
+17,fame,명성
+17,strict,"엄한, 엄격한"
+17,appliance,"(가정용) 기구, 장치"
+17,furthermore,"게다가, 더욱이"
+17,command,"명령, 지배력; 명령하다, 지휘하다"
+17,ecosystem,생태계
+17,excess,"초과, 초과량, 과도함; 초과한, 여분의"
+17,oral,"구두(口頭)의, 구술의"
+17,drift,표류; 표류하다
+18,solar,"태양의, 태양열을 이용한"
+18,outstanding,"뛰어난, 두드러진, 미해결의"
+18,mislead,"잘못 인도하다, 오해하게 하다"
+18,dedicate,"헌납하다, 바치다"
+18,crush,"으깨다, 밀어 넣다"
+18,sink,가라앉다
+18,entire,"전체의, 완전한; 전부, 전체"
+18,confront,직면하다
+18,beard,턱수염
+18,haste,"급함, 서두름"
+18,initial,"처음의, 초기의; 머리글자(이니셜)"
+18,destiny,운명
+18,hardship,"고난, 어려움"
+18,escape,"탈출하다, 벗어나다; 탈출, 도망"
+18,valid,"타당한, 유효한"
+18,dispose,"배치하다, 처리하다, 경향을 갖게 하다"
+18,exist,"존재하다, 살아가다"
+18,optimal,"최상의, 최적의"
+18,hydrogen,수소
+18,perspective,"관점, 견해, 원근법, 전망"
+18,thread,실; 실을 꿰다
+18,dynasty,"왕조, 왕가"
+18,scatter,"흩뿌리다, 분산시키다"
+18,gamble,"도박하다, 모험하다; 도박, 모험"
+18,temper,"성질, 기질; 완화시키다"
+18,undoubtedly,"의심할 여지 없이, 확실히"
+18,raft,"뗏목, 고무보트"
+18,minimal,"최소의, 아주 적은"
+18,soak,"적시다, 젖다, 흡수하다"
+18,craft,"(수)공예, 기술, 선박, 비행기"
+18,cease,"그만두다, 중지하다"
+18,review,"재검토, 논평; 재검토하다"
+18,ceiling,"천장, 상한선"
+18,unify,"통합하다, 통일하다"
+18,combat,싸우다; 전투
+18,bump,"부딪치다; 충돌, 혹"
+18,primary,"주요한, 최초[초기]의"
+18,genre,"장르, 유형, 형식"
+18,erase,"지우다, 없애다"
+18,doom,"(~할) 운명이다 (to); 운명, 비운, 파멸"
+19,vital,"필수적인, 중요한, 생명 유지와 관련된"
+19,incident,"일어난 일, 사건; 일어나기 쉬운"
+19,session,"시간, 기간, 회의, (대학의) 학기"
+19,obvious,"명백한, 분명한"
+19,moderate,"온건한, 적당한"
+19,budget,"예산, 예산안"
+19,graze,"풀을 뜯다, 방목하다"
+19,fragile,부서지기 쉬운
+19,myth,"신화, 사회적 통념"
+19,ingredient,"재료, 성분"
+19,indifferent,무관심한
+19,strain,"긴장시키다, 잡아당기다, 혹사하다; 긴장, 압박"
+19,nutrient,"영양소, 영양분"
+19,dismiss,"해고하다, 해산시키다, 묵살하다"
+19,geometry,기하학
+19,glacier,빙하
+19,urge,"촉구하다, 강요하다"
+19,celebrity,"명성, 유명 인사"
+19,antique,"옛날의, 고대의, 고풍의; 골동품"
+19,profit,"이익, 이윤; 이익을 얻다"
+19,sphere,"구체, 구"
+19,inherit,"상속하다, (유전으로) 물려받다"
+19,editorial,"사설, 논설; 편집자의"
+19,crawl,"기어가다, 서행하다; 기어가기, 서행"
+19,scratch,"긁다, 할퀴다; 긁힌 자국, 찰과상"
+19,diabetes,당뇨병
+19,congestion,"밀집, 혼잡"
+19,constitute,"구성하다, 제정하다, 설립하다"
+19,flow,흐르다; 흐름
+19,investigate,"조사하다, 수사하다"
+19,barter,"물물 교환하다; 물물 교환, 교역품"
+19,circular,"원의, 순환의"
+19,chilly,"쌀쌀한, 냉담한"
+19,ancestor,"조상, 선조"
+19,fierce,"사나운, 맹렬한"
+19,vague,"막연한, 모호한, 흐릿한"
+19,rough,"거친, 난폭한, 대강의"
+19,content,"만족하는; 내용(물), 목차"
+19,obstacle,"장애물, 방해가 되는 것"
+19,disgrace,"불명예, 수치"
+20,abolish,폐지하다
+20,assure,"보증하다, 확실하게 하다"
+20,form,"형태, 종류; 형성하다"
+20,gender,"성(性), 성별"
+20,innovation,혁신
+20,opponent,"반대자, 상대; 반대하는"
+20,present,"현재의; 현재, 선물; 제출하다, 나타내다"
+20,fertile,"비옥한, 기름진"
+20,emperor,황제
+20,dwell,"살다, 거주하다"
+20,chore,"집안일, 허드렛일"
+20,grateful,"고마워하는, 감사하는"
+20,fossil,화석
+20,glitter,반짝이다; 반짝임
+20,miserable,"비참한, 불쌍한"
+20,portray,"묘사하다, 설명하다, 초상을 그리다"
+20,protein,단백질
+20,backward,"후방에, 뒤쪽으로, 거꾸로"
+20,translate,"번역하다, 옮기다"
+20,refresh,"상쾌하게 하다, 새롭게 하다"
+20,tissue,(생물의 근육.신경 등의) 조직
+20,lord,군주
+20,remove,제거하다
+20,scan,"정밀 검사하다, 유심히 쳐다보다"
+20,pottery,"도자기, 도예"
+20,layer,"층, 겹"
+20,property,"재산, 소유물, 부동산"
+20,justify,정당화하다
+20,polish,"닦다, 윤을 내다, (문장 등을) 다듬다"
+20,flavor,맛; 맛을 내다
+20,ceremony,"의식, 식, 의례"
+20,relate,"관련시키다, 관련이 있다"
+20,strive,"노력하다, 애쓰다, 투쟁하다"
+20,radiant,"빛나는, 아주 밝은"
+20,exclaim,(감탄하며) 외치다
+20,asset,"자산, 재산"
+20,decay,"부패하다, 쇠퇴하다; 부패, 쇠퇴"
+20,administer,"관리[운영]하다, 집행하다, 주다"
+20,wage,"임금, 급료"
+20,subscribe,"구독하다, 가입하다"
+21,merit,"장점, 공로; 받을 만하다"
+21,dwindle,"점점 줄어들다, 저하되다"
+21,conference,"회담, 회의"
+21,accuse,"고발하다, 비난하다"
+21,enhance,향상하다
+21,intimate,친밀한
+21,reception,"환영회, 접수"
+21,overwhelm,"압도하다, 당황하게 하다"
+21,coincidence,"우연의 일치, 동시에 일어난 사건"
+21,majesty,"위엄, 장엄, (M-) 왕"
+21,shrug,(어깨를) 으쓱하다
+21,vicious,"사악한, 악의 있는"
+21,cherish,소중히 하다
+21,eternal,영원한
+21,shrink,"축소하다, 수축하다"
+21,colleague,동료
+21,transmit,전달하다
+21,discard,"버리다, 처분하다"
+21,copper,"구리; 구리의, 구릿빛의"
+21,orbit,궤도; 궤도를 그리며 돌다
+21,famine,"굶주림, 기아"
+21,pill,알약
+21,immune,"면역성의, 면제된"
+21,raw,"날것의, 가공하지 않은"
+21,superior,우월한; 상사
+21,string,"끈, 줄, 일련"
+21,cope,"대처하다, 잘 처리하다"
+21,loan,"대출, 대출금; 대출하다"
+21,obedient,"순종하는, 유순한"
+21,procedure,"절차, 과정"
+21,bond,"유대, 결속, 속박, 계약, 채권"
+21,angle,"각도, 모서리"
+21,subtle,"미묘한, 교묘한"
+21,depict,"묘사하다, 그리다"
+21,radical,"과격한, 급진적인, 근본적인; 급진주의자"
+21,caution,"조심, 주의; 주의를 주다"
+21,persist,"고집하다, 지속하다"
+21,reverse,"역(逆), 반대; 역의, 반대의; 뒤바꾸다"
+21,stuff,"것(들), 물건; (빽빽이) 채워 넣다, 쑤셔 넣다"
+21,therapy,"치료, 요법"
+22,skeleton,"골격, 뼈대"
+22,strategy,전략
+22,attract,(주의.흥미 등을) 끌다
+22,hence,"그러므로, 지금부터"
+22,architecture,"건축, 건축물"
+22,handle,다루다
+22,wilderness,"황무지, 황야"
+22,category,범주
+22,funeral,장례식; 장례의
+22,prefer,선호하다
+22,outcome,결과
+22,humiliation,"창피함, 굴욕"
+22,ban,금지하다; 금지
+22,flush,"(얼굴이) 붉어지다, 물이 쏟아져 나오다"
+22,omit,"생략하다, 빼다"
+22,despair,절망; 절망하다
+22,alert,"기민한, 경계하는; 경계 (태세); 경고하다"
+22,compact,"소형의, 조밀한; 꽉 채우다"
+22,likewise,"마찬가지로, 게다가"
+22,astonish,놀라게 하다
+22,panic,"갑작스러운 공포, 공황; 공황적인"
+22,optimistic,"낙관적인, 낙천적인"
+22,murder,살인; 살인하다
+22,fundamental,"근본적인, 기본적인; 근본"
+22,loyal,"충성스러운, 성실한"
+22,humid,"(날씨가) 습기 있는, 눅눅한"
+22,pretend,"~인 척하다, 주장하다"
+22,graduate,"졸업하다; 졸업생, 대학원 학생"
+22,delicate,섬세한
+22,inflate,"부풀리다, 과장하다, (물가 등을) 인상하다"
+22,adequate,적당한
+22,physician,"의사, 내과 의사"
+22,joint,"공동의, 연합의; 이음매, 관절"
+22,via,"~을 거쳐[경유해서], ~을 통해"
+22,passage,"통로, (시간의) 경과, (인용문의) 한 절"
+22,vessel,"(물건을 담는) 용기, 배, 선박, 혈관"
+22,restore,"회복하다, 복구하다, 돌려주다"
+22,passive,"수동적인, 수동형의"
+22,marble,"대리석, 구슬; 대리석의"
+22,classify,분류하다
+23,prepare,준비하다
+23,transaction,"거래, 처리"
+23,sufficient,충분한
+23,stable,안정된; 마구간
+23,concern,"관련되다, 걱정하게 하다; 걱정, 관심사"
+23,sympathy,"동정, 공감"
+23,principal,"주요한, 제1의; (단체의) 장, 주역"
+23,by-product,부산물
+23,anxiety,"걱정, 불안, 열망"
+23,edible,"먹을 수 있는, 식용의"
+23,federal,"연방의, 연합의"
+23,suffer,"고통받다, 겪다"
+23,casual,"우연한, 무심결의, 격식을 차리지 않는"
+23,tablet,"(의학) 정제, 알약, (평평한) 판"
+23,trade,거래[교환]하다; 무역
+23,liquid,액체; 액체의
+23,characteristic,"특징, 특색; 독특한, 특징적인"
+23,anticipate,"예상하다, 기대하다"
+23,outlook,"전망, 조망"
+23,desert,"사막; 사막의, 불모의; 버리다, 도주하다"
+23,infinite,무한한
+23,roam,"배회하다, 돌아다니다"
+23,decent,"제대로 된, 품위 있는"
+23,behalf,"이익, 자기편"
+23,distortion,"왜곡, 찌그러뜨림"
+23,bud,싹; 싹트다
+23,symbolic,상징적인
+23,municipal,"지방(자치제)의, 시의"
+23,phenomenon,"현상, 사건, 비범한 인물"
+23,devote,(노력.시간 등을) 바치다
+23,peasant,"농민, 소작농"
+23,diminish,감소하다
+23,jealous,질투하는
+23,exclude,"배제하다, 제외하다"
+23,flexible,"융통성 있는, 유연한"
+23,tenant,"세입자, 주민"
+23,worthwhile,~할 가치가 있는
+23,pavement,"보도, 포장도로"
+23,nominate,"(후보자로) 지명[추천]하다, 임명하다"
+23,sacred,"신성한, 성스러운"
+24,support,"지지하다, 받치다, 부양하다; 지지, 지탱함, 부양"
+24,revise,"변경하다, 개정[수정]하다"
+24,suggest,"암시하다, 넌지시 말하다"
+24,control,"지배하다, 제어하다; 지배, 제어"
+24,mammal,포유동물
+24,internal,내부의
+24,resent,"분개하다, 화를 내다"
+24,abrupt,갑작스러운
+24,diverse,"다른, 다양한"
+24,refine,"정제하다, 개선하다"
+24,dynamic,"동적인, 역학의"
+24,nerve,신경
+24,prompt,"즉각적인, 신속한; 촉구하다, 자극하다"
+24,suspend,"매달다, 중지하다"
+24,industry,"산업, 공업"
+24,iceberg,빙산
+24,monetary,화폐의
+24,judge,판단하다; 재판관
+24,gloom,"어둠, 우울"
+24,distraction,"주의 산만, (정신을) 산만하게 하는 것, 기분 전환"
+24,collapse,"무너지다, 붕괴하다; 붕괴"
+24,trigger,"촉발하다, 유발하다; 방아쇠, 계기"
+24,martial,"전쟁의, 군대의"
+24,monologue,독백
+24,deliberate,"의도적인, 신중한; 숙고하다"
+24,plot,"줄거리, 음모; 음모를 꾸미다"
+24,rod,"막대기, 회초리"
+24,partial,"부분적인, 편파적인"
+24,mutual,"서로의, 공통의"
+24,priceless,대단히 귀중한
+24,fate,운명
+24,pursue,"추구하다, 쫓다"
+24,Atlantic,대서양; 대서양의
+24,weird,"이상한, 기묘한"
+24,booth,"칸막이한 공간, 부스, 노점"
+24,prescribe,"규정하다, (약을) 처방하다"
+24,erupt,"분출하다, 폭발하다"
+24,insult,모욕하다; 모욕
+24,gaze,"뚫어지게 보다, 응시하다"
+24,supreme,최고의
+25,context,"전후 관계, 맥락, 문맥"
+25,complete,"완전한, 완벽한, 완료된; 완료하다"
+25,race,"경주[경쟁]하다, 질주하다; 경주, 경쟁, 인종"
+25,dominate,지배하다
+25,vehicle,"탈것, 수단, 매개체"
+25,complain,"불평하다, 항의하다"
+25,brochure,"(안내.광고용) 소책자, 브로슈어"
+25,force,"힘, 영향력; 강요하다"
+25,nest,"둥지, 보금자리; 둥지를 틀다, (둥지에서) 살다"
+25,gain,얻다; 이익
+25,curriculum,"교육 과정, 커리큘럼"
+25,sew,"꿰매다, 바느질하다"
+25,masculine,"남자의, 남자다운"
+25,frown,눈살을 찌푸리다; 찡그린 얼굴
+25,astound,놀라게 하다
+25,dictator,"독재자, 구술하는 사람"
+25,assessment,"평가, 판단"
+25,crucial,"중대한, 중요한"
+25,paralysis,마비
+25,deck,갑판
+25,cheer,"환호, 갈채; 환호[성원]하다"
+25,carve,"조각하다, 새기다"
+25,tease,"괴롭히다, 약 올리다"
+25,aggressive,"공격적인, 적극적인"
+25,cure,"치료하다, 해결하다; 치유, 회복"
+25,attribute,~의 결과로 여기다; 속성
+25,foster,"육성하다, 촉진하다; 수양의, 위탁의"
+25,psychologist,심리학자
+25,postpone,"연기하다, 뒤로 미루다"
+25,rob,"훔치다, 강탈하다"
+25,abuse,"남용, 욕설, 학대; 남용하다, 학대하다"
+25,bystander,"방관자, 행인, 구경꾼"
+25,breakdown,"고장, 쇠약"
+25,disguise,"변장하다, 숨기다; 변장, 은폐"
+25,blueprint,청사진
+25,rear,"뒤; 뒤의, 후방의; 기르다"
+25,output,"생산(량), 산출(량)"
+25,sermon,설교
+25,sprout,"싹이 트다, 자라나다; 싹"
+25,tin,"양철, 주석"
+26,reform,개혁; 개혁하다
+26,deal,"다루다, 대처하다(with); 거래"
+26,recruit,"모집하다, 징집하다, 신병, 신입 사원"
+26,maintain,"유지하다, 지지하다"
+26,workshop,"워크숍, 작업장, 연구 집회"
+26,patient,환자; 인내심 있는
+26,convention,"집회, 총회, 관습"
+26,devastate,황폐시키다
+26,reap,수확하다
+26,overlook,"간과하다, 너그럽게 봐주다, 내려다보다"
+26,deliver,"배달하다, 전달하다"
+26,reject,"거부하다, 거절하다"
+26,nourish,"영양분을 주다, 기르다"
+26,bay,만(灣)
+26,stun,"놀라게 하다, 기절시키다"
+26,particular,"특정한, 개개의; 사항, (-s) 상세"
+26,bulletin,"게시, 게시물"
+26,fluid,"유동체(액체.기체의 총칭); 유동체의, 유동적인"
+26,affair,"사건, 일"
+26,dawn,"새벽; 이해되기 시작하다, 날이 새다"
+26,hostile,적대적인
+26,contend,"싸우다, 주장하다, 경쟁하다"
+26,respect,"존중하다; 존경, 관련"
+26,await,기다리다
+26,concrete,구체적인; 콘크리트
+26,satisfy,"만족시키다, 충족시키다"
+26,literate,읽고 쓸 수 있는
+26,variable,"변수; 변하기 쉬운, 변덕스러운"
+26,lease,임대; 임대하다
+26,rule,"지배, 규칙; 지배하다, 통치하다"
+26,perseverance,인내심
+26,fatal,치명적인
+26,substitute,"대리자, 대체물; 대체하다"
+26,invert,"(위치.순서 등을) 거꾸로 하다, 뒤집다"
+26,tension,"긴장, 불안; 긴장시키다"
+26,reign,"통치 기간, 치세; 군림하다"
+26,crack,갈라진 틈; 금 가다
+26,startle,깜짝 놀라게 하다
+26,discourage,"낙담시키다, 단념시키다"
+26,compensate,보상하다
+27,convert,"전환하다, 바꾸다"
+27,strike,"치다, (머릿속에) 떠오르다; 치기, 동맹 파업"
+27,suppress,"억압하다, 참다"
+27,core,핵심; 핵심의
+27,contribute,"기여하다, 공헌하다, 기부하다"
+27,spear,창
+27,renowned,"유명한, 명성 있는"
+27,era,시대
+27,withdraw,"철수하다, 철회하다, (돈을) 인출하다"
+27,separate,"분리하다; 갈라진, 개개의"
+27,dignity,존엄(성)
+27,notify,"통지하다, 알리다"
+27,animate,"생기 있게 하다, 고무하다; 살아 있는"
+27,prevent,"막다, 예방하다"
+27,bilingual,2개 국어의
+27,mischief,"장난, 해악"
+27,discriminate,"구별하다, 차별하다"
+27,exemplify,"예시하다, ~의 좋은 예가 되다"
+27,adhere,"고수하다, 충실하다, 집착하다"
+27,superb,"최고의, 훌륭한"
+27,peculiar,독특한
+27,sake,"위함, 목적"
+27,choke,"질식시키다, 숨이 막히다"
+27,folktale,"민간 설화, 전설"
+27,simultaneously,동시에
+27,range,범위; 정렬시키다
+27,groom,신랑
+27,supernatural,초자연적인
+27,tender,부드러운; 입찰하다; 입찰
+27,instinct,본능
+27,gigantic,거대한
+27,meditate,명상하다
+27,mow,(풀 등을) 베다
+27,evolve,"진화하다, 발전하다"
+27,chase,"쫓다, 추적하다"
+27,afflict,괴롭히다
+27,empirical,"경험적인, 실증적인"
+27,coherent,"통일성 있는, 조리 있는"
+27,intolerable,참을 수 없는
+27,fountain,"분수, 근원"
+28,bold,"대담한, 선이 굵은"
+28,compliment,칭찬; 칭찬하다
+28,summit,"꼭대기, 정상"
+28,troop,"무리, 떼, 군대, 군사"
+28,alter,"바꾸다, 변경하다"
+28,conceive,"생각해 내다, 마음속에 그리다"
+28,durability,내구성
+28,destroy,파괴하다
+28,shallow,"얕은, 얇은, 피상적인, 천박한"
+28,face,"직면하다; 얼굴, 표면"
+28,promote,"증진하다, 승진시키다"
+28,weep,울다
+28,grasp,"붙잡다, 이해하다, 파악하다; 꽉 쥐기, 이해"
+28,overall,"전반적인, 전체의; 작업복"
+28,superstition,미신
+28,colony,"식민지, (새.개미.꿀벌 등의) 집단"
+28,absurd,"불합리한, 우스꽝스러운"
+28,conduct,"수행하다, 실시하다; 행위, 안내"
+28,dormitory,기숙사
+28,prone,~하는 경향이 있는
+28,conceal,숨기다
+28,retreat,"후퇴하다, 물러서다; 퇴각, 후퇴"
+28,compulsive,"강제적인, 강박의"
+28,clinic,"전문 병원, 개인 병원"
+28,banner,"깃발, 현수막"
+28,formulate,"만들어 내다, 공식화하다"
+28,vow,맹세; 맹세하다
+28,malnutrition,영양실조
+28,heritage,"유산, 세습 재산"
+28,undergo,겪다
+28,boast,"자랑하다, 떠벌리다"
+28,neutral,"중립의, 공평한"
+28,stain,얼룩; 얼룩지게 하다
+28,incentive,"자극, 장려책, 동기; 격려하는, 자극하는"
+28,float,"뜨다, 떠다니다; 부유물"
+28,tendency,"경향, 추세"
+28,applause,박수갈채
+28,wrestle,"싸우다, (일과) 씨름하다, 레슬링하다"
+28,sensation,"감각, 느낌, 대사건(센세이션)"
+28,Confucian,"공자의, 유교의"
+29,draft,"원고, 초안; 초안을 그리다"
+29,crude,"가공하지 않은, 조잡한"
+29,supplement,"보충, 보충물; 보충하다"
+29,velocity,속도
+29,tame,길들이다; 길들여진
+29,adapt,"적응하다, 적응시키다"
+29,manage,"잘 해내다, 다루다"
+29,dismay,"실망시키다, 낙담시키다; 걱정, 실망"
+29,diagnose,진단하다
+29,molecule,분자
+29,reservoir,"저장소, 저수지"
+29,conform,"순응하다, 일치하다"
+29,spacious,"넓은, 훤히 트인"
+29,weave,"엮다, 짜다, (생각 등을) 엮어 넣다"
+29,boundary,"경계, 경계선"
+29,motive,동기(행동의 원인)
+29,tangible,"유형적인, 유형의, 만질 수 있는"
+29,prominent,"현저한, 저명한"
+29,rigid,"엄격한, 융통성이 없는"
+29,archaeology,고고학
+29,subtract,빼다
+29,breed,"낳다, 양육하다"
+29,utmost,"최대한의, 최고의; 최대한도"
+29,proficient,숙달된
+29,accumulate,"모으다, 축적하다"
+29,embody,"구현하다, 구체화하다"
+29,equity,공평
+29,violate,"위반하다, 침해하다"
+29,ambitious,야심 있는
+29,intact,"온전한, 손상되지 않은"
+29,impulse,"충동, 추진"
+29,attend,"출석하다, 보살피다"
+29,trim,"다듬다, 잘라 내다, 장식하다"
+29,navigate,"길을 찾다, 항해[비행]하다"
+29,remedy,"치료, 요법"
+29,consist,(부분.요소로) 이루어지다
+29,imprint,"(도장 등을) 찍다, 감명시키다; 찍은 자국, 인상"
+29,modify,"변형하다, 수정하다"
+29,confine,"제한하다, 가두다; 한계"
+29,dispatch,"급파하다, 발송하다; 급파, 발송"
+30,diameter,"지름, 직경"
+30,anecdote,"일화, 비화"
+30,spatial,"공간의, 공간적인"
+30,blame,"비난하다, ~의 탓으로 돌리다; 비난, 책망"
+30,geology,지질학
+30,pledge,"약속, 맹세; 약속하다, 맹세하다"
+30,cost,"(비용이) 들다; 비용, 대가"
+30,earn,"(신용.평판 등을) 얻다, (돈을) 벌다"
+30,detect,"발견하다, 감지하다"
+30,temperate,"(기후가) 온화한, 절제하는"
+30,soar,높이 치솟다
+30,mock,조롱하다; 가짜의
+30,disclose,"드러내다, 폭로하다"
+30,exhibit,"전시하다, 보여 주다; 전시, 전시품"
+30,symptom,증상
+30,invent,발명하다
+30,awkward,"어색한, 서투른"
+30,grind,"갈다, 빻다"
+30,expose,"드러내다, (비밀을) 폭로하다, 노출시키다"
+30,closet,벽장
+30,damp,축축한; 습기
+30,script,"손으로 쓰기, 대본"
+30,signify,"의미하다, 중요하다"
+30,discuss,토론하다
+30,sibling,"형제자매, 동기"
+30,lay,"(물건을) 놓다, (알을) 낳다"
+30,surveillance,감시
+30,discharge,"배출, 내보냄, 방전; 배출하다, 내보내다, 해고하다"
+30,thorough,철저한
+30,undertake,"수행하다, (일을) 떠맡다, 착수하다"
+30,panel,"토론자단, 패널, 넓은 직사각형의 합판"
+30,linguistic,"언어의, 언어학의"
+30,flourish,"번영하다, 번창하다"
+30,feed,"먹이를 주다, 부양하다"
+30,sophomore,(대학.고등학교의) 2학년생
+30,remind,"생각나게 하다, 상기시키다"
+30,sole,유일한
+30,pillar,기둥
+30,explode,폭발하다
+30,illusion,"환상, 착각"
+31,regret,"후회하다, 한탄하다; 유감, 후회"
+31,submit,"복종시키다, 복종하다, 제출하다"
+31,divine,"신의, 신성한"
+31,revenue,"수입, 수익"
+31,corrupt,"부정한, 부패한; 타락시키다"
+31,mention,언급하다; 언급
+31,factual,실제의
+31,swamp,"늪, 습지"
+31,expedition,탐험(대)
+31,abnormal,비정상적인
+31,storage,"저장, 저장고"
+31,revive,되살아나다
+31,equator,적도
+31,motion,"운동, 움직임, 몸짓; 몸짓으로 지시[신호]하다"
+31,patent,"특허, 특허권; ~의 특허를 얻다"
+31,virtue,미덕
+31,arithmetic,"산수, 연산"
+31,consistent,"일관된, 모순이 없는"
+31,cognitive,"인식의, 인지력 있는"
+31,hinder,방해하다
+31,humble,"겸손한, 비천한"
+31,bounce,"(공이) 튀다, 되튀다, 뛰어오르다"
+31,imprison,투옥하다
+31,enlist,"(군인을) 모집하다, 도움을 얻다"
+31,carbon,탄소
+31,upcoming,다가오는
+31,trace,흔적; 흔적을 쫓다
+31,pulse,맥박
+31,locate,"(수동태로) ~에 위치하다, (위치를) 찾아내다"
+31,controversy,"논란, 논쟁"
+31,flattery,아첨
+31,regard,"~으로 여기다; 관계, 고려"
+31,convenience,"편의, 편리"
+31,hygiene,"위생, 위생학"
+31,rush,"돌진하다, 갑자기 일어나다; 돌진, 황급한 움직임"
+31,contaminate,오염시키다
+31,external,외부의; 외부
+31,herd,(짐승의) 떼
+31,allocate,"할당하다, 분배하다"
+31,gorgeous,"아주 멋진, 화려한"
+32,confess,고백하다
+32,subjective,"주관적인, 주격의"
+32,trivial,사소한
+32,acknowledge,인정하다
+32,accord,"일치하다, 주다, 부여하다; 일치, 협정"
+32,immense,막대한
+32,extract,추출하다; 추출물
+32,sewage,하수
+32,reconciliation,화해
+32,explore,"탐험하다, 탐구하다"
+32,warrant,"보증, 영장; 보증하다"
+32,complement,보완하다; 보충물
+32,ceramic,도자기; 도자기의
+32,license,"면허, 인가; 면허[인가]를 내주다"
+32,emerge,"나타나다, 드러나다"
+32,halt,"정지, 일시 멈춤; 정지하다, 정지시키다"
+32,pierce,"꿰뚫다, ~에 구멍을 뚫다"
+32,ponder,심사숙고하다
+32,burglar,(주거 침입) 강도
+32,stroke,"뇌졸중, 강타"
+32,lottery,"복권, 추첨"
+32,certificate,"증명서, 자격[면허]증"
+32,transplant,이식; 이식하다
+32,cluster,"무리, (과일.꽃의) 송이, 성단"
+32,plea,"탄원, 간청, 변명"
+32,derive,"이끌어 내다, ~에서 비롯되다"
+32,plague,전염병
+32,ultrasound,초음파
+32,deluxe,"호화로운, 사치스러운"
+32,convey,"전달하다, 나르다"
+32,depth,깊이
+32,evaporate,증발하다
+32,lame,다리를 저는
+32,intelligence,"지능, 지성"
+32,sour,신맛이 나는
+32,repetitive,반복성의
+32,oppress,억압하다
+32,leftover,"나머지의, 남은; 나머지, 남은 음식"
+32,embrace,"포옹; 포옹하다, 받아들이다"
+32,blade,칼날
+33,abundant,풍부한
+33,duplicate,"복제품; 이중으로 하다, 복제하다"
+33,spoil,"망치다, 상하게 하다, 버릇없게 키우다"
+33,altitude,"고도, 높이"
+33,glimpse,"흘긋 봄; 흘긋 보다, 깨닫다"
+33,blend,"혼합; 섞다, 혼합하다"
+33,swell,부풀다; 팽창
+33,grief,큰 슬픔
+33,beverage,음료
+33,warrior,"전사, 용사"
+33,shrub,관목
+33,slice,얇은 조각; 얇게 썰다
+33,exotic,이국적인
+33,arrogant,거만한
+33,vanish,사라지다
+33,outbreak,"(전쟁.질병 등의) 발발, 폭동"
+33,accommodate,"수용하다, 숙박시키다"
+33,cozy,아늑한
+33,recommend,추천하다
+33,auction,경매; 경매에 부치다
+33,obsess,"강박 관념을 갖다, (망상이) 사로잡다"
+33,suitor,"소송인, 구혼자"
+33,rational,"이성적인, 합리적인"
+33,discreet,"분별 있는, 사려 깊은"
+33,pioneer,"개척자, 선구자; 개척자의; 개척하다"
+33,assert,"주장하다, 행사하다"
+33,undo,"원상태로 돌리다, (매듭을) 풀다"
+33,inevitable,피할 수 없는
+33,elaborate,"정교한, 공들인"
+33,toss,던지다
+33,retain,유지[보유]하다
+33,maximize,"최대화하다, 최대한으로 활용하다"
+33,buildup,축적
+33,machinery,(집합적) 기계
+33,sacrifice,"희생하다, 희생시키다; 희생, 제물"
+33,auditorium,강당
+33,linger,"오래 머물다, 계속되다"
+33,neglect,"무시하다; 소홀, 무시"
+33,feedback,"반응, 피드백"
+33,radioactive,방사성의
+34,impair,손상하다
+34,metaphor,"은유, 은유법"
+34,predominant,"뛰어난, 우세한"
+34,bruise,"타박상, 멍; 타박상을 입히다, 멍들게 하다"
+34,attorney,변호사
+34,sanitation,위생
+34,heredity,"유전, 유전 형질"
+34,naive,순진한
+34,shed,"(눈물 등을) 흘리다, 발산하다, (털 등을) 떨어뜨리다"
+34,metropolitan,"수도권의, 대도시의"
+34,shield,"방패, 보호물; 보호하다"
+34,ecology,생태학
+34,coverage,"(점유) 범위, (신문.텔레비전.라디오의) 보도"
+34,expel,쫓아내다
+34,plow,쟁기; 쟁기질하다
+34,prolong,연장하다
+34,fluent,유창한
+34,margin,가장자리
+34,induce,"유도하다, 설득하다"
+34,interior,내부; 내부의
+34,ornament,장식품; 장식하다
+34,probe,조사하다; 탐사선
+34,vibrate,"진동하다, 흔들다"
+34,speculate,"사색하다, 투기하다"
+34,versus,"~대, ~과 대비하여"
+34,pregnant,임신한
+34,epidemic,"전염병, 유행병"
+34,precede,"~에 앞서다, 먼저 일어나다"
+34,breathtaking,"아슬아슬한, 숨 막히는"
+34,foundation,"기초, 토대, 재단"
+34,stimulate,"자극하다, 고무하다"
+34,fabric,"구조, 조직, 직물"
+34,overturn,전복시키다; 전복
+34,ripe,(과일 등이) 익은
+34,framework,"뼈대, 틀, 체제"
+34,urgent,"긴급한, 다급한"
+34,settle,"정착하다, 정착시키다, 결정하다"
+34,conflict,"충돌하다; 갈등, 충돌"
+34,vapor,증기; 증발하다
+34,tuition,수업료
+35,literature,"문학, 문예, 문헌"
+35,compound,화합물; 합성의; 혼합하다
+35,quote,인용하다
+35,inhale,(숨을) 들이쉬다
+35,prospect,"가능성, 전망"
+35,anchor,"닻, 앵커; 닻을 내리다"
+35,asymmetry,"비대칭, 불균형"
+35,loop,고리
+35,withstand,견디다
+35,implement,도구; 실행하다
+35,anonymous,익명의
+35,collide,충돌하다
+35,memorial,"기념물, 기념관"
+35,vacant,"빈, 비어 있는"
+35,technical,"기술[기법]의, 전문적인"
+35,thrill,"스릴, 전율; 몹시 신나게 하다, 감동시키다"
+35,wander,"(정처 없이) 돌아다니다; 유랑, 방랑"
+35,proportion,"비율, 부분"
+35,antibiotic,"항생 물질, 항생제"
+35,overtake,따라잡다
+35,resemble,"닮다, 비슷[유사]하다"
+35,orchard,과수원
+35,compassion,"연민, 동정"
+35,preoccupation,"몰두, 집착, 선취"
+35,paste,"풀, 반죽; 풀칠하다, 붙이다"
+35,provoke,"선동하다, 자극하다"
+35,wicked,사악한
+35,sprain,(발목.손목 등을) 삐다
+35,sequence,"순서, 결과, 연속"
+35,stool,"(등받이가 없는) 의자, 변기"
+35,disrupt,"혼란에 빠뜨리다, 방해하다"
+35,solitary,"혼자의, 외로운, 고독한"
+35,bury,파묻다
+35,rust,"녹; 녹슬다, 녹이 슬게 하다"
+35,fad,일시적 유행
+35,referee,심판; 심판하다
+35,sector,"분야, 지역, 부채꼴"
+35,boost,"상승, 밀어 올림; 밀어 올리다, (생산량을) 증가하다"
+35,gymnastics,"체육, 체조"
+35,gross,"엄청난, 총합의; 총합; ~의 총이익을 올리다"
+36,last,계속되다
+36,tariff,관세; 관세를 부과하다
+36,beloved,사랑스러운
+36,lyric,"노래 가사, 서정시; 서정적인"
+36,yeast,효모; 발효하다
+36,skyscraper,"마천루, 고층 건물"
+36,inquire,"묻다, 조사하다"
+36,spade,삽
+36,vacuum,"진공, 진공청소기; 진공청소기로 청소하다"
+36,migrate,"이동하다, 이주하다"
+36,spectacle,광경
+36,surplus,"과잉, 나머지; 과잉의, 나머지의"
+36,simulate,"가장하다, 모의실험[훈련]하다"
+36,integration,"통합, (수학) 적분"
+36,hypothesis,가설
+36,affirm,단언하다
+36,fortress,(대규모의) 요새
+36,reed,갈대; 갈대의
+36,cue,"단서, 신호"
+36,mole,"사마귀, 점"
+36,divide,"나누다, 분리하다, 나누어지다; 분할"
+36,inborn,타고난
+36,overlap,겹치다; 중복
+36,fatigue,피로; 피곤하게 하다
+36,clone,"복제 생물, 클론; 복제하다"
+36,peel,(과일 등의) 껍질을 벗기다; 껍질
+36,ease,"진정시키다; 편함, 용이함"
+36,overcome,"극복하다, 압도하다"
+36,fund,기금; 자금을 제공하다
+36,bias,편견
+36,vaccine,"백신, (컴퓨터) 바이러스 예방 프로그램"
+36,tread,"밟다, 걷다; 밟음"
+36,vomit,토하다; 구토
+36,prophecy,예언
+36,correspond,"일치하다, 서신 왕래하다"
+36,cling,"달라붙다, 집착하다"
+36,mutation,"돌연변이, 변화"
+36,obscure,"불분명한, 이해하기 어려운, 무명의"
+36,tyrant,"폭군, 전제 군주"
+36,odd,"이상한, 홀수의"
+37,intriguing,아주 흥미로운
+37,constrict,"죄다, 위축시키다"
+37,bundle,"묶음, 꾸러미"
+37,enclose,"동봉하다, 에워싸다"
+37,insert,삽입하다
+37,keen,"날카로운, 예민한, 간절히 ~하고 싶은"
+37,restrain,"억제하다, 구속하다"
+37,aid,"돕다; 도움, 조력"
+37,reputation,"평판, 명성"
+37,measurement,"측정, 측량, 치수"
+37,originate,"시작되다, 비롯하다"
+37,flour,밀가루
+37,manipulate,"조종하다, 조작하다"
+37,experiment,실험; 실험하다
+37,patriot,애국자
+37,interchange,"교환, 교차점; 교환하다"
+37,intuitive,"직관적인, 직관에 의한"
+37,garment,의복
+37,spontaneous,"자발적인, 자연히 일어나는"
+37,vertical,수직의
+37,testify,"검증하다, 증명하다, 증언하다"
+37,mentor,조언자
+37,vivid,생생한
+37,pasture,"목초지, 목장"
+37,crust,"껍질, (지질) 지각"
+37,comprehend,"이해하다, 포함하다"
+37,plunge,"뛰어들다, 던져 넣다"
+37,nasty,"더러운, 불쾌한"
+37,appreciate,"이해하다, 감상하다, 고맙게 생각하다"
+37,strip,"박탈하다, (옷이나 껍질을) 벗기다"
+37,deed,"행위, 업적"
+37,skinny,"피골이 상접한, 마른"
+37,grill,"석쇠; 석쇠로 굽다, 심문하다"
+37,canal,"수로, 운하"
+37,curse,저주; 저주하다
+37,adverse,"거스르는, 반대의, 부정적인"
+37,censorship,검열
+37,leverage,"이용하다; 지레의 작용, 영향력"
+37,appetite,"식욕, 욕망, 욕구"
+37,flaw,"결점, 흠"
+38,outgoing,외향적인
+38,verbal,"말의, 구두의"
+38,liberate,"해방하다, 자유롭게 하다"
+38,academic,"학문적인, 학구적인"
+38,advance,"나아가게 하다, 진척시키다; 전진, 증진"
+38,contemplate,"숙고하다, 응시하다"
+38,underlying,"밑에 놓인, 근본적인"
+38,segregation,"인종 차별, 분리"
+38,stem,"생기다, 일어나다; 줄기, 대"
+38,irrigation,"관개, 물 대기"
+38,consecutive,"연속적인, 일관된"
+38,superficial,"표면상의, 피상적인"
+38,refuge,"피난, 피난처, 위안"
+38,swear,"맹세하다, 욕하다"
+38,allergy,알레르기
+38,norm,"규범, 기준, 표준"
+38,endeavor,노력; 노력하다
+38,erect,세우다; 똑바로 선
+38,feminine,"여성의, 여성스러운"
+38,drowsy,졸리는
+38,inspect,"검사하다, 점검하다"
+38,carriage,"마차, 탈것"
+38,primitive,"원시의, 초기의, 미개의"
+38,compress,압축하다
+38,steep,"가파른, 경사가 급한"
+38,cemetery,공동묘지
+38,transport,수송[운송]하다; 수송
+38,exaggerate,"과장하다, 과장해서 말하다"
+38,random,"무작위의, 임의의"
+38,feast,"즐겁게[기쁘게] 하다; 축제(일), 잔치"
+38,commemorate,기념하다
+38,govern,"통치하다, 지배[좌우]하다"
+38,multitask,다중 작업을 하다
+38,toxic,"유독한, 중독의"
+38,stare,"응시하다, 노려보다"
+38,chronic,"만성적인, 장기간의"
+38,designate,"지정하다, 가리키다"
+38,dramatic,"연극의, 극적인"
+38,intense,강렬한
+38,propaganda,"선전 활동, 선전"
+39,numerous,"다수의, 수많은"
+39,shiver,떨림; 떨다
+39,retarded,(정서.지능.학력 등의) 발달이 뒤진
+39,belonging,"(pl.) 소유물, 소지품"
+39,improvise,"즉흥적으로 하다, 즉석에서 하다"
+39,executive,"집행의, 경영의; 임원, 경영진"
+39,chaos,"혼돈, 무질서"
+39,microscope,현미경
+39,ongoing,"계속되는, 진행 중인"
+39,vulnerable,"취약한, 상처 입기 쉬운"
+39,implication,"함축, 암시"
+39,alley,"오솔길, 골목길"
+39,authentic,"진짜의, 진정한"
+39,compel,"강요하다, ~하게 만들다"
+39,transition,"변천, 과도기"
+39,mobility,"이동성, 가동성"
+39,incline,"내키게 하다, 기울이다; 경사"
+39,attain,달성하다
+39,innate,"천부적인, 본질적인"
+39,ingenuity,"솜씨, 독창력"
+39,upset,"마음이 상한, 당황한; 뒤엎다; 전복, 혼란"
+39,stretch,"늘이다, 뻗다; 신축성"
+39,seize,"붙잡다, 포착하다, 이해하다"
+39,screw,나사; 나사로 고정하다
+39,shelter,"피난하다, 보호하다; 피난처"
+39,province,"(행정 단위인) 주[도], 분야, 영역"
+39,coordinate,조정하다; 동등한
+39,deficient,"부족한, 불완전한"
+39,privilege,특권; 특권을 주다
+39,preview,"미리 보기, 예고편, 시사회"
+39,slogan,"선전 문구, 슬로건"
+39,savage,"야만적인, 잔인한; 야만인"
+39,throughout,"(장소의) 도처에, (시간의) 처음부터 끝까지"
+39,outlaw,"금지하다, 법적으로 무효화하다; 무법자"
+39,squeeze,짜내다
+39,breakthrough,"비약적 발전, 돌파, 타개"
+39,consent,"동의, 허락; 동의하다"
+39,orphan,고아
+39,negotiate,협상하다
+39,nuisance,"귀찮은 사람, 성가신 것"
+40,recipe,"조리법, 비법"
+40,deceive,속이다
+40,sweep,"휩쓸다, 청소하다"
+40,profile,"옆모습, 인물 소개"
+40,enterprise,"기업, 사업"
+40,successive,"연속되는, 상속의"
+40,paradox,"역설, 패러독스"
+40,surpass,능가하다
+40,correlation,"상관관계, 상호 관련"
+40,magnitude,"거대함, 중요성, (지진의) 진도"
+40,aesthetics,미학
+40,earnest,진지한; 진심
+40,tremble,떨다
+40,slaughter,"도살하다; 도살, 대학살"
+40,surrender,"넘겨주다, 포기하다, 항복하다"
+40,philosophy,철학
+40,deplete,"고갈시키다, 격감시키다"
+40,admire,"감탄하다, 높이 평가하다"
+40,starvation,"아사, 기아, 궁핍"
+40,summon,"소집하다, 소환하다"
+40,afford,~할 여유가 있다
+40,blunt,"무뚝뚝한, 퉁명스러운, 둔감한, 무딘"
+40,sprint,"단거리 경주, 전력 질주; 전력 질주하다"
+40,passerby,"통행인, 지나가는 사람"
+40,tense,"팽팽한, 긴장한; 긴장시키다"
+40,boil,"끓다, 삶다"
+40,timber,목재
+40,collaborate,협력하다
+40,stance,"서 있는 자세, 태도"
+40,blow,"불다, 바람에 날리다"
+40,ballot,"투표, 투표용지; 투표하다"
+40,resilience,회복력
+40,acquaintance,"아는 사이, 교제"
+40,amplify,"확대하다, 증폭시키다"
+40,contradict,"부정하다, 반박하다, 모순되다"
+40,burst,"터지다, 터뜨리다, 꽉 차다; 파열, 폭발"
+40,cast,"내던지다, 보내다, 드리우다"
+40,falsify,"잘못을 입증하다, 위조하다"
+40,psychic,"초능력이 있는, 초자연적인; 무당, 영매"
+40,paddle,노; 노를 젓다
+41,steer,"조종하다, 인도하다"
+41,affection,"애정, 감정"
+41,bid,"말하다, 명령하다, 입찰하다; 입찰"
+41,compost,"혼합물, 퇴비"
+41,temperament,"기질, 성질"
+41,rent,임대하다; 집세
+41,shred,"갈기갈기 찢다, 째다"
+41,unpredictable,예측할 수 없는
+41,tribute,"감사[존경]의 표시, 증정물, 진상품, 조세"
+41,artery,"동맥, 간선 도로"
+41,inherent,"내재하는, 타고난, 고유의"
+41,harass,"괴롭히다, 희롱하다, 침략하다"
+41,narrative,"(실제의) 이야기, 서술; 이야기의"
+41,assemble,"모으다, 조립하다, 소집하다"
+41,spike,대못; 대못을 박다
+41,sneak,"살금살금 움직이다, 몰래 움직이다"
+41,sophisticated,"세련된, 정교한"
+41,territory,"영토, 영역"
+41,enlightenment,"계몽, 개화, 깨달음"
+41,cosmetic,화장품; 미용의
+41,gracious,"상냥한, 우아한"
+41,aspire,"열망하다, 동경하다"
+41,obstruct,"막다, 방해하다"
+41,patrol,"순찰, 순찰병; 순찰하다"
+41,accelerate,"가속하다, 촉진하다"
+41,heatstroke,"일사병, 열사병"
+41,oval,"달걀 모양의, 타원형의; 타원체"
+41,veteran,"경험이 많은; 베테랑, 퇴역 군인"
+41,trail,"오솔길, 자국"
+41,vocation,"직업, 천직"
+41,vegetarian,"채식주의자; 채식주의자의, 채식의"
+41,decode,(암호를) 해독하다
+41,fellow,"사나이, 동료; 동료의"
+41,mandate,"명령하다, 위임하다; 명령, 위임"
+41,perish,"죽다, 소멸하다"
+41,inseparable,"불가분의, 떼어 낼 수 없는"
+41,domain,"영역, 영토, 분야"
+41,statesman,정치가
+41,connotation,"함축, 내포"
+41,stereotype,"인습, 고정 관념, 연판 인쇄"
+42,hollow,"속이 빈, 오목한; 움푹한 곳"
+42,structural,"구조(상)의, 조직(상)의"
+42,mortgage,"저당, 주택 융자, (담보) 대출"
+42,inject,"주사하다, 도입하다"
+42,crisis,"위기, 중대 국면"
+42,painkiller,진통제
+42,illuminate,"밝게 비추다, 계몽하다, 설명하다"
+42,mimic,"모방하다; 흉내를 잘 내는, 모조의"
+42,unearth,"발굴하다, 발견하다"
+42,wail,울부짖다; 울부짖음
+42,lessen,줄(이)다
+42,stride,"성큼성큼 걷다; 성큼성큼 걷기, 진보, 발전"
+42,applicant,"신청자, 지원자"
+42,disprove,"오류를 증명하다, 논박하다"
+42,disturb,"방해하다, 어지럽히다, 혼란케 하다"
+42,hemisphere,"반구체, (지구.천체의) 반구"
+42,recur,"재발하다, 되풀이하다"
+42,elastic,"탄력 있는, 융통성 있는"
+42,counterpart,"상대, 대응하는 것[사람]"
+42,stubborn,"완고한, 고집이 센"
+42,suicide,자살; 자살하다
+42,lure,유혹하다; 매력
+42,indigenous,"토착의, 원산의"
+42,morale,"사기, 의욕"
+42,examine,"검사하다, 진찰하다"
+42,compromise,타협하다; 타협
+42,yearn,"그리워하다, 열망하다"
+42,precaution,"조심, 예방 조치"
+42,torture,고문; 고문하다
+42,entrust,"위임하다, 위탁하다"
+42,sway,흔들림; 흔들리다
+42,religious,"종교(상)의, 종교적인"
+42,obligation,"의무, 계약, 채무"
+42,pest,"해충, 역병, 귀찮은 것"
+42,foremost,"주요한, 으뜸가는"
+42,incorporate,"법인회사로 만들다, 통합시키다"
+42,regime,"정권, 제도"
+42,terminate,"끝내다, 종결짓다"
+42,rebel,반역자; 반역[반란]을 일으키다
+42,meanwhile,"한편, 그동안에"
+43,folklore,"민속, 민속 신앙, 신화"
+43,vast,"막대한, 광대한"
+43,preliminary,"예비의, 임시의; 예선, 사전 준비"
+43,theft,"도둑질, (야구) 도루"
+43,proliferation,"증식, 급증, 확산"
+43,amend,"수정하다, 고치다"
+43,recess,"휴식, 휴업, 구석진 곳"
+43,exploit,"(부당하게) 이용하다, 착취하다; 위업"
+43,autonomy,"자치(권), 자율"
+43,outfit,"옷[복장], 장비; 공급하다, 준비하다"
+43,mourn,"슬퍼하다, 애도하다"
+43,evoke,"일깨우다, 이끌어 내다"
+43,burden,"짐, 부담; ~에게 짐을 지우다"
+43,latitude,"(지리) 위도, 위선"
+43,patch,"(조그만) 부분, 헝겊 조각, 좁은 땅"
+43,maternal,"어머니의, 모계의, 모국어의"
+43,pharmacy,"약국, 약학"
+43,marine,"해양의, 바다의"
+43,prestigious,"명망 있는, 고급의, 일류의"
+43,friction,"마찰, 의견 충돌"
+43,defend,"방어하다, 수비하다"
+43,fraud,"사기, 속임, 사기꾼"
+43,easygoing,"태평스러운, 안이한"
+43,insomnia,불면증
+43,intermediate,중간의; 중간물
+43,shatter,산산이 부서지다; 파편
+43,paradigm,"패러다임, 이론적 틀"
+43,charge,"요금을 청구하다, 채우다"
+43,rapid,"빠른, 신속한"
+43,premature,"조숙한, 조산한, 시기상조의"
+43,pollute,"오염시키다, 더럽히다"
+43,altruism,이타주의
+43,fiber,섬유(질)
+43,irony,"반어법, 아이러니"
+43,spectator,"관객, 구경꾼"
+43,medieval,중세의
+43,analogy,"유추, 유사점"
+43,snatch,"잡아채다, 날치기하다"
+43,anthropology,인류학
+43,outline,"개요를 말하다, 윤곽을 보여 주다; 개요, 윤곽"
+44,equivalent,"동등한, 상당하는"
+44,composure,"침착, 평정"
+44,incurable,"불치의, 구제 불능의; 불치 환자"
+44,parallel,"평행의, 유사한; 평행선; 유사하다"
+44,indulge,"탐닉하다, 충족하다, 제멋대로 하게 하다"
+44,meadow,"목초지, 초원"
+44,venture,"모험, 벤처 기업; 모험하다"
+44,deflect,"빗나가다, 빗나가게 하다, 막다"
+44,adorable,"귀여운, 사랑스러운"
+44,complacent,"(스스로) 만족해하는, 현실에 안주하는"
+44,explicit,"명백한, 분명한"
+44,sturdy,"견고한, 강건한"
+44,primate,영장류
+44,patron,"후원자, 단골손님, 고객"
+44,endure,"참다, 인내하다, 견디다"
+44,manifest,"명백하게 하다, 증명하다; 명백한"
+44,imperial,"제국의, 황제의"
+44,duration,"지속, 지속 기간"
+44,populate,거주시키다
+44,frugal,"검소한, 절약하는"
+44,aristocrat,귀족
+44,rejoice,크게 기뻐하다
+44,comprise,"포함하다, 구성하다"
+44,textile,"직물의, 방직의; 직물"
+44,lurk,"숨다, 잠복하다"
+44,humanity,"인류, 인간성, 인간애"
+44,approximate,(수량 등이) ~에 가까워지다; 대략의
+44,revenge,복수; 복수하다
+44,sarcastic,"비꼬는, 풍자적인"
+44,terrain,"지형, 지역, 분야, 범위"
+44,toll,"사용세, 통행료; 요금으로 징수하다"
+44,warfare,"전쟁, 교전 상태"
+44,mortal,"죽을 운명의, 치명적인"
+44,spouse,배우자
+44,crispy,"바삭바삭한, 부서지기 쉬운"
+44,statistical,"통계적인, 통계(학)상의"
+44,rubbish,"쓰레기, 폐기물"
+44,stimulus,"자극, 격려"
+44,clumsy,"어색한, 서투른"
+44,subsequent,"그 후의, ~에 이어 일어나는"
+45,relevant,"관련이 있는, 적절한"
+45,predator,"포식자, 약탈자, 육식 동물"
+45,drain,"물을 빼내다, 소모시키다"
+45,countless,"셀 수 없는, 무수한"
+45,condense,"농축하다, 요약하다"
+45,post,(벽 따위에) 붙이다; 우편
+45,poise,"균형을 잡다; 균형, 평정"
+45,disciple,"제자, 문하생"
+45,gust,"돌풍, 질풍"
+45,collective,"집합적인, 집단적인; 집단"
+45,scope,"(관찰.활동의) 범위, 시야; 조사하다"
+45,compatible,"양립할 수 있는, 모순이 없는"
+45,border,"가장자리, 국경; 접하다"
+45,frontier,"국경; 국경의, 최첨단의"
+45,withhold,"억누르다, 억제하다, 보류하다"
+45,verdict,"판결, 결정"
+45,stall,"마구간, 우리, 핑계; 핑계를 대다"
+45,apparatus,"장치, 기구, 조직"
+45,hail,"싸락눈, 우박; 우박이 내리다"
+45,outburst,"분출, 폭발"
+45,vanity,"허영심, 허무함"
+45,firsthand,"직접, 바로; 직접의"
+45,obesity,"(병적인) 비만, 비대"
+45,dilemma,"진퇴양난, 딜레마, 궁지"
+45,render,"~이 되게 하다, 주다, 표현하다"
+45,indispensable,필수 불가결한; 없어서는 안 될 것
+45,outdated,"시대에 뒤진, 구식의"
+45,bother,"일부러 ~하다, 괴롭히다"
+45,counteract,"(효력을) 중화시키다, 약화시키다"
+45,static,"정적인, 고정된"
+45,sustain,"지탱하다, 유지하다"
+45,posture,"태도, 자세"
+45,discourse,"담화, 강연"
+45,bribe,뇌물; 뇌물을 주다
+45,juggle,"잘 처리하다, 저글링하다"
+45,perspiration,"땀, 노력"
+45,retention,"보유, 기억(력)"
+45,outrage,"화나게 하다; 분노, 화"
+45,distress,"고민, 고통; 괴롭히다"
+45,nursery,"육아실, 탁아소, 양성소"
+46,encircle,"에워싸다, 둘러싸다"
+46,notion,"개념, 의견"
+46,disgust,혐오감; 역겹게 하다
+46,fragment,"일부분, 부서진 조각"
+46,oversee,"감독하다, 감시하다"
+46,creep,"기다, (덩굴 등이) 얽히다; 포복, 서행"
+46,clarify,"분명히 하다, 명료하게 하다"
+46,contagious,"전염성의, 감염성의"
+46,deterioration,"악화, (가치의) 하락"
+46,currency,"통화, 통용"
+46,janitor,"문지기, 관리인, 잡역부"
+46,blush,"얼굴을 붉히다, 부끄러워하다"
+46,intervene,"사이에 끼어들다, 개입하다, 방해하다"
+46,nomad,"유목민, 방랑자"
+46,cuisine,"(독특한) 요리, 요리법"
+46,dare,감히 ~하다
+46,solvent,"용해력이 있는, 지불 능력이 있는; 용제"
+46,cultivate,"경작하다, 양성하다, 계발하다"
+46,ascent,"상승, 오름"
+46,advocate,"옹호자, 지지자; 지지하다"
+46,spur,"박차, 자극(제); 박차를 가하다"
+46,discern,"식별하다, 분별하다, 인식하다"
+46,scheme,"계획, 체계; 계획하다"
+46,weigh,무게를 달다
+46,publicity,"널리 알려짐, 명성, 광고, 선전"
+46,declare,"선포하다, 선언하다"
+46,brisk,"활발한, 번창하는, 상쾌한"
+46,exile,"망명, 망명자; 망명시키다"
+46,whisper,속삭이다; 속삭임
+46,unanimous,"만장일치의, 합의의"
+46,deviation,"변경, 일탈"
+46,dissolve,"용해하다, 해산하다, 해소하다"
+46,constraint,"강제, 압박, 거북스러움"
+46,itch,"가려움, (~하고 싶은) 욕구; 가렵다, (~하고 싶어) 못 견디다"
+46,fling,"내던지다, 돌진하다"
+46,delude,"속이다, 착각하게 하다"
+46,dehydrate,"탈수하다, 건조시키다"
+46,underneath,"~의 아래에, 밑에"
+46,metabolism,"물질대사, 신진대사"
+46,appoint,"임명[지명]하다, (시간.장소를) 정하다"
+47,pinch,"꼬집다, 집다, 괴롭히다"
+47,punctual,"시간을 지키는, 기한을 지키는"
+47,arbitrary,"임의적인, 독단적인"
+47,catastrophe,"대참사, 큰 재앙"
+47,exert,"(힘.지식 등을) 쓰다, 발휘하다"
+47,aviate,"비행하다, (비행기를) 조종하다"
+47,headquarters,본부 (단수 취급)
+47,rectangular,"직사각형의, 직각의"
+47,delegate,"파견하다; 사절, 대표"
+47,elect,선출하다
+47,thorn,"가시, 괴로움의 원인"
+47,empathize,"공감하다, 감정 이입을 하다"
+47,expertise,전문 지식[기술]
+47,renovate,"새롭게 하다, 수리하다"
+47,wrench,"렌치(너트를 죄는 기구), 비틀기; 비틀다, 삐다"
+47,interval,"간격, 틈"
+47,degrade,"저하시키다, 강등시키다, 분해하다"
+47,retort,"반박, 말대꾸; 반박하다, 말대꾸하다"
+47,shudder,"떨다, 몸서리치다"
+47,realm,"왕국, 영역"
+47,segment,"부문, 부분; 분할하다"
+47,coexist,공존하다
+47,hospitality,"환대, 후한 대접"
+47,estate,"소유지, 재산"
+47,displace,"옮겨 놓다, 대신하다, 쫓아내다"
+47,cripple,불구로 만들다; 지체 부자유자
+47,drawback,"문제점, 장애"
+47,tactics,"방안, 전술"
+47,dread,공포; 무서워하다
+47,dispute,"논쟁, 분쟁; 토의하다"
+47,console,위로하다
+47,stack,"더미, 쌓아올림, (도서관의) 서가; 쌓다, 쌓이다"
+47,cynical,"냉소적인, 비꼬는"
+47,reprove,"꾸짖다, 책망하다"
+47,verify,"검증하다, 입증하다"
+47,engross,열중하게 하다
+47,bulk,"크기, 부피, 대부분"
+47,despise,경멸하다
+47,manuscript,"손으로 쓴 것, 필사본, 원고"
+47,flee,"달아나다, 도망치다"
+48,prehistoric,선사 시대의
+48,barrel,"통, (석유) 1배럴"
+48,predecessor,"앞서 있었던 것, 선배, 전임자"
+48,alienate,"소외시키다, 멀리하다"
+48,proclaim,"선언하다, 증명하다"
+48,subordinate,"하급의, 부차적인; 하급자; 경시하다"
+48,furnish,"(필요한 것을) 제공하다, 갖추다"
+48,fume,연기; 연기 나다
+48,staple,주요한; 주요 산물
+48,dimension,"크기, 치수, 규모, 차원"
+48,dispersal,"분산, 확산"
+48,eloquent,"웅변의, 표현이 풍부한"
+48,innermost,가장 깊숙한; 가장 깊은 부분
+48,hazardous,"위험한, 모험적인"
+48,skull,두개골
+48,detergent,세제
+48,brutal,"야만적인, 짐승 같은, 잔혹한"
+48,rash,"발진, 뾰루지; 무분별한, 성급한"
+48,bypass,우회하다; 우회로
+48,dispense,"나누어 주다, 내놓다"
+48,tact,"재치, 기지"
+48,monotonous,"단조로운, 지루한"
+48,perpetual,"영구의, 끊임없는"
+48,eligible,적격의; 적임자
+48,legacy,유산
+48,melancholy,우울한; 우울함
+48,simplicity,"간단, 단순, 소박"
+48,hierarchy,"계급(제), 위계"
+48,overload,"과부하, 과적; 과중하게 부담시키다, 과적하다"
+48,enact,"법제화하다, 제정하다"
+48,burnout,"극도의 피로, 쇠진, 연소 종료"
+48,legitimate,"타당한, 정당한, 합법의"
+48,shuffle,"질질 끌며 걷다, 뒤섞다"
+48,summarize,요약하다
+48,eject,"쫓아내다, 배출하다"
+48,intersection,"교차(로), 횡단"
+48,quest,"탐색, 탐구"
+48,linear,"직선의, 길이의, 1차(원)의"
+48,landslide,"산사태, 압도적인 승리"
+48,plausible,"그럴듯한, 말재주 있는"
+49,endow,"부여하다, 기부하다"
+49,extrinsic,"외적인, 비본질적인"
+49,merge,"합병하다, 차차 변하다"
+49,frantic,"광란의, 미친"
+49,moan,"신음; 신음하다, 불평하다"
+49,merchandise,(집합적) 상품
+49,respectively,"각각, 저마다"
+49,subdue,"정복하다, 진압하다, 완화하다"
+49,conviction,"확신, 유죄 판결"
+49,stout,"뚱뚱한, (옷 등이) 튼튼한"
+49,reckon,"세다, 계산하다, 생각하다"
+49,enchant,"매혹하다, ~에 마법을 걸다"
+49,entail,"수반하다, 의미하다, 필요로 하다"
+49,demolish,"파괴하다, 폐지하다"
+49,degenerate,"퇴보하다, 타락하다"
+49,sentiment,"감상, 정서"
+49,offspring,"자식, 새끼, 성과"
+49,detest,"혐오하다, 미워하다"
+49,tackle,"(일.문제를) 다루다; 도구, (축구의) 태클"
+49,defy,"물리치다, (공공연히) 반항하다, 무시하다"
+49,inference,추론
+49,refraction,(빛.소리 따위의) 굴절
+49,dusk,"땅거미, 어스름"
+49,detach,"떼어 내다, 분리하다"
+49,antagonist,"적대자, 라이벌"
+49,thrust,"밀다, 밀치다"
+49,creed,"신념, (종교의) 교의"
+49,equate,"동일시하다, 일치하다"
+49,misplace,잘못 두다
+49,auditory,"귀의, 청각의"
+49,missionary,선교사
+49,cosmopolitan,"세계적인, 세계주의의; 세계인, 국제인"
+49,secondhand,"중고의, 간접적인"
+49,multiple,"복합적인, 다수의, 다양한; (수학) 배수"
+49,embed,"깊숙이 박다, 깊이 간직하다"
+49,propel,"나아가게 하다, 추진하다"
+49,reptile,파충류
+49,erosion,"부식, 침식"
+49,feat,"위업, 공적"
+49,utensil,"가정용품, 기구, 도구"
+50,penetrate,"침투하다, 꿰뚫다"
+50,intrude,"방해하다, 침범하다"
+50,notable,"주목할 만한, 유명한"
+50,grumble,"불평하다, 으르렁거리다; 불평"
+50,landfill,쓰레기 매립지
+50,scrutiny,(면밀한) 조사
+50,reckless,"부주의한, 무모한"
+50,synthetic,(화학) 합성의
+50,productive,"생산적인, 다산의"
+50,outset,"착수, 시작"
+50,peril,"위험, 위기"
+50,rage,격노
+50,kidnap,유괴; 납치하다
+50,liable,"책임이 있는, ~할 것 같은, ~하기 쉬운"
+50,insane,"정신 이상의, 비상식적인"
+50,pitfall,"함정, 위험"
+50,radius,반지름
+50,hybrid,"혼합, 잡종"
+50,uncover,"폭로하다, (비밀 등을) 알아내다"
+50,limb,"사지, 팔다리"
+50,setback,"좌절, 차질"
+50,prudent,"신중한, 빈틈없는"
+50,solidify,"굳어지다, 굳히다, 확고히 하다"
+50,grudge,"원한, 유감"
+50,transcend,초월하다
+50,tangle,"얽히게 하다, 혼란시키다"
+50,subsidy,"보조금, 장려금"
+50,ambiguous,"애매모호한, 두 가지 뜻으로 해석 가능한"
+50,enthusiasm,"열광, 열정, 열의"
+50,bankruptcy,파산
+50,pollination,(식물) 수분 (작용)
+50,prosper,"번영하다, 번창하다"
+50,phase,"단계, 상, 면, 양상"
+50,veterinarian,수의사
+50,counterattack,"반격, 역습; 반격하다, 역습하다"
+50,cumulative,"누적되는, 점증적인"
+50,infrastructure,"사회 기반 시설, (단체 등의) 하부 조직[구조]"
+50,wound,부상을 입히다; 부상
+50,discrete,"분리된, 별개의"
+50,fluctuation,"변동, 오르내림, 요동"
