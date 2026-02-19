@@ -1388,12 +1388,12 @@
         }
 
         // 단어장 선택
-        // 단어장 선택
+        // 단어장 선택 (기존 UI 유지 및 데이터 연결)
         async function selectTextbook(textbookName) {
             currentTest.selectedTextbook = textbookName;
             updateSelectedTextbook();
             
-            // 1. 선택한 단어장의 데이터(ID, Day 수) 찾기
+            // 1. 선택한 단어장의 ID와 총 Day 수 찾기
             let textbookId = '';
             let totalDays = 0;
             
@@ -1405,11 +1405,22 @@
                 }
             }
 
-            // 2. 서버에서 데이터 로드 (핵심 연결 고리)
+            // 2. 서버에서 데이터 불러오기
             if (textbookId) {
                 const words = await loadWordsFromCSV(textbookId);
                 wordData[textbookId] = words;
             }
+
+            // 3. UI 정리 및 Day 목록 생성 (원장님 기존 함수 활용)
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('searchInput').value = '';
+            closeAllDropdowns();
+
+            // 원장님 앱의 기존 함수를 호출해서 Day 1~40을 그립니다.
+            generateDayCheckboxes(totalDays); 
+            updateSelectedRange();
+            updateStartButton();
+        }
 
             // 3. 기존 UI 정리 및 업데이트 (원장님 기존 함수 활용)
             document.getElementById('searchResults').style.display = 'none';
