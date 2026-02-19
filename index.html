@@ -1572,7 +1572,7 @@
                 });
             });
 
-            const words = wordData[textbookId] || wordData.wordmaster_2000_2022; // 기본값
+            const words = wordData[textbookId] || []; // 기본값
             const availableWords = words.filter(w => currentTest.selectedDays.includes(w.day));
             
             if (availableWords.length < 30) {
@@ -1631,7 +1631,7 @@
                 });
             });
 
-            const words = wordData[textbookId] || wordData.wordmaster_2000_2022; // 기본값
+            const words = wordData[textbookId] || []; // 기본값
             const availableWords = words.filter(w => currentTest.selectedDays.includes(w.day));
             
             if (availableWords.length < 30) {
