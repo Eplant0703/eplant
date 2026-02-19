@@ -1880,31 +1880,41 @@
 
         // CSV 파일 로드 함수 (향후 확장용)
         async function loadWordsFromCSV(fileName) {
-            try {
-                const response = await fetch(`./data/${fileName}.csv`);
-                const csvText = await response.text();
-                
-                const lines = csvText.split('\n');
-                const words = [];
-                
-                for (let i = 1; i < lines.length; i++) {
-                    const line = lines[i].trim();
-                    if (line) {
-                        const [day, english, korean] = line.split(',');
-                        words.push({
-                            day: parseInt(day),
-                            english: english.trim(),
-                            korean: korean.trim()
-                        });
-                    }
+    try {
+        // 1. JSON 파일(wordmaster_middle_2022)일 때 처리
+        if (fileName === "wordmaster_middle_2022") {
+            const response = await fetch(`https://raw.githubusercontent.com/Eplant0703/eplant/refs/heads/main/wordmaster_middle_2022.jso`);
+            const data = await response.json();
+            
+            // 앱이 인식할 수 있게 Day 1, Word, Meaning 형식으로 변환해서 반환합니다.
+            return data.words.map(item => ({
+                day: item.lesson.replace('Day ', ''), // "Day 1" -> "1"
+                english: item.word,
+                korean: item.meaning
+            }));
+        } 
+        
+        // 2. 그 외 기존 CSV 파일들 처리 (원래 코드 그대로 유지)
+        const response = await fetch(`./data/${fileName}.csv`);
+        const csvText = await response.text();
+        const lines = csvText.split('\n');
+        const words = [];
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (line) {
+                const parts = line.split(',');
+                if (parts.length >= 3) {
+                    words.push({
+                        day: parts[0].trim(),
+                        english: parts[1].trim(),
+                        korean: parts[2].trim()
+                    });
                 }
-                
-                return words;
-            } catch (error) {
-                console.error('CSV 파일 로딩 오류:', error);
-                return [];
             }
         }
-    </script>
-</body>
-</html>
+        return words;
+    } catch (error) {
+        console.error("데이터 로딩 중 오류 발생:", error);
+        return [];
+    }
+}
