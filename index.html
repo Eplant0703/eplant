@@ -1395,16 +1395,16 @@
 
         // 단어장 선택
         // 2. 단어장 선택 시 깃허브 데이터 로딩 연동
-        async function selectTextbook(textbookName) {
+       async function selectTextbook(textbookName) {
             currentTest.selectedTextbook = textbookName;
             updateSelectedTextbook();
             
-            // 검색 결과 숨기기 및 드롭다운 닫기
+            // 검색창 닫기
             document.getElementById('searchResults').style.display = 'none';
             document.getElementById('searchInput').value = '';
             closeAllDropdowns();
 
-            // 단어장 ID 추출 (예: wordmaster_middle_2022)
+            // 단어장 ID 찾기
             let textbookId = '';
             for (const cat in allTextbooks) {
                 if (allTextbooks[cat][textbookName]) {
@@ -1412,6 +1412,23 @@
                 }
             }
 
+            // 데이터가 없으면 깃허브에서 가져오기
+            if (textbookId && !wordData[textbookId]) {
+                const startBtn = document.getElementById('startTest');
+                const originalText = startBtn.innerHTML;
+                startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 단어 로딩 중...';
+                startBtn.disabled = true;
+
+                // 맨 아래 있는 loadWordsFromCSV 함수를 호출해서 데이터를 채웁니다.
+                wordData[textbookId] = await loadWordsFromCSV(textbookId);
+                
+                startBtn.innerHTML = originalText;
+            }
+
+            generateDayCheckboxes();
+            updateSelectedRange();
+            updateStartButton();
+        }
             // 데이터가 없으면 로딩 시작
             if (textbookId && !wordData[textbookId]) {
                 const startBtn = document.getElementById('startTest');
