@@ -993,24 +993,20 @@
         let favorites = JSON.parse(localStorage.getItem('vocaAIFavorites') || '[]');
 
         // 단어장 데이터
-        const allTextbooks = {
-            // 중등교과서 카테고리
-            middle: {
-                // 여기에 CSV 파일이 생기면 예시처럼 추가하세요: '이름': { id: '파일명', days: 20 },
-            },
-            // 고등교과서 카테고리
-            high: {
-            },
-            // 모의고사 카테고리
-            mock: {
-            },
-            // 시중단어장 카테고리
+     const allTextbooks = {
+            // 중등교과서
+            middle: {},
+            // 고등교과서
+            high: {},
+            // 모의고사
+            mock: {},
+            // 시중단어장 (여기에 원장님 단어장이 들어갑니다)
             commercial: {
                 '워드마스터 중등 실력 (2022년)': { id: 'wordmaster_middle_2022', days: 40 }
             }
         };
 
-        // 가짜 샘플 데이터는 비워둡니다.
+        // 샘플 단어 데이터 (이제 깃허브에서 가져오므로 여기는 비워둡니다)
         const wordData = {};
 
         // 효과음 시스템
