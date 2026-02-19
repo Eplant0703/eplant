@@ -1254,18 +1254,18 @@
             ).join('');
         }
 
-        function toggleDropdown(category) {
+       function toggleDropdown(category) {
             const dropdown = document.getElementById(category + 'Dropdown');
+            const button = document.querySelector(`[data-category="${category}"]`);
             const isAlreadyOpen = dropdown.style.display === 'block';
             
-            // 1. 일단 열려있는 모든 메뉴를 다 닫습니다.
+            // 일단 모든 드롭다운을 닫아서 정리합니다.
             closeAllDropdowns();
             
-            // 2. 만약 아까 닫혀있던 메뉴였다면, 이제 '진짜로' 열어줍니다.
+            // 만약 방금 누른 게 닫혀있던 거라면 열어줍니다.
             if (!isAlreadyOpen) {
                 dropdown.style.display = 'block';
-                const button = document.querySelector(`[data-category="${category}"]`);
-                if (button) button.classList.add('active');
+                button.classList.add('active');
             }
         }
 
