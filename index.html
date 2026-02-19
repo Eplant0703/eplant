@@ -1394,18 +1394,44 @@
         }
 
         // 단어장 선택
-        function selectTextbook(textbookName) {
+        // 2. 단어장 선택 시 깃허브 데이터 로딩 연동
+        async function selectTextbook(textbookName) {
             currentTest.selectedTextbook = textbookName;
             updateSelectedTextbook();
             
-            // 검색 결과 숨기기
             document.getElementById('searchResults').style.display = 'none';
             document.getElementById('searchInput').value = '';
-
-            // 드롭다운 닫기
             closeAllDropdowns();
 
-            // Day 체크박스 업데이트
+            // 단어장 ID 찾기
+            let textbookId = '';
+            Object.values(allTextbooks).forEach(category => {
+                Object.entries(category).forEach(([name, data]) => {
+                    if (name === textbookName) textbookId = data.id;
+                });
+            });
+
+            // 데이터가 없으면 깃허브에서 가져오기
+            if (textbookId && !wordData[textbookId]) {
+                const startBtn = document.getElementById('startTest');
+                startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 로딩 중...';
+                startBtn.disabled = true;
+
+                try {
+                    // 원장님의 깃허브 주소에서 JSO 파일 호출
+                    const response = await fetch(`https://raw.githubusercontent.com/Eplant0703/eplant/refs/heads/main/${textbookId}.jso`);
+                    const data = await response.json();
+                    wordData[textbookId] = data.words.map(item => ({
+                        day: parseInt(item.lesson.replace(/[^0-9]/g, '')),
+                        english: item.word.trim(),
+                        korean: item.meaning.trim()
+                    }));
+                } catch (error) {
+                    console.error("데이터 로드 실패:", error);
+                    alert("데이터를 불러오지 못했습니다.");
+                }
+            }
+
             generateDayCheckboxes();
             updateSelectedRange();
             updateStartButton();
