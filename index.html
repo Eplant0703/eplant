@@ -1399,44 +1399,36 @@
             currentTest.selectedTextbook = textbookName;
             updateSelectedTextbook();
             
+            // 검색 결과 숨기기 및 드롭다운 닫기
             document.getElementById('searchResults').style.display = 'none';
             document.getElementById('searchInput').value = '';
             closeAllDropdowns();
 
-            // 단어장 ID 찾기
+            // 단어장 ID 추출 (예: wordmaster_middle_2022)
             let textbookId = '';
-            Object.values(allTextbooks).forEach(category => {
-                Object.entries(category).forEach(([name, data]) => {
-                    if (name === textbookName) textbookId = data.id;
-                });
-            });
+            for (const cat in allTextbooks) {
+                if (allTextbooks[cat][textbookName]) {
+                    textbookId = allTextbooks[cat][textbookName].id;
+                }
+            }
 
-            // 데이터가 없으면 깃허브에서 가져오기
+            // 데이터가 없으면 로딩 시작
             if (textbookId && !wordData[textbookId]) {
                 const startBtn = document.getElementById('startTest');
-                startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 로딩 중...';
+                const originalText = startBtn.innerHTML;
+                startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 단어 로딩 중...';
                 startBtn.disabled = true;
 
-                try {
-                    // 원장님의 깃허브 주소에서 JSO 파일 호출
-                    const response = await fetch(`https://raw.githubusercontent.com/Eplant0703/eplant/refs/heads/main/${textbookId}.jso`);
-                    const data = await response.json();
-                    wordData[textbookId] = data.words.map(item => ({
-                        day: parseInt(item.lesson.replace(/[^0-9]/g, '')),
-                        english: item.word.trim(),
-                        korean: item.meaning.trim()
-                    }));
-                } catch (error) {
-                    console.error("데이터 로드 실패:", error);
-                    alert("데이터를 불러오지 못했습니다.");
-                }
+                // 깃허브에서 데이터 가져오기 (원장님이 아래에 만드신 loadWordsFromCSV 활용)
+                wordData[textbookId] = await loadWordsFromCSV(textbookId);
+                
+                startBtn.innerHTML = originalText;
             }
 
             generateDayCheckboxes();
             updateSelectedRange();
             updateStartButton();
         }
-
         function updateSelectedTextbook() {
             const selectedSpan = document.getElementById('selectedTextbook');
             if (currentTest.selectedTextbook) {
