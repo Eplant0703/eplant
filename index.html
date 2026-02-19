@@ -994,132 +994,24 @@
 
         // 단어장 데이터
         const allTextbooks = {
-            // 중등교과서
+            // 중등교과서 카테고리
             middle: {
-                '중1 천재교육 (이재영)': { id: 'middle_1_chunjae_lee', days: 20 },
-                '중1 동아출판 (윤정미)': { id: 'middle_1_donga_yoon', days: 18 },
-                '중1 비상교육 (김진완)': { id: 'middle_1_bisang_kim', days: 16 },
-                '중2 천재교육 (이재영)': { id: 'middle_2_chunjae_lee', days: 22 },
-                '중2 동아출판 (윤정미)': { id: 'middle_2_donga_yoon', days: 20 },
-                '중2 비상교육 (김진완)': { id: 'middle_2_bisang_kim', days: 18 },
-                '중3 천재교육 (이재영)': { id: 'middle_3_chunjae_lee', days: 24 },
-                '중3 동아출판 (윤정미)': { id: 'middle_3_donga_yoon', days: 22 },
-                '중3 비상교육 (김진완)': { id: 'middle_3_bisang_kim', days: 20 }
+                // 여기에 CSV 파일이 생기면 예시처럼 추가하세요: '이름': { id: '파일명', days: 20 },
             },
-            // 고등교과서
+            // 고등교과서 카테고리
             high: {
-                '고1 천재교육 (이재영)': { id: 'high_1_chunjae_lee', days: 30 },
-                '고1 동아출판 (권혁승)': { id: 'high_1_donga_kwon', days: 28 },
-                '고1 비상교육 (홍민표)': { id: 'high_1_bisang_hong', days: 26 },
-                '고1 YBM (박준언)': { id: 'high_1_ybm_park', days: 32 },
-                '고2 천재교육 (이재영)': { id: 'high_2_chunjae_lee', days: 35 },
-                '고2 동아출판 (권혁승)': { id: 'high_2_donga_kwon', days: 33 },
-                '고2 비상교육 (홍민표)': { id: 'high_2_bisang_hong', days: 31 },
-                '고2 YBM (박준언)': { id: 'high_2_ybm_park', days: 37 },
-                '고3 천재교육 (이재영)': { id: 'high_3_chunjae_lee', days: 40 },
-                '고3 동아출판 (권혁승)': { id: 'high_3_donga_kwon', days: 38 },
-                '고3 비상교육 (홍민표)': { id: 'high_3_bisang_hong', days: 36 },
-                '고3 YBM (박준언)': { id: 'high_3_ybm_park', days: 42 }
             },
-            // 모의고사
+            // 모의고사 카테고리
             mock: {
-                '2025년 고1 3월 모의고사': { id: 'mock_2025_1_03', days: 1 },
-                '2025년 고1 6월 모의고사': { id: 'mock_2025_1_06', days: 1 },
-                '2025년 고1 9월 모의고사': { id: 'mock_2025_1_09', days: 1 },
-                '2025년 고1 11월 모의고사': { id: 'mock_2025_1_11', days: 1 },
-                '2025년 고2 3월 모의고사': { id: 'mock_2025_2_03', days: 1 },
-                '2025년 고2 6월 모의고사': { id: 'mock_2025_2_06', days: 1 },
-                '2025년 고2 9월 모의고사': { id: 'mock_2025_2_09', days: 1 },
-                '2025년 고2 11월 모의고사': { id: 'mock_2025_2_11', days: 1 },
-                '2025년 고3 3월 모의고사': { id: 'mock_2025_3_03', days: 1 },
-                '2025년 고3 6월 모의고사': { id: 'mock_2025_3_06', days: 1 },
-                '2025년 고3 9월 모의고사': { id: 'mock_2025_3_09', days: 1 },
-                '2025년 고3 11월 모의고사': { id: 'mock_2025_3_11', days: 1 },
-                '2024년 고1 3월 모의고사': { id: 'mock_2024_1_03', days: 1 },
-                '2024년 고1 6월 모의고사': { id: 'mock_2024_1_06', days: 1 },
-                '2024년 고1 9월 모의고사': { id: 'mock_2024_1_09', days: 1 },
-                '2024년 고1 11월 모의고사': { id: 'mock_2024_1_11', days: 1 },
-                '2024년 고2 3월 모의고사': { id: 'mock_2024_2_03', days: 1 },
-                '2024년 고2 6월 모의고사': { id: 'mock_2024_2_06', days: 1 },
-                '2024년 고2 9월 모의고사': { id: 'mock_2024_2_09', days: 1 },
-                '2024년 고2 11월 모의고사': { id: 'mock_2024_2_11', days: 1 },
-                '2024년 고3 3월 모의고사': { id: 'mock_2024_3_03', days: 1 },
-                '2024년 고3 6월 모의고사': { id: 'mock_2024_3_06', days: 1 },
-                '2024년 고3 9월 모의고사': { id: 'mock_2024_3_09', days: 1 },
-                '2024년 고3 11월 모의고사': { id: 'mock_2024_3_11', days: 1 },
-                '2023년 고1 3월 모의고사': { id: 'mock_2023_1_03', days: 1 },
-                '2023년 고1 6월 모의고사': { id: 'mock_2023_1_06', days: 1 },
-                '2023년 고1 9월 모의고사': { id: 'mock_2023_1_09', days: 1 },
-                '2023년 고1 11월 모의고사': { id: 'mock_2023_1_11', days: 1 },
-                '2023년 고2 3월 모의고사': { id: 'mock_2023_2_03', days: 1 },
-                '2023년 고2 6월 모의고사': { id: 'mock_2023_2_06', days: 1 },
-                '2023년 고2 9월 모의고사': { id: 'mock_2023_2_09', days: 1 },
-                '2023년 고2 11월 모의고사': { id: 'mock_2023_2_11', days: 1 },
-                '2023년 고3 3월 모의고사': { id: 'mock_2023_3_03', days: 1 },
-                '2023년 고3 6월 모의고사': { id: 'mock_2023_3_06', days: 1 },
-                '2023년 고3 9월 모의고사': { id: 'mock_2023_3_09', days: 1 },
-                '2023년 고3 11월 모의고사': { id: 'mock_2023_3_11', days: 1 }
             },
-            // 시중단어장
+            // 시중단어장 카테고리
             commercial: {
-                '워드마스터 수능2000 (2022년)': { id: 'wordmaster_2000_2022', days: 30 },
-                '워드마스터 수능2000 (2019년)': { id: 'wordmaster_2000_2019', days: 30 },
-                '워드마스터 중등 기초': { id: 'wordmaster_middle_basic', days: 20 },
-                '워드마스터 중등 실력 (2022년)': { id: 'wordmaster_middle_skill_2022', days: 25 },
-                '워드마스터 중등 고난도': { id: 'wordmaster_middle_advanced', days: 30 },
-                '영단기 수능VOCA': { id: 'youngdangi_suneung', days: 35 },
-                '영단기 기출VOCA': { id: 'youngdangi_previous', days: 25 },
-                '영단기 숙어': { id: 'youngdangi_idiom', days: 20 },
-                '해커스 보카': { id: 'hackers_voca', days: 40 },
-                '해커스 기출보카': { id: 'hackers_previous', days: 30 },
-                '해커스 토익보카': { id: 'hackers_toeic', days: 50 },
-                '시나공 토익': { id: 'sinagong_toeic', days: 45 },
-                '다락원 중학 VOCA': { id: 'darakwon_middle', days: 18 },
-                '능률 고교 VOCA': { id: 'neungyul_high', days: 35 },
-                'YBM 올인원': { id: 'ybm_allinone', days: 40 }
+                '워드마스터 중등 고난도 (1200)': { id: 'wordmaster_middle_2022', days: 40 }
             }
         };
 
-        // 샘플 단어 데이터
-        const wordData = {
-            wordmaster_2000_2022: [
-                { day: 1, english: 'provide', korean: '공급하다, 준비하다' },
-                { day: 1, english: 'develop', korean: '개발하다, 발달하다' },
-                { day: 1, english: 'service', korean: '서비스, 봉사' },
-                { day: 1, english: 'inform', korean: '알리다, 통지하다' },
-                { day: 1, english: 'relationship', korean: '관계' },
-                { day: 2, english: 'emotion', korean: '감정' },
-                { day: 2, english: 'amaze', korean: '놀라게 하다' },
-                { day: 2, english: 'reduce', korean: '줄이다, 낮추다' },
-                { day: 2, english: 'discover', korean: '발견하다' },
-                { day: 2, english: 'decide', korean: '결심하다, 결정하다' },
-                { day: 3, english: 'balance', korean: '균형, 균형을 이루다' },
-                { day: 3, english: 'negative', korean: '부정적인' },
-                { day: 3, english: 'replace', korean: '대체하다' },
-                { day: 3, english: 'constant', korean: '일정한, 불변의' },
-                { day: 3, english: 'expert', korean: '전문가' },
-                { day: 4, english: 'confident', korean: '자신 있는' },
-                { day: 4, english: 'gradually', korean: '점차, 서서히' },
-                { day: 4, english: 'access', korean: '접근, 이용' },
-                { day: 4, english: 'announce', korean: '발표하다, 알리다' },
-                { day: 4, english: 'allow', korean: '허락하다, 인정하다' },
-                { day: 5, english: 'focus', korean: '초점, 집중하다' },
-                { day: 5, english: 'issue', korean: '논란거리, 발행' },
-                { day: 5, english: 'participate', korean: '참여하다, 참가하다' },
-                { day: 5, english: 'demand', korean: '요구하다, 수요' },
-                { day: 5, english: 'occur', korean: '일어나다, 발생하다' },
-                { day: 6, english: 'important', korean: '중요한' },
-                { day: 6, english: 'necessary', korean: '필요한' },
-                { day: 6, english: 'different', korean: '다른' },
-                { day: 6, english: 'possible', korean: '가능한' },
-                { day: 6, english: 'available', korean: '이용 가능한' },
-                { day: 7, english: 'create', korean: '창조하다, 만들다' },
-                { day: 7, english: 'include', korean: '포함하다' },
-                { day: 7, english: 'consider', korean: '고려하다' },
-                { day: 7, english: 'suggest', korean: '제안하다' },
-                { day: 7, english: 'achieve', korean: '달성하다' }
-            ]
-        };
+        // 가짜 샘플 데이터는 비워둡니다.
+        const wordData = {};
 
         // 효과음 시스템
         const soundEffects = {
