@@ -1393,33 +1393,56 @@
             currentTest.selectedTextbook = textbookName;
             updateSelectedTextbook();
             
-            // [추가] 단어 데이터 불러오기 로직
+            // 1. 선택한 단어장의 데이터(ID, Day 수) 찾기
             let textbookId = '';
-            Object.values(allTextbooks).forEach(category => {
-                Object.entries(category).forEach(([name, data]) => {
-                    if (name === textbookName) {
-                        textbookId = data.id;
-                    }
-                });
-            });
+            let totalDays = 0;
+            
+            for (const category in allTextbooks) {
+                if (allTextbooks[category][textbookName]) {
+                    textbookId = allTextbooks[category][textbookName].id;
+                    totalDays = allTextbooks[category][textbookName].days;
+                    break;
+                }
+            }
 
+            // 2. 서버에서 데이터 로드 (핵심 연결 고리)
             if (textbookId) {
-                // 서버에서 데이터를 실제로 불러와 wordData에 저장
                 const words = await loadWordsFromCSV(textbookId);
                 wordData[textbookId] = words;
             }
 
-            // 검색 결과 숨기기
+            // 3. 기존 UI 정리 및 업데이트 (원장님 기존 함수 활용)
             document.getElementById('searchResults').style.display = 'none';
             document.getElementById('searchInput').value = '';
-
-            // 드롭다운 닫기
             closeAllDropdowns();
 
-            // Day 체크박스 업데이트
-            generateDayCheckboxes();
+            // 4. Day 목록 생성 (가져온 totalDays를 전달)
+            generateDayCheckboxesCustom(totalDays); 
             updateSelectedRange();
             updateStartButton();
+        }
+
+        // 기존 UI 디자인을 그대로 쓰기 위한 보조 함수
+        function generateDayCheckboxesCustom(maxDay) {
+            const container = document.getElementById('dayCheckboxes');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            for (let i = 1; i <= maxDay; i++) {
+                const isChecked = currentTest.selectedDays.includes(i);
+                const checkboxDiv = document.createElement('div');
+                checkboxDiv.className = `day-checkbox ${isChecked ? 'checked' : ''}`;
+                checkboxDiv.innerHTML = `
+                    <input type="checkbox" id="day${i}" value="${i}" ${isChecked ? 'checked' : ''}>
+                    <label for="day${i}">Day ${i}</label>
+                `;
+                checkboxDiv.addEventListener('change', () => {
+                    updateSelectedDays();
+                    updateSelectedRange();
+                    updateStartButton();
+                });
+                container.appendChild(checkboxDiv);
+            }
         }
         function updateSelectedTextbook() {
             const selectedSpan = document.getElementById('selectedTextbook');
