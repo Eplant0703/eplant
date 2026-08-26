@@ -15,6 +15,16 @@
   ],
   "books": [
     {
+      "id": "워드마스터-고등-basic",
+      "name": "고등 Basic",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-고등-basic.json",
+      "unitWord": "Day",
+      "count": 2381,
+      "units": "Day 1~30"
+    },
+    {
       "id": "워드마스터-중등-실력",
       "name": "중등 실력",
       "series": "워드마스터",
