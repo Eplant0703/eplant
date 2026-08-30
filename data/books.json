@@ -255,6 +255,30 @@
       "units": "1과~6과"
     },
     {
+      "id": "중3-동아-윤정미",
+      "name": "동아 윤정미",
+      "series": "중3",
+      "category": "textbook",
+      "file": "중3-동아-윤정미.json",
+      "unitWord": "과",
+      "mainLabel": "대화문",
+      "subLabel": "본문",
+      "count": 266,
+      "units": "5과~8과"
+    },
+    {
+      "id": "중3-동아-이병민",
+      "name": "동아 이병민",
+      "series": "중3",
+      "category": "textbook",
+      "file": "중3-동아-이병민.json",
+      "unitWord": "과",
+      "mainLabel": "대화문",
+      "subLabel": "본문",
+      "count": 255,
+      "units": "5과~8과"
+    },
+    {
       "id": "워드마스터-고등basic",
       "name": "고등Basic",
       "series": "워드마스터",
