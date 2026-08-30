@@ -13,16 +13,5 @@
       "name": "시중 단어장"
     }
   ],
-  "books": [
-    {
-      "id": "워드마스터-중등-실력",
-      "name": "중등 실력",
-      "series": "워드마스터",
-      "category": "commercial",
-      "file": "워드마스터-중등-실력.json",
-      "unitWord": "Day",
-      "count": 1924,
-      "units": "Day 1~40"
-    }
-  ]
+  "books": []
 }
