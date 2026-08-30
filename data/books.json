@@ -13,5 +13,76 @@
       "name": "시중 단어장"
     }
   ],
-  "books": []
+  "books": [
+    {
+      "id": "워드마스터-고등basic",
+      "name": "고등Basic",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-고등basic.json",
+      "unitWord": "Day",
+      "count": 1200,
+      "units": "Day 1~30"
+    },
+    {
+      "id": "워드마스터-수능2000",
+      "name": "수능2000",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-수능2000.json",
+      "unitWord": "Day",
+      "count": 2000,
+      "units": "Day 1~50"
+    },
+    {
+      "id": "워드마스터-중등고난도",
+      "name": "중등고난도",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-중등고난도.json",
+      "unitWord": "Day",
+      "count": 2088,
+      "units": "Day 1~30"
+    },
+    {
+      "id": "워드마스터-중등실력",
+      "name": "중등실력",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-중등실력.json",
+      "unitWord": "Day",
+      "count": 1200,
+      "units": "Day 1~40"
+    },
+    {
+      "id": "워드마스터-중등basic",
+      "name": "중등Basic",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-중등basic.json",
+      "unitWord": "Day",
+      "count": 800,
+      "units": "Day 1~40"
+    },
+    {
+      "id": "워드마스터-초등basic",
+      "name": "초등Basic",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-초등basic.json",
+      "unitWord": "Day",
+      "count": 300,
+      "units": "Day 1~30"
+    },
+    {
+      "id": "워드마스터-초등complete",
+      "name": "초등Complete",
+      "series": "워드마스터",
+      "category": "commercial",
+      "file": "워드마스터-초등complete.json",
+      "unitWord": "Day",
+      "count": 600,
+      "units": "Day 1~30"
+    }
+  ]
 }
