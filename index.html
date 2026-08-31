@@ -39,12 +39,13 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 body.splashing{overflow:hidden}
 body.nobar{padding-bottom:40px}
 .top{max-width:940px;margin:0 auto;padding:28px 18px 0}
-.brand{display:flex;align-items:center;gap:13px;margin-bottom:4px}
-.logo{height:34px;width:auto;display:block}
-.bsep{width:1px;height:22px;background:var(--line);flex:none}
-.brand b{font-size:1.28rem;font-weight:800;letter-spacing:-.02em}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:6px;font-size:1.85rem}
+.brand .logo{margin-left:auto;height:1em}   /* 아래 fitLogo()가 정확한 값으로 다시 잡음 */
+.logo{width:auto;display:block;flex:none}
+@media(max-width:430px){.brand{font-size:1.45rem;gap:10px}}
+.brand b{font-size:1em;font-weight:800;letter-spacing:-.025em;white-space:nowrap;line-height:1}
 .brand-rule{height:3px;background:var(--logo);width:44px;border-radius:2px;margin:12px 0 22px}
-.res-logo{height:30px;width:auto;display:block;margin-bottom:12px}
+.res-logo{height:34px;width:auto;display:block;margin-bottom:14px}
 .stage-logo{height:17px;width:auto;opacity:.45;flex:none}
 .done-sym{height:56px;width:auto;opacity:.9;margin-bottom:2px}
 
@@ -283,8 +284,8 @@ tr:last-child td{border-bottom:none}
 
 <div class="top">
   <div class="brand">
+    <b>단어 테스트</b>
     <img class="logo" src="logo-wide.png" alt="영어발전소" onerror="this.style.display='none'">
-    <span class="bsep"></span><b>단어 테스트</b>
   </div>
   <div class="brand-rule"></div>
 
@@ -1122,6 +1123,27 @@ function applyLink(q){
   refresh();
   toast("선생님이 정해준 설정으로 맞췄습니다. 시작을 누르세요.");
 }
+
+/* ============ 로고 높이 맞추기 ============ */
+var LOGO_TEXT_RATIO = 0.723;   // 로고 이미지에서 한글이 차지하는 세로 비율
+
+function fitLogo(){
+  var b = document.querySelector(".brand b");
+  var el = document.querySelector(".brand .logo");
+  if(!b || !el) return;
+  try {
+    var cs = getComputedStyle(b);
+    var ctx = document.createElement("canvas").getContext("2d");
+    ctx.font = cs.fontStyle + " " + cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+    var m = ctx.measureText(b.textContent || "단어 테스트");
+    var h = (m.actualBoundingBoxAscent || 0) + (m.actualBoundingBoxDescent || 0);
+    if(h > 4) el.style.height = (h / LOGO_TEXT_RATIO) + "px";
+  } catch(e){}
+}
+
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitLogo);
+window.addEventListener("load", fitLogo);
+window.addEventListener("resize", fitLogo);
 
 /* ============ 이벤트 ============ */
 $("search").oninput = function(){ if(S.catalog) renderCatalog($("search").value.trim()); };
