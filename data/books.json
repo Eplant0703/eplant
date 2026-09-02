@@ -643,18 +643,6 @@
       "units": "18번~43번"
     },
     {
-      "id": "공통영어2-ybm-박",
-      "name": "YBM 박",
-      "series": "공통영어2",
-      "category": "high_text",
-      "file": "공통영어2-ybm-박.json",
-      "unitWord": "과",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 267,
-      "units": "1과~2과"
-    },
-    {
       "id": "워드마스터-고등basic",
       "name": "고등Basic",
       "series": "워드마스터",
