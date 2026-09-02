@@ -643,18 +643,6 @@
       "units": "18번~43번"
     },
     {
-      "id": "공통영어2-능률-오",
-      "name": "능률 오",
-      "series": "공통영어2",
-      "category": "high_text",
-      "file": "공통영어2-능률-오.json",
-      "unitWord": "과",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 217,
-      "units": "1과~2과"
-    },
-    {
       "id": "공통영어2-비상-홍",
       "name": "비상 홍",
       "series": "공통영어2",
