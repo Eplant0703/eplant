@@ -759,6 +759,19 @@
       "unitWord": "Day",
       "count": 600,
       "units": "Day 1~30"
+    },
+    {
+      "id": "go1-2026-09",
+      "name": "2026 09",
+      "series": "go1",
+      "group": "",
+      "category": "commercial",
+      "file": "go1-2026-09.json",
+      "unitWord": "번",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 270,
+      "units": "18번~43번"
     }
   ]
 }
