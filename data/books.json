@@ -451,19 +451,6 @@
       "units": "18번~43번"
     },
     {
-      "id": "고1-2026년-9월학평xlsx",
-      "name": "9월학평.xlsx",
-      "series": "2026년",
-      "group": "고1",
-      "category": "mock",
-      "file": "고1-2026년-9월학평xlsx.json",
-      "unitWord": "번",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 270,
-      "units": "18번~43번"
-    },
-    {
       "id": "고2-2022년-11월학평",
       "name": "2022년 11월학평",
       "series": "고2",
