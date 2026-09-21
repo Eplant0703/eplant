@@ -893,6 +893,45 @@
       "units": "Day 1~50"
     },
     {
+      "id": "워드마스터-중등-고난도-2026개정",
+      "name": "중등 고난도 2026개정",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "워드마스터-중등-고난도-2026개정.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 1000,
+      "units": "Day 1~40"
+    },
+    {
+      "id": "워드마스터-중등-실력-2026개정",
+      "name": "중등 실력 2026개정",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "워드마스터-중등-실력-2026개정.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 1000,
+      "units": "Day 1~40"
+    },
+    {
+      "id": "워드마스터-중등-basic-2026개정",
+      "name": "중등 Basic 2026개정",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "워드마스터-중등-basic-2026개정.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 1000,
+      "units": "Day 1~40"
+    },
+    {
       "id": "워드마스터-중등고난도",
       "name": "중등고난도",
       "series": "워드마스터",
