@@ -873,6 +873,19 @@
       "units": "Day 1~50"
     },
     {
+      "id": "워드마스터-고등-숙어1000",
+      "name": "고등 숙어1000",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "워드마스터-고등-숙어1000.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 1000,
+      "units": "Day 1~50"
+    },
+    {
       "id": "워드마스터-고등basic",
       "name": "고등Basic",
       "series": "워드마스터",
@@ -980,6 +993,32 @@
       "unitWord": "Day",
       "count": 600,
       "units": "Day 1~30"
+    },
+    {
+      "id": "워드마스터-하이스트",
+      "name": "하이스트",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "워드마스터-하이스트.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 1500,
+      "units": "Day 1~50"
+    },
+    {
+      "id": "워드마스터-하이퍼2000",
+      "name": "하이퍼2000",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "워드마스터-하이퍼2000.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 2498,
+      "units": "Day 1~50"
     }
   ]
 }
