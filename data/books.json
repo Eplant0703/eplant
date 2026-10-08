@@ -19,18 +19,6 @@
   ],
   "books": [
     {
-      "id": "중2-ybm-박준언",
-      "name": "YBM 박준언",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-ybm-박준언.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 436,
-      "units": "1과~6과"
-    },
-    {
       "id": "중3-동아-윤정미",
       "name": "동아 윤정미",
       "series": "중3",
