@@ -19,42 +19,6 @@
   ],
   "books": [
     {
-      "id": "중2-동아-윤정미",
-      "name": "동아 윤정미",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-동아-윤정미.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 442,
-      "units": "1과~6과"
-    },
-    {
-      "id": "중2-동아-이병민",
-      "name": "동아 이병민",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-동아-이병민.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 468,
-      "units": "1과~6과"
-    },
-    {
-      "id": "중2-미래엔-문영인",
-      "name": "미래엔 문영인",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-미래엔-문영인.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 392,
-      "units": "1과~6과"
-    },
-    {
       "id": "중2-비상-황종배",
       "name": "비상 황종배",
       "series": "중2",
