@@ -19,18 +19,6 @@
   ],
   "books": [
     {
-      "id": "중1-ybm-김은형",
-      "name": "YBM 김은형",
-      "series": "중1",
-      "category": "mid_text",
-      "file": "중1-ybm-김은형.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 707,
-      "units": "1과~9과"
-    },
-    {
       "id": "중1-ybm-박준언",
       "name": "YBM 박준언",
       "series": "중1",
