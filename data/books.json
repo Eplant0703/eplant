@@ -380,6 +380,18 @@
       "units": "18번~43번"
     },
     {
+      "id": "고2-2023년-3월학평",
+      "name": "2023년 3월학평",
+      "series": "고2",
+      "category": "mock",
+      "file": "고2-2023년-3월학평.json",
+      "unitWord": "번",
+      "mainLabel": "메인단어",
+      "subLabel": "유의어/반의어",
+      "count": 267,
+      "units": "18번~43번"
+    },
+    {
       "id": "고2-2023년-6월학평",
       "name": "2023년 6월학평",
       "series": "고2",
@@ -545,30 +557,6 @@
       "mainLabel": "메인단어",
       "subLabel": "파생어",
       "count": 210,
-      "units": "1과~2과"
-    },
-    {
-      "id": "공통영어2-천재-조",
-      "name": "공통2 천재 조수경",
-      "series": "공통영어2",
-      "category": "high_text",
-      "file": "공통영어2-천재-조.json",
-      "unitWord": "과",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 196,
-      "units": "1과~2과"
-    },
-    {
-      "id": "공통영어2-ybm-박",
-      "name": "공통2 YBM 박준언",
-      "series": "공통영어2",
-      "category": "high_text",
-      "file": "공통영어2-ybm-박.json",
-      "unitWord": "과",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 267,
       "units": "1과~2과"
     },
     {
