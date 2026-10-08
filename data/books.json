@@ -560,19 +560,6 @@
       "units": "1과~2과"
     },
     {
-      "id": "능률보카-고등기본",
-      "name": "고등기본",
-      "series": "능률보카",
-      "group": "",
-      "category": "commercial",
-      "file": "능률보카-고등기본.json",
-      "unitWord": "Day",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 1047,
-      "units": "Day 1~35"
-    },
-    {
       "id": "능률보카-수능고난도",
       "name": "수능고난도",
       "series": "능률보카",
