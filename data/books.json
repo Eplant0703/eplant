@@ -19,18 +19,6 @@
   ],
   "books": [
     {
-      "id": "중1-천재-이상기",
-      "name": "천재 이상기",
-      "series": "중1",
-      "category": "mid_text",
-      "file": "중1-천재-이상기.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 625,
-      "units": "1과~9과"
-    },
-    {
       "id": "중1-ne능률-김기택",
       "name": "NE능률 김기택",
       "series": "중1",
