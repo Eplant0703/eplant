@@ -19,42 +19,6 @@
   ],
   "books": [
     {
-      "id": "중2-미래엔-문영인",
-      "name": "미래엔 문영인",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-미래엔-문영인.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 392,
-      "units": "1과~6과"
-    },
-    {
-      "id": "중2-비상-황종배",
-      "name": "비상 황종배",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-비상-황종배.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 420,
-      "units": "1과~6과"
-    },
-    {
-      "id": "중2-지학사-송미정",
-      "name": "지학사 송미정",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-지학사-송미정.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 477,
-      "units": "1과~6과"
-    },
-    {
       "id": "중2-천재-소영순",
       "name": "천재 소영순",
       "series": "중2",
