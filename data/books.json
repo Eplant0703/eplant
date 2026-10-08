@@ -19,18 +19,6 @@
   ],
   "books": [
     {
-      "id": "중3-동아-이병민",
-      "name": "동아 이병민",
-      "series": "중3",
-      "category": "mid_text",
-      "file": "중3-동아-이병민.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 255,
-      "units": "5과~8과"
-    },
-    {
       "id": "고1-2022년-9월학평",
       "name": "2022년 9월학평",
       "series": "고1",
