@@ -19,18 +19,6 @@
   ],
   "books": [
     {
-      "id": "중1-동아-윤정미",
-      "name": "동아 윤정미",
-      "series": "중1",
-      "category": "mid_text",
-      "file": "중1-동아-윤정미.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 595,
-      "units": "1과~8과"
-    },
-    {
       "id": "중1-동아-이병민",
       "name": "동아 이병민",
       "series": "중1",
