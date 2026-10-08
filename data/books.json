@@ -19,42 +19,6 @@
   ],
   "books": [
     {
-      "id": "중2-천재-이상기",
-      "name": "천재 이상기",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-천재-이상기.json",
-      "unitWord": "과",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 420,
-      "units": "1과~6과"
-    },
-    {
-      "id": "중2-ne능률-김기택",
-      "name": "NE능률 김기택",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-ne능률-김기택.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 486,
-      "units": "1과~7과"
-    },
-    {
-      "id": "중2-ybm-김은형",
-      "name": "YBM 김은형",
-      "series": "중2",
-      "category": "mid_text",
-      "file": "중2-ybm-김은형.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 456,
-      "units": "1과~6과"
-    },
-    {
       "id": "중2-ybm-박준언",
       "name": "YBM 박준언",
       "series": "중2",
