@@ -19,18 +19,6 @@
   ],
   "books": [
     {
-      "id": "중1-ne능률-김기택",
-      "name": "NE능률 김기택",
-      "series": "중1",
-      "category": "mid_text",
-      "file": "중1-ne능률-김기택.json",
-      "unitWord": "과",
-      "mainLabel": "대화문",
-      "subLabel": "본문",
-      "count": 722,
-      "units": "1과~8과"
-    },
-    {
       "id": "중1-ybm-김은형",
       "name": "YBM 김은형",
       "series": "중1",
