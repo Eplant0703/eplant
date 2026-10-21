@@ -1083,6 +1083,19 @@
       "subLabel": "파생어",
       "count": 2498,
       "units": "Day 1~50"
+    },
+    {
+      "id": "전체",
+      "name": "수능2000(개정전)",
+      "series": "전체",
+      "group": "",
+      "category": "commercial",
+      "file": "전체.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 5851,
+      "units": "Day 1~50"
     }
   ]
 }
