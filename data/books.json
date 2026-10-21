@@ -318,19 +318,6 @@
       "units": "18번~43번"
     },
     {
-      "id": "고1-2023년-11월학평",
-      "name": "2023년 11월학평",
-      "series": "고1",
-      "group": "",
-      "category": "mock",
-      "file": "고1-2023년-11월학평.json",
-      "unitWord": "번",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 1566,
-      "units": "20번~41번"
-    },
-    {
       "id": "고1-2023년-3월학평",
       "name": "2023년 3월학평",
       "series": "고1",
@@ -420,19 +407,6 @@
       "subLabel": "파생어",
       "count": 347,
       "units": "18번~43번"
-    },
-    {
-      "id": "고1-2025년-10월학평",
-      "name": "2025년 10월학평",
-      "series": "고1",
-      "group": "",
-      "category": "mock",
-      "file": "고1-2025년-10월학평.json",
-      "unitWord": "번",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 1907,
-      "units": "20번~41번"
     },
     {
       "id": "고1-2025년-3월학평",
@@ -940,6 +914,32 @@
       "subLabel": "파생어",
       "count": 1200,
       "units": "Day 1~50"
+    },
+    {
+      "id": "고1-2023년-11월학평",
+      "name": "2023년 11월학평",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "고1-2023년-11월학평.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 1566,
+      "units": "Day 20~41"
+    },
+    {
+      "id": "고1-2025년-10월학평",
+      "name": "2025년 10월학평",
+      "series": "워드마스터",
+      "group": "",
+      "category": "commercial",
+      "file": "고1-2025년-10월학평.json",
+      "unitWord": "Day",
+      "mainLabel": "메인단어",
+      "subLabel": "파생어",
+      "count": 1907,
+      "units": "Day 20~41"
     },
     {
       "id": "워드마스터-고등-숙어1000",
