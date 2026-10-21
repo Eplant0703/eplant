@@ -916,19 +916,6 @@
       "units": "Day 1~50"
     },
     {
-      "id": "고1-2025년-10월학평",
-      "name": "2025년 10월학평",
-      "series": "워드마스터",
-      "group": "",
-      "category": "commercial",
-      "file": "고1-2025년-10월학평.json",
-      "unitWord": "Day",
-      "mainLabel": "메인단어",
-      "subLabel": "파생어",
-      "count": 1907,
-      "units": "Day 20~41"
-    },
-    {
       "id": "워드마스터-고등-숙어1000",
       "name": "고등 숙어1000",
       "series": "워드마스터",
