@@ -1,7 +1,10 @@
 "use strict";
-var CACHE = "eplant-voca-v40";
+var CACHE = "eplant-voca-v41";
+/* data/books.json 을 함께 담는다. 없으면 설치 직후 첫 오프라인에서
+   단어장이 0권으로 뜬다 */
 var SHELL = ["./index.html", "./manifest.json", "./logo-wide.png", "./symbol.png",
-             "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png", "./favicon.png"];
+             "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png", "./favicon.png",
+             "./data/books.json"];
 
 self.addEventListener("install", function(e){
   self.skipWaiting();
@@ -38,7 +41,10 @@ self.addEventListener("fetch", function(e){
     fetch(req).then(function(res){
       if(res && res.ok){
         var copy = res.clone();
-        caches.open(CACHE).then(function(c){ c.put(req, copy); });
+        /* 앱이 붙이는 ?v=시각 을 떼고 담는다. 그대로 담으면 같은 파일이
+           열 때마다 새 열쇠로 쌓여 저장 공간을 계속 먹었다 */
+        var key = url.origin + url.pathname;
+        caches.open(CACHE).then(function(c){ c.put(key, copy); });
       }
       return res;
     }).catch(function(){
