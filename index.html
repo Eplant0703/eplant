@@ -108,16 +108,20 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 
 /* ===== 연습 결과 ===== */
 .ptbl{width:100%;border-collapse:collapse;font-size:.88rem}
-.ptbl th{background:#15181D;color:#fff;padding:10px 8px;font-size:.76rem;font-weight:800;
+.ptbl th{background:#15181D;color:#fff;padding:10px 6px;font-size:.76rem;font-weight:800;
   letter-spacing:.02em;text-align:left;white-space:nowrap}
-.ptbl th:first-child{padding-left:14px}
-.ptbl th:last-child,.ptbl td:last-child{text-align:center;width:52px}
-.ptbl td{padding:11px 8px;border-bottom:1px solid var(--line-2);vertical-align:top;
-  word-break:break-word}
-.ptbl td:first-child{padding-left:14px;width:40px;color:var(--ink-3);font-weight:800;font-size:.8rem}
+.ptbl th:first-child{padding-left:10px}
+.ptbl th:last-child,.ptbl td:last-child{text-align:center;width:34px;padding-left:2px;padding-right:6px}
+.ptbl td{padding:11px 6px;border-bottom:1px solid var(--line-2);vertical-align:top;
+  overflow-wrap:anywhere;word-break:normal}
+.ptbl td:first-child{padding-left:10px;width:26px;color:var(--ink-3);font-weight:800;font-size:.8rem}
 .ptbl tr:last-child td{border-bottom:none}
 .ptbl tr.no td{background:#FDF6F5}
-.ptbl .en{font-weight:800;color:var(--ink)}
+.ptbl .en{font-weight:800;color:var(--ink);overflow-wrap:anywhere;word-break:normal}
+/* 영어 단어가 communication 처럼 길어도 세 토막으로 잘리지 않게 칸을 확보하되,
+   다섯 칸이 폰 화면 안에 다 들어와야 채점(O/X)이 가려지지 않는다 */
+.ptbl td.en{min-width:92px}
+.ptbl td.mine{min-width:86px}
 .ptbl .ko{color:var(--ink-2);font-weight:700}
 .ptbl .mine{font-weight:700}
 .ptbl .mine.o{color:#0A7A56}
@@ -1535,33 +1539,89 @@ function normEnAns(v){
     .replace(/\s+/g, " ").trim();
 }
 
-function editDist(a, b){
-  var m = a.length, n = b.length, i, j;
-  if(Math.abs(m - n) > 2) return 99;
-  var d = [];
-  for(i = 0; i <= m; i++){ d[i] = [i]; }
-  for(j = 0; j <= n; j++){ d[0][j] = j; }
-  for(i = 1; i <= m; i++){
-    for(j = 1; j <= n; j++){
-      var cost = (a.charAt(i-1) === b.charAt(j-1)) ? 0 : 1;
-      d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + cost);
-      if(i > 1 && j > 1 && a.charAt(i-1) === b.charAt(j-2) && a.charAt(i-2) === b.charAt(j-1))
-        d[i][j] = Math.min(d[i][j], d[i-2][j-2] + 1);
-    }
-  }
-  return d[m][n];
+function bareEn(v){
+  return normEnAns(v).replace(/^to /, "").replace(/ ?~ ?/g, " ")
+    .replace(/\s+/g, " ").trim();
 }
 
-function sameEn(mine, right, others){
-  var a = normEnAns(mine), b = normEnAns(right);
+/* 정답으로 인정할 영어 형태들.
+   단어장은 괄호로 '넣어도 되고 빼도 되는 말'을, 대괄호로 '바꿔 쓸 수 있는 말'을 적는다.
+     submit (to)            → submit / submit to
+     be made (up) of        → be made of / be made up of
+     until[up to] now       → until now / up to now
+     be concerned about[for]→ be concerned about / be concerned for
+   예전에는 기호만 공백으로 바꿔서 "submit to" 한 가지만 정답이었고,
+   보이는 대로 "submit" 이라고 쓰면 틀렸다. 450개 단어가 이 꼴이다. */
+function enForms(raw){
+  var s = String(raw || "");
+  var outs = [s];
+
+  /* 대괄호 — 바로 앞 낱말과 바꿔 쓸 수 있다는 표시.
+     be[get] angry with[at/about] 처럼 여러 개가 겹쳐 있으므로 전부 펼친다 */
+  var guard = 0;
+  while(guard++ < 6){
+    var next = [], grew = false;
+    outs.forEach(function(t){
+      var m = t.match(/^([\s\S]*?)(\S*)\[([^\]]*)\]([\s\S]*)$/);
+      if(!m){ next.push(t); return; }
+      grew = true;
+      next.push(m[1] + m[2] + m[4]);            /* 대괄호를 뺀 형태 */
+      m[3].split("/").forEach(function(alt){    /* 바꿔 쓸 수 있는 말마다 */
+        next.push(m[1] + alt + m[4]);
+      });
+    });
+    outs = next.slice(0, 48);                   /* 너무 많이 불어나지 않게 */
+    if(!grew) break;
+  }
+
+  /* 끝에 자리표시가 하나만 붙은 것은 빼고도 인정한다.
+     long for N / compensate for A / may well V 처럼 단어장이 품사를 적어 둔 것이라
+     학생은 "long for" 라고 쓴다. provide A with B 처럼 둘 이상이면 그대로 둔다 */
+  var ph = [];
+  outs.forEach(function(t){
+    ph.push(t);
+    if(/\s[ABNVnv]$/.test(t) &&
+       (t.match(/(?:^|\s)[ABNVnv](?=\s|$)/g) || []).length === 1)
+      ph.push(t.replace(/\s[ABNVnv]$/, ""));
+  });
+  outs = ph;
+
+  /* 괄호 — 넣은 형태와 뺀 형태 둘 다 */
+  var more = [];
+  outs.forEach(function(t){
+    more.push(t.replace(/[()]/g, " "));            /* 괄호 안을 넣은 형태 */
+    more.push(t.replace(/\([^)]*\)/g, " "));       /* 괄호 안을 뺀 형태 */
+  });
+
+  var res = [];
+  more.forEach(function(t){
+    [normEnAns(t), bareEn(t)].forEach(function(v){
+      if(v && res.indexOf(v) < 0) res.push(v);
+    });
+  });
+  return res;
+}
+
+/* 영어쓰기는 스펠링 자체를 묻는 것이므로 오타를 봐주지 않는다.
+   철자가 한 글자라도 다르면 틀린 것으로 처리한다.
+   대소문자와 to·물결·하이픈 같은 표기 차이만 맞춰 준다.
+
+   pool 은 이번 범위에 든 단어들의 '영어 → 뜻' 목록이다.
+   한 문제의 뜻이 범위 안 여러 단어에 똑같이 붙어 있을 때
+   (모의고사 단어장은 유의어마다 같은 뜻을 적어 둔다 — 측면: aspect/facet/side)
+   학생은 셋 중 무엇을 묻는지 알 수 없으므로, 화면에 뜬 뜻과 같은 뜻을 가진
+   범위 안의 단어는 모두 정답으로 본다. */
+function sameEn(mine, right, pool, askedKo){
+  var a = normEnAns(mine);
   if(!a) return {ok: false};
-  if(a === b) return {ok: true};
-  if(others && others[a] && a !== b) return {ok: false};
-  var b2 = b.replace(/^to /, "").replace(/ ?~ ?/g, " ").replace(/\s+/g, " ").trim();
-  var a2 = a.replace(/^to /, "").replace(/ ?~ ?/g, " ").replace(/\s+/g, " ").trim();
-  if(a2 === b2) return {ok: true};
-  var d = editDist(a2, b2);
-  if((b2.length >= 9 && d <= 2) || (b2.length >= 6 && d <= 1)) return {ok: true, typo: true};
+  var a2 = bareEn(a);
+  var oks = enForms(right);
+  if(oks.indexOf(a) >= 0 || oks.indexOf(a2) >= 0) return {ok: true};
+  if(pool && askedKo){
+    var kos = pool[a2] || pool[a];
+    if(kos && kos.length && kos.indexOf(askedKo) >= 0)
+      return {ok: true, same: true};
+  }
   return {ok: false};
 }
 
@@ -1569,6 +1629,50 @@ function sameEn(mine, right, others){
 
 /* 조합되지 않고 남은 자모 (ㄱ~ㅎ, ㅏ~ㅣ) */
 var LONE_JAMO = /[\u3131-\u318E]/g;
+
+/* \uC885\uC131\uC73C\uB85C \uC4F8 \uC218 \uC788\uB294 \uC790\uC74C\uC744 \uD55C\uAE00 \uC870\uD569 \uC21C\uC11C\uB300\uB85C */
+var JONG = ["", "\u3131","\u3132","\u3133","\u3134","\u3135","\u3136","\u3137",
+            "\u3139","\u313A","\u313B","\u313C","\u313D","\u313E","\u313F",
+            "\u3140","\u3141","\u3142","\u3144","\u3145","\u3146","\u3147",
+            "\u3148","\u314A","\u314B","\u314C","\u314D","\u314E"];
+
+/* \uC548 \uBD99\uC740 \uC790\uBAA8\uB97C \uC55E \uAE00\uC790\uC5D0 \uBD99\uC5EC \uBCF8\uB2E4.
+   \uD55C\uAE00 \uD0A4\uBCF4\uB4DC\uC5D0\uC11C \uBC1B\uCE68\uC774 \uC870\uD569\uB418\uC9C0 \uC54A\uC73C\uBA74 "\uB9DB\uC788\uB294" \uC774 "\uB9DB\uC788\uB290\u3134" \uC73C\uB85C \uB0A8\uB294\uB2E4.
+   \uC608\uC804\uC5D0\uB294 \uC774 \uC790\uBAA8\uB97C \uB5BC\uC5B4\uB0B4 "\uB9DB\uC788\uB290" \uB85C \uB9CC\uB4E4\uC5C8\uB294\uB370, \uADF8\uB7EC\uBA74 \uC815\uB2F5\uACFC \uB2EC\uB77C\uC838
+   \uC2E4\uC81C\uB85C \uAC00\uC7A5 \uB9CE\uC774 \uB098\uB294 \uC785\uB825 \uC624\uB958\uB97C \uAC70\uC758 \uB2E4 \uD2C0\uB9B0 \uAC83\uC73C\uB85C \uCC98\uB9AC\uD588\uB2E4.
+   \uB5BC\uB294 \uAC83\uC774 \uC544\uB2C8\uB77C \uBD99\uC774\uB294 \uAC83\uC774 \uB9DE\uB2E4. */
+/* \uBC1B\uCE68 \uD558\uB098 + \uC790\uC74C \uD558\uB098 \u2192 \uACB9\uBC1B\uCE68. \uB9CE\uC774\uB97C "\uB9CC\u314E\uC774" \uB85C \uCE58\uB294 \uACBD\uC6B0 */
+var CLUSTER = {
+  "\u3131\u3145": "\u3133",  "\u3134\u3148": "\u3135",  "\u3134\u314E": "\u3136",
+  "\u3139\u3131": "\u313A",  "\u3139\u3141": "\u313B",  "\u3139\u3142": "\u313C",
+  "\u3139\u3145": "\u313D",  "\u3139\u314C": "\u313E",  "\u3139\u314D": "\u313F",
+  "\u3139\u314E": "\u3140",  "\u3142\u3145": "\u3144"
+};
+
+function joinJamo(s){
+  var out = "", i, ch, prev, code, jong, cur, mix;
+  for(i = 0; i < s.length; i++){
+    ch = s.charAt(i);
+    jong = JONG.indexOf(ch);
+    prev = out.charAt(out.length - 1);
+    if(jong > 0 && prev >= "\uAC00" && prev <= "\uD7A3"){
+      code = prev.charCodeAt(0) - 0xAC00;
+      cur = code % 28;
+      if(cur === 0){                          /* \uC55E \uAE00\uC790\uC5D0 \uBC1B\uCE68\uC774 \uC5C6\uC73C\uBA74 \uADF8\uB300\uB85C \uBC1B\uCE68\uC73C\uB85C */
+        out = out.slice(0, -1) + String.fromCharCode(0xAC00 + code + jong);
+        continue;
+      }
+      mix = CLUSTER[JONG[cur] + ch];          /* \uC774\uBBF8 \uBC1B\uCE68\uC774 \uC788\uC73C\uBA74 \uACB9\uBC1B\uCE68\uC73C\uB85C */
+      if(mix){
+        out = out.slice(0, -1)
+            + String.fromCharCode(0xAC00 + code - cur + JONG.indexOf(mix));
+        continue;
+      }
+    }
+    out += ch;
+  }
+  return out;
+}
 
 /* 뜻 하나를 정리 — 기호·품사표기·영문 제거, 자모는 남긴다 */
 function cleanKo(v){
@@ -1584,22 +1688,55 @@ function cleanKo(v){
 /* 뜻 하나에서 쓸 수 있는 형태들 — "~에 들어가다" 는 "들어가다" 로도 인정 */
 var POS_HEAD = /^(?:명|동|형|부|접|감|관|숙)(?=[가-힣]{2,})/;
 
+/* 괄호 안이 '~않다' 처럼 부정을 담고 있으면, 그 괄호를 떼어낸 형태는
+   뜻이 반대가 되므로 정답으로 치지 않는다.
+   "어디에도 (~않다)" 에 "어디에도" 만 써서 맞던 자리.
+   "(진전 없이) 막히다" 처럼 괄호가 꾸미는 말일 뿐인 경우는 그대로 인정한다 */
+var PAREN_NEG_G = /[(\[][^)\]]*~\s*[가-힣]*(?:않|없|못|아니)[^)\]]*[)\]]/g;
+
 function koForms(raw){
+  var src = String(raw || "");
+  /* 부정이 든 괄호만 풀어 놓는다. 괄호째 지워지면 "어디에도 (~않다)" 가
+     "어디에도" 로 인정돼 뜻이 반대가 된다.
+     [부정문] 같은 쓰임 표시는 그대로 두어 평소처럼 지워지게 한다 */
+  src = src.replace(PAREN_NEG_G, function(m){ return " " + m.slice(1, -1) + " "; });
+  raw = src;
   var out = [], base = cleanKo(raw);
-  if(base) out.push(base);
+  function add(v){ if(v && v.length >= 1 && out.indexOf(v) < 0) out.push(v); }
+  add(base);
+
+  // 괄호를 떼지 않고 안의 말까지 적은 형태도 인정한다.
+  //   화면에 "접근(성)" 이라고 뜨면 학생은 "접근성" 이라고 쓴다.
+  //   예전에는 괄호 안을 지운 "접근" 만 정답이어서, 보이는 대로 쓰면 틀렸다.
+  //   "(소수) 민족의" → "소수민족의" 도 같은 경우.
+  add(cleanKo(String(raw || "").replace(/[()\[\]]/g, " ")));
+
   // 앞에 품사표기가 붙어 있으면 뗀 형태도 후보로 (동간주되다 → 간주되다)
-  if(base && POS_HEAD.test(base)){
+  if(base && POS_HEAD.test(base)) {
     var np = base.replace(POS_HEAD, "");
-    if(np.length >= 2 && out.indexOf(np) < 0) out.push(np);
+    if(np.length >= 2) add(np);
   }
-  // 물결과 그 뒤 조사를 떼어낸 형태
-  var cut = String(raw || "").replace(/~\s*[가-힣]{0,2}\s*/g, " ");
-  var v = cleanKo(cut);
-  if(v && out.indexOf(v) < 0) out.push(v);
+  // 물결과 그 뒤 조사를 떼어낸 형태.
+  //   단, 물결 뒤가 부정어면 떼지 않는다 — "더 이상 ~않은" 을
+  //   "더 이상" 으로 인정하면 뜻이 반대로 뒤집힌다.
+  var cut = String(raw || "").replace(/~\s*([가-힣]{0,2})\s*/g, function(m, tail){
+    return /않|없|못|아니/.test(tail) ? m : " ";
+  });
+  add(cleanKo(cut));
   // 맨 앞 조사만 떼어낸 형태 ("에들어가다" → "들어가다")
   if(base){
     var m = base.match(/^(?:에서|에게|으로|부터|까지|에|을|를|로|와|과|의|가|이)(.+)$/);
-    if(m && m[1].length >= 2 && out.indexOf(m[1]) < 0) out.push(m[1]);
+    if(m && m[1].length >= 2) add(m[1]);
+  }
+  /* 기호·숫자·물결을 떼다가 한 글자가 된 형태는 버린다.
+     "~때문에" 에 "에", "~로(서)" 에 "로", "0의" 에 "의" 한 글자만 써도
+     맞던 자리. 뜻 자체가 한 글자인 말(잎·힘·꽤)은 원문도 한 글자이므로 남는다 */
+  var rawLen = String(raw || "").replace(/\s+/g, "").length;
+  if(rawLen > 1){
+    var keep = out.filter(function(v){ return v.length >= 2; });
+    /* 걸러서 아무것도 안 남으면 그대로 둔다 — "10년" 처럼 숫자를 떼면
+       한 글자만 남는 뜻은 답할 방법이 없어진다 */
+    if(keep.length) out = keep;
   }
   return out;
 }
@@ -1634,6 +1771,17 @@ function koPos(w){
   return "N";
 }
 
+/* 능동 / 수동 / 사동을 가른다 — 내신에서 수동태를 가르치므로
+   "포함되다" 를 "포함하다" 로 써서 맞는 일이 있어서는 안 된다 */
+function koVoice(w){
+  var s = String(w || "");
+  /* 받다·당하다 는 넣지 않는다 — 물려받다·고통받다 처럼 뜻이 능동인 말이 많고,
+     부적당한 같은 말까지 수동으로 잡혀 안내 문구가 틀렸다 */
+  if(/(되다|되는|된|됨)$/.test(s)) return "PASS";
+  if(/(시키다|시키는|시킨|시킴)$/.test(s)) return "CAUS";
+  return "ACT";
+}
+
 /* 어미를 떼어 뿌리만 남긴다 */
 function koStem(w){
   var s = String(w || "");
@@ -1658,17 +1806,23 @@ function matchOne(mine, right){
   // 1) 있는 그대로 같은가
   if(a === b) return {ok: true};
 
-  // 2) 조합되지 않은 자모가 있으면 떼고 다시 본다 (키보드 실수)
-  var stripped = a.replace(LONE_JAMO, "");
-  var hadJamo = (stripped !== a);
-  if(hadJamo && stripped){
+  // 2) 조합되지 않은 자모가 있으면 봐준다 (한글 키보드 실수)
+  //    먼저 앞 글자에 붙여 보고 (맛있느ㄴ → 맛있는), 그래도 아니면 떼어 본다
+  var hadJamo = LONE_JAMO.test(a);
+  LONE_JAMO.lastIndex = 0;          // g 플래그라 쓰고 나면 되돌려야 한다
+  if(hadJamo){
+    var joined = joinJamo(a);
+    if(joined === b) return {ok: true, typo: true};
+    var stripped = a.replace(LONE_JAMO, "");
     if(stripped === b) return {ok: true, typo: true};
-    a = stripped;   // 뗀 상태로 아래 판정을 이어간다
+    // 뿌리·품사 판정은 붙인 쪽으로 이어간다 (더 원래 입력에 가깝다)
+    a = joined !== a ? joined : (stripped || a);
   }
 
-  // 3) 뿌리가 같은지 — 같으면 품사까지 맞아야 한다
+  // 3) 뿌리가 같은지 — 같으면 품사와 태(능동·수동·사동)까지 맞아야 한다
   var sa = koStem(a), sb = koStem(b);
   if(sa && sb && sa === sb){
+    if(koVoice(a) !== koVoice(b)) return {ok: false, voice: true};
     if(koPos(a) === koPos(b)) return {ok: true, typo: hadJamo};
     return {ok: false, pos: true};
   }
@@ -1683,13 +1837,14 @@ function sameKo(mine, right, others){
   var rights = splitKo(right);
   if(!mines.length || !rights.length) return {ok: false};
 
-  var posOnly = false, i, j, r;
+  var posOnly = false, voiceOnly = false, i, j, r;
   for(i = 0; i < mines.length; i++){
     for(j = 0; j < rights.length; j++){
       r = matchOne(mines[i], rights[j]);
       if(!r) continue;
       if(r.ok) return r;
       if(r.pos) posOnly = true;
+      if(r.voice) voiceOnly = true;
     }
   }
 
@@ -1705,9 +1860,11 @@ function sameKo(mine, right, others){
         if(!r) continue;
         if(r.ok) return {ok: true, typo: r.typo, alt: true};
         if(r.pos) posOnly = true;
+        if(r.voice) voiceOnly = true;
       }
     }
   }
+  if(voiceOnly) return {ok: false, voice: true};
   return posOnly ? {ok: false, pos: true} : {ok: false};
 }
 
@@ -1732,7 +1889,8 @@ function otherMeanings(en){
 
 /* ============ 연습 모드 ============ */
 var P = {
-  list: [], idx: 0, done: [], checking: false, open: false, auto: null, pool: {}
+  list: [], idx: 0, done: [], checking: false, open: false, auto: null,
+  pool: {}, wrong: false
 };
 
 /* 화면 높이를 키보드에 맞춘다 — 키보드가 올라와도 입력칸이 가려지지 않게 */
@@ -1758,15 +1916,25 @@ function pracFit(){
 }
 
 function startPractice(){
-  var p = pool();
-  if(!p.length) return;
-  p = (S.order === "random") ? shuffle(p.slice()) : p.slice();
+  var poolSrc = pool();
+  if(!poolSrc.length) return;
+  var p = (S.order === "random") ? shuffle(poolSrc.slice()) : poolSrc.slice();
   p = p.slice(0, S.count);
   if(!p.length) return;
 
   P.list = p; P.idx = 0; P.done = []; P.checking = false; P.open = true;
   P.pool = {};
-  p.forEach(function(x){ P.pool[normEnAns(x.en)] = 1; });
+  /* 범위 전체로 만든다. 뽑힌 문항만으로 만들면, 같은 뜻인 형제가
+     이번에 안 뽑혔을 때 그 답이 오답 처리된다 (14문항 전부 오답이던 자리).
+     한 열쇠에 뜻이 둘 이상 붙으면(to go / go 처럼 눌러쓰면 같아지는 경우)
+     엉뚱한 단어가 맞게 처리될 수 있으므로 뜻을 목록으로 모아 둔다 */
+  poolSrc.forEach(function(x){
+    enForms(x.en).forEach(function(k){
+      if(!k) return;
+      if(!P.pool[k]) P.pool[k] = [];
+      if(P.pool[k].indexOf(x.ko) < 0) P.pool[k].push(x.ko);
+    });
+  });
   $("prAll").textContent = p.length;
   $("prInfo").textContent = (S.hasType ? typeTxt(S.wordType) + " · " : "") + MODE_TXT[S.mode];
   $("result").classList.remove("on");
@@ -1792,6 +1960,7 @@ function pracShow(){
 
   $("prNow").textContent = P.idx + 1;
   $("prGauge").style.width = (P.idx / P.list.length * 100) + "%";
+  P.shown = P.idx;
   $("prQ").textContent = askKo ? w.ko : w.en;
   $("prQ").className = "pr-q" + (askKo ? " ko" : "");
   $("prHint").textContent = askKo ? "영어로 적고 엔터" : "뜻을 적고 엔터";
@@ -1802,11 +1971,13 @@ function pracShow(){
   $("prSkip").classList.remove("on");
 
   var el = $("prIn");
+  $("prGo").style.display = "";
   el.value = "";
   el.className = "pr-in";
   el.readOnly = false;
   el.placeholder = askKo ? "영어 단어" : "한글 뜻";
   P.checking = false;
+  P.wrong = false;
   $("prGo").textContent = "확인";
 
   // 키보드를 내리지 않고 그대로 이어간다
@@ -1817,8 +1988,15 @@ function pracShow(){
   setTimeout(pracFit, 500);
 }
 
-function pracCheck(){
-  if(P.checking){ P.idx++; pracShow(); return; }
+function pracCheck(fromKey){
+  if(P.checking){
+    /* 틀린 문제는 엔터로 넘기지 못하게 한다.
+       엔터를 두 번 빨리 누르면 정답 안내가 한 틱 안에 생겼다 사라져,
+       "틀렸을 때는 자동으로 넘기지 않는다" 는 규칙이 무너졌다. */
+    if(fromKey && P.wrong) return;
+    if(P.auto){ clearTimeout(P.auto); P.auto = null; }
+    P.idx++; pracShow(); return;
+  }
 
   var w = P.list[P.idx];
   var askKo = (S.mode === "spelling");
@@ -1826,13 +2004,17 @@ function pracCheck(){
   if(!mine){ $("prIn").focus(); return; }
 
   var right = askKo ? w.en : w.ko;
-  var res = askKo ? sameEn(mine, w.en, P.pool)
+  var res = askKo ? sameEn(mine, w.en, P.pool, w.ko)
                   : sameKo(mine, w.ko, otherMeanings(w.en));
   var ok = res.ok;
 
   P.done.push({en: w.en, ko: w.ko, day: w.day, mine: mine, ok: ok, askKo: askKo,
-               typo: !!res.typo, pos: !!res.pos, alt: !!res.alt});
+               typo: !!res.typo, pos: !!res.pos, alt: !!res.alt,
+               voice: !!res.voice, same: !!res.same});
   P.checking = true;
+  P.wrong = !ok;
+
+  $("prGauge").style.width = ((P.idx + 1) / P.list.length * 100) + "%";
 
   var el = $("prIn");
   el.className = "pr-in " + (ok ? "ok" : "no");
@@ -1845,6 +2027,7 @@ function pracCheck(){
   if(ok){
     m.className = "pr-mark ok";
     m.innerHTML = res.typo ? '맞았습니다<small>오타로 보고 맞게 처리했습니다</small>'
+      : res.same ? ('맞았습니다<small>이 범위에서 같은 뜻인 「' + esc(w.en) + '」도 정답입니다</small>')
       : res.alt ? ('맞았습니다<small>이 단어장에는 「' + esc(splitKo(w.ko)[0] || w.ko) + '」로 적혀 있습니다</small>')
       : "맞았습니다";
     beep(880, 90);
@@ -1853,8 +2036,12 @@ function pracCheck(){
     P.auto = setTimeout(function(){ if(P.checking){ P.idx++; pracShow(); } }, 700);
   } else {
     m.className = "pr-mark no";
+    /* 틀렸을 때 '넘기기'와 '다음' 두 개가 같은 일을 하며 나란히 떴다.
+       학생이 무엇이 다른지 알 수 없으므로 넘기기 하나만 남긴다 */
+    $("prGo").style.display = "none";
     m.innerHTML = "정답 : " + esc(right)
-      + "<small>" + (res.pos ? "뜻은 맞지만 품사가 다릅니다" : "천천히 보고 넘기세요") + "</small>";
+      + "<small>" + (res.voice ? "뜻은 맞지만 능동·수동이 다릅니다"
+        : res.pos ? "뜻은 맞지만 품사가 다릅니다" : "천천히 보고 넘기세요") + "</small>";
     beep(320, 160);
     $("prSkip").classList.add("on");   // 틀렸을 때는 직접 넘겨야 한다
   }
@@ -1863,6 +2050,8 @@ function pracCheck(){
 
 function pracFinish(){
   P.open = false;
+  if(P.auto){ clearTimeout(P.auto); P.auto = null; }
+  P.checking = false; P.wrong = false;
   $("prGauge").style.width = "100%";
   $("prac").classList.remove("on");
   $("prac").style.height = "";
@@ -1878,8 +2067,13 @@ function pracFinish(){
 }
 
 function pracQuit(){
-  if(P.done.length && !confirm("연습을 그만둘까요?\n지금까지 푼 것은 결과로 보여드립니다.")) return;
+  if(P.done.length && !confirm("연습을 그만둘까요?\n지금까지 푼 것은 결과로 보여드립니다.")){
+    $("prIn").focus();   /* 취소하면 키보드가 내려가 있던 것을 되돌린다 */
+    return;
+  }
   P.open = false;
+  if(P.auto){ clearTimeout(P.auto); P.auto = null; }
+  P.checking = false; P.wrong = false;
   $("prac").classList.remove("on");
   $("prac").style.height = "";
   $("prac").style.transform = "";
@@ -1914,19 +2108,25 @@ function renderPracResult(){
   var html = '<div class="pl-wrap"><div class="pl-h">'
     + (S.bookName ? esc(S.bookName) + " · " : "") + MODE_TXT[S.mode] + "</div>"
     + '<div class="pl-scroll"><table class="ptbl"><thead><tr>'
-    + "<th>번호</th><th>단어</th><th>단어의 뜻</th>"
+    + "<th>번호</th>"
+    /* 영어쓰기는 뜻을 보고 영어를 쓰므로 뜻이 문제, 영어가 정답이다.
+       문제 → 정답 → 내가 쓴 답 순서로 놓아야 정답과 쓴 답이 나란히 붙는다 */
+    + (askKo ? "<th>문제(뜻)</th><th>정답</th>" : "<th>단어</th><th>단어의 뜻</th>")
     + "<th>" + (askKo ? "내가 쓴 단어" : "내가 쓴 뜻") + "</th><th>채점</th>"
     + "</tr></thead><tbody>";
 
   d.forEach(function(x, i){
     var note = x.ok
       ? (x.typo ? '<em class="tag">오타 보정</em>'
+        : x.same ? '<em class="tag">같은 뜻 단어</em>'
         : x.alt ? '<em class="tag">다른 뜻으로 인정</em>' : "")
-      : (x.pos  ? '<em class="tag bad">품사 다름</em>' : "");
+      : (x.voice ? '<em class="tag bad">능동·수동 다름</em>'
+        : x.pos  ? '<em class="tag bad">품사 다름</em>' : "");
+    var cQ = '<td class="ko">' + esc(x.ko) + "</td>";
+    var cA = '<td class="en">' + esc(x.en) + "</td>";
     html += '<tr class="' + (x.ok ? "" : "no") + '">'
       + "<td>" + (i + 1) + "</td>"
-      + '<td class="en">' + esc(x.en) + "</td>"
-      + '<td class="ko">' + esc(x.ko) + "</td>"
+      + (x.askKo ? cQ + cA : cA + cQ)
       + '<td class="mine ' + (x.ok ? "o" : "x") + '">' + esc(x.mine) + note + "</td>"
       + '<td class="mk ' + (x.ok ? "o" : "x") + '">' + (x.ok ? "O" : "X") + "</td>"
       + "</tr>";
@@ -1947,12 +2147,23 @@ function pracRetryWrong(){
   if(!miss.length) return;
   var keys = {};
   miss.forEach(function(x){ keys[x.en.toLowerCase()] = 1; });
-  var p = pool().filter(function(w){ return keys[w.en.toLowerCase()]; });
+  var poolSrc = pool();
+  var p = poolSrc.filter(function(w){ return keys[w.en.toLowerCase()]; });
   if(!p.length) return;
   $("pres").classList.remove("on");
   P.list = p; P.idx = 0; P.done = []; P.checking = false; P.open = true;
   P.pool = {};
-  p.forEach(function(x){ P.pool[normEnAns(x.en)] = 1; });
+  /* 범위 전체로 만든다. 뽑힌 문항만으로 만들면, 같은 뜻인 형제가
+     이번에 안 뽑혔을 때 그 답이 오답 처리된다 (14문항 전부 오답이던 자리).
+     한 열쇠에 뜻이 둘 이상 붙으면(to go / go 처럼 눌러쓰면 같아지는 경우)
+     엉뚱한 단어가 맞게 처리될 수 있으므로 뜻을 목록으로 모아 둔다 */
+  poolSrc.forEach(function(x){
+    enForms(x.en).forEach(function(k){
+      if(!k) return;
+      if(!P.pool[k]) P.pool[k] = [];
+      if(P.pool[k].indexOf(x.ko) < 0) P.pool[k].push(x.ko);
+    });
+  });
   $("prAll").textContent = p.length;
   $("prInfo").textContent = "틀린 단어 " + p.length + "개 · " + MODE_TXT[S.mode];
   $("prac").classList.add("on");
@@ -2148,17 +2359,34 @@ function gateSubmit(){
 /* ---- 연습 모드 ---- */
 $("themeB").onclick = toggleTheme;
 $("practice").onclick = startPractice;
-$("prGo").onclick = pracCheck;
+$("prGo").onclick = function(){ pracCheck(false); };   /* 클릭을 키 입력으로 넘기지 않는다 */
 $("prSkip").onclick = function(){
   if(!P.checking) return;
   if(P.auto){ clearTimeout(P.auto); P.auto = null; }
   P.idx++; pracShow();
 };
+$("prIn").addEventListener("compositionstart", function(){
+  if(P.checking && !P.wrong){
+    if(P.auto){ clearTimeout(P.auto); P.auto = null; }
+    P.idx++; pracShow();
+  }
+});
 $("prIn").addEventListener("focus", function(){
   setTimeout(pracFit, 60); setTimeout(pracFit, 260);
 });
 $("prIn").addEventListener("keydown", function(e){
-  if(e.key === "Enter"){ e.preventDefault(); pracCheck(); }
+  if(e.key === "Enter"){ e.preventDefault(); pracCheck(true); return; }
+  /* 맞은 뒤 저절로 넘어가기를 기다리는 0.7초 동안 입력칸이 잠겨 있어서
+     빨리 치는 학생은 다음 단어의 첫 글자를 잃었다.
+     글자를 치면 기다리지 않고 바로 다음 문제로 넘긴 뒤 그 글자를 받는다. */
+  /* 한글을 조합하는 중에는 브라우저가 e.key 를 "Process" 로 준다.
+     한 글자인지만 보면 한글 입력에서는 걸리지 않으므로 조합 중도 함께 본다. */
+  var typing = e.isComposing || e.key === "Process"
+            || (e.key && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey);
+  if(P.checking && !P.wrong && typing){
+    if(P.auto){ clearTimeout(P.auto); P.auto = null; }
+    P.idx++; pracShow();
+  }
 });
 $("prQuit").onclick = pracQuit;
 $("prRetry").onclick = pracRetryWrong;

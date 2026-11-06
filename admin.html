@@ -1237,7 +1237,11 @@ function saveAll(){
   }
 
   step(0)
-    .then(function(){ return A.stu ? saveStudents() : null; })
+    /* 단어장 올리기는 학생 명단을 건드리지 않는다.
+       여기서 saveStudents() 를 함께 부르면, 명단이 비어 있는 기기(새 폰·
+       다른 브라우저·방문기록 삭제 뒤)에서 단어장 한 권만 올려도
+       students.json 이 빈 목록으로 덮어써져 학생 전원이 막혔다.
+       명단은 명단 탭의 [학생 명단 저장] 버튼으로만 저장한다. */
     .then(function(){
       A.busy = false;
       renderList(); renderFiles(); refresh();
@@ -1296,7 +1300,13 @@ function stuHash(name, phone, code){
       return out;
     });
   }
-  return Promise.resolve(fallbackHash(src));
+  /* SHA-256 을 못 쓰는 브라우저에서는 멈춘다.
+     예전에는 여기서 16자짜리 다른 값을 조용히 만들어 올렸는데,
+     그러면 학생 화면의 64자 값과 달라 전원이 못 들어오고,
+     그 값은 바로 되돌릴 수도 있었다. */
+  return Promise.reject(new Error(
+    "이 브라우저에서는 학생 코드를 처리할 수 없습니다. "
+    + "크롬·사파리 최신판에서 열어 주십시오."));
 }
 
 function fallbackHash(str){
@@ -1600,6 +1610,30 @@ function addStudent(){
 function saveStudents(){
   if(!A.stu) return Promise.resolve();
   var rows = A.stu.rows || [];
+
+  /* 안전장치 — 명단이 줄어드는 저장을 막는다.
+     명단 원본은 이 브라우저에만 있으므로, 다른 기기에서 열면 0명으로 보인다.
+     그 상태로 저장하면 저장소의 해시가 전부 지워져 학생이 못 들어온다. */
+  var had = A.stuHashes ? Object.keys(A.stuHashes).length : 0;
+  if(!rows.length){
+    if(had){
+      msg("m4", "err", "<b>저장하지 않았습니다.</b> 이 브라우저에는 명단 원본이 없습니다"
+        + "(저장소에는 " + had + "명이 들어 있습니다).<br>"
+        + "명단을 쓰던 기기에서 저장하거나, [명단 불러오기]로 백업 파일을 먼저 올려 주십시오.");
+      return Promise.reject(new Error("명단이 비어 있어 저장을 멈췄습니다"));
+    }
+    msg("m4", "err", "명단이 비어 있습니다. 코드를 먼저 발행해 주십시오.");
+    return Promise.reject(new Error("명단 없음"));
+  }
+  if(had && rows.length < had){
+    if(!confirm("저장소에는 " + had + "명이 들어 있는데 지금 명단은 "
+        + rows.length + "명입니다.\n"
+        + (had - rows.length) + "명이 지워집니다. 계속할까요?")) {
+      msg("m4", "", "");
+      return Promise.reject(new Error("사용자가 멈췄습니다"));
+    }
+  }
+
   return Promise.all(rows.map(function(r){
     return stuHash(r.name, r.phone, r.code).then(function(h){
       return {h: h, st: (r.st === "off" ? "off" : "on")};
@@ -1636,7 +1670,9 @@ function importRoster(file){
     var rows = [];
     try {
       if(ext === "json"){
-        var d = JSON.parse(fr.result);
+        /* fr.result 는 ArrayBuffer 다. 그대로 JSON.parse 하면 반드시 실패하므로
+           CSV 와 같이 글자로 풀어서 넘긴다 (명단 복원이 안 되던 자리) */
+        var d = JSON.parse(decodeText(fr.result));
         rows = (d.rows || d || []).map(function(r){
           return {name: r.name, school: r.school || "", grade: r.grade || "",
                   phone: normPhone(r.phone), code: r.code || uniqueCode(),
