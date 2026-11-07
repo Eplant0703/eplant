@@ -584,7 +584,11 @@ tr:last-child td{border-bottom:none}
 .ans-table td.ud,.ans-table th.ud{white-space:nowrap;width:1%}
 /* 한글은 어절을 지키고, 끊을 때는 anywhere 로 — break-word 를 쓰면
    긴 낱말 하나가 칸의 최소 폭을 밀어올려 표가 화면 밖으로 나간다 */
-.ans-table td,.ans-table th{word-break:keep-all;overflow-wrap:anywhere}
+/* 한글은 어절을 지킨다. 영어에는 overflow-wrap 을 걸지 않는다 —
+   anywhere 를 주면 comprehensible·representative 같은 단어가
+   글자 한가운데서 끊긴다(8권 114건). 걸지 않아도 표는 352px 안에
+   들어오므로(실측) 끊을 이유가 없다 */
+.ans-table td,.ans-table th{word-break:keep-all}
 .ans-table tr.miss{background:#FDF3F2}
 :root[data-theme="dark"] .ans-table tr.miss{background:#241715}
 .wchk{width:20px;height:20px;accent-color:var(--stop);cursor:pointer}
@@ -777,7 +781,7 @@ tr:last-child td{border-bottom:none}
 
       <div class="sub-t" style="margin-top:24px">범위</div>
       <div class="tabs">
-        <button class="tab on" data-tab="num">강 번호로</button>
+        <button class="tab on" data-tab="num">번호로</button>
         <button class="tab" data-tab="chk">직접 고르기</button>
       </div>
       <div id="tabNum">
@@ -1391,15 +1395,17 @@ function refresh(){
   var ok = ready && S.picked.length > 0 && c > 0 && c <= max;
   $("start").disabled = !ok;
   $("practice").disabled = !ok;
-  /* 다 골랐으면 아래 띠에서는 출제조건 문장을 뺀다.
-     한 줄로 줄이면 "… 단어 뜻쓰기 …" 로 잘려 읽히지 않고, 두 줄로 두면
-     띠가 화면을 너무 먹는다. 같은 내용이 화면 맨 위 출제조건 띠에
-     그대로 붙어 있고(sticky) 다섯 조각이 다 보이므로 겹쳐 적지 않는다.
-     아직 덜 골랐을 때는 무엇을 해야 하는지가 더 중요하므로 그대로 띄운다 */
+  /* 맨 위 출제조건 띠는 sticky 로 적어 뒀지만 부모(.top)가 거기서 끝나
+     화면을 조금만 내려도 같이 사라진다. 그래서 버튼이 있는 이 자리에
+     무엇을 풀게 되는지가 없으면 확인할 데가 아예 없다.
+     한 줄로 줄이지 않고 그대로 두 줄까지 쓰게 둔다 — 잘려서 못 읽는 것보다 낫다 */
+  var recipe = [S.bookName, rangeText(),
+                S.hasType ? typeTxt(S.wordType) : "전체 단어",
+                MODE_TXT[S.mode], c + "개"].join(" · ");
   $("launchTxt").textContent = !ready ? "단어장을 고르면 시작할 수 있습니다."
     : !S.picked.length ? "2단계에서 시험 볼 범위를 골라 주세요."
     : !max ? "고른 범위에 해당하는 단어가 없습니다."
-    : (c > 0 && c <= max) ? ""
+    : (c > 0 && c <= max) ? recipe
     : "문항 수를 확인해 주세요.";
   $("launchTxt").style.display = $("launchTxt").textContent ? "" : "none";
   setTimeout(syncLaunchHeight, 0);
@@ -1954,11 +1960,15 @@ function koForms(raw, posHead){
   //   "(소수) 민족의" → "소수민족의" 도 같은 경우.
   add(cleanKo(String(raw || "").replace(/[()\[\]]/g, " ")));
 
-  // 앞에 품사표기가 붙어 있으면 뗀 형태도 후보로 (동간주되다 → 간주되다)
-  if(posHead && base && POS_HEAD.test(base)) {
-    var np = base.replace(POS_HEAD, "");
-    if(np.length >= 2) add(np);
-  }
+  /* 앞 글자를 품사표기로 보고 떼어 내던 규칙은 없앴다.
+     단어장 84권에 구분자가 따라오는 진짜 품사표기는 0건이고,
+     그 여덟 글자로 시작하는 보통 낱말이 3,580건이다.
+     그래서 떼어 내면 뜻이 망가진다 —
+       부정확한 → 정확한, 감금하다 → 금하다, 명상하다 → 상하다,
+       접하다 → 하다, 숙이다 → 이다, 동영상 → 영상, 관심사 → 심사.
+     반의어가 정답 처리되고 맞는 답이 오답 처리되던 뿌리가 이것이었다.
+     사전(meanings.json)에 품사표기가 붙은 채 들어간 89건은
+     떼어 낸 형태를 데이터에 직접 넣어 두었으므로 잃는 것이 없다 */
   // 물결과 그 뒤 조사를 떼어낸 형태.
   //   단, 물결 뒤가 부정어면 떼지 않는다 — "더 이상 ~않은" 을
   //   "더 이상" 으로 인정하면 뜻이 반대로 뒤집힌다.
@@ -2409,7 +2419,7 @@ function renderPracResult(){
      예전에는 0점이어도 "천천히 보고 넘기세요" 한 줄뿐이어서,
      점수만 보고 덮는 자리가 됐다. 겁주지 않고 할 일만 적는다 */
   $("prNext").textContent = !wrong
-    ? "다 맞았습니다. 범위를 한두 강 넓혀서 한 번 더 해 보세요."
+    ? "다 맞았습니다. 범위를 조금 넓혀서 한 번 더 해 보세요."
     : pct >= 80 ? "거의 다 왔습니다. [틀린 단어만 다시]로 남은 " + wrong + "개만 마무리하면 됩니다."
     : pct >= 50 ? "절반 넘게 맞았습니다. [틀린 단어만 다시]를 눌러 " + wrong + "개만 채우면 됩니다."
     : "아직 눈에 익지 않은 단어가 많습니다. [틀린 단어만 다시]를 눌러 틀린 것만 두세 번 돌려 보세요. 그게 가장 빠릅니다.";
