@@ -570,7 +570,11 @@ body.nobar{padding-bottom:40px}
   padding:11px 17px;font-weight:800;font-size:1.05rem;color:var(--amp-deep)}
 .name-in{padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-weight:600;width:170px}
 .res-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.ans-table{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+/* overflow:hidden 이면 표가 넓어질 때 오른쪽 칸이 잘려 사라진다.
+   잘리는 순서가 한글 뜻 → 강 → '틀림' 이라, 체크박스가 사라지면
+   그 회차는 채점 자체를 못 한다. 넘칠 때는 잘라 없애지 말고 밀어 두자 */
+.ans-table{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  overflow-x:auto;overflow-y:hidden}
 table{width:100%;border-collapse:collapse;font-size:.86rem}
 th{background:var(--line-2);padding:9px 12px;text-align:left;font-weight:700;color:var(--ink-2);
   font-size:.76rem;letter-spacing:.04em;border-bottom:1px solid var(--line)}
@@ -584,11 +588,12 @@ tr:last-child td{border-bottom:none}
 .ans-table td.ud,.ans-table th.ud{white-space:nowrap;width:1%}
 /* 한글은 어절을 지키고, 끊을 때는 anywhere 로 — break-word 를 쓰면
    긴 낱말 하나가 칸의 최소 폭을 밀어올려 표가 화면 밖으로 나간다 */
-/* 한글은 어절을 지킨다. 영어에는 overflow-wrap 을 걸지 않는다 —
-   anywhere 를 주면 comprehensible·representative 같은 단어가
-   글자 한가운데서 끊긴다(8권 114건). 걸지 않아도 표는 352px 안에
-   들어오므로(실측) 끊을 이유가 없다 */
+/* 한글은 어절을 지킨다. 영어는 글자 중간에서 끊지 않는다 —
+   끊으면 철자를 확인하라고 보여주는 표에서 철자가 쪼개진다.
+   대신 한글 칸만 넘칠 때 글자 사이에서 끊게 해 폭을 양보시키고,
+   그래도 넘치면 바깥 상자가 밀어 준다(잘라 없애지 않는다) */
 .ans-table td,.ans-table th{word-break:keep-all}
+.ans-table td:nth-child(3){overflow-wrap:anywhere}
 .ans-table tr.miss{background:#FDF3F2}
 :root[data-theme="dark"] .ans-table tr.miss{background:#241715}
 .wchk{width:20px;height:20px;accent-color:var(--stop);cursor:pointer}
@@ -787,8 +792,10 @@ tr:last-child td{border-bottom:none}
       <div id="tabNum">
         <div class="range-quick">
           <span class="rq-lab">단어</span>
-          <input type="number" id="rFrom" min="1"><span class="rq-lab" id="lab1">강 ~</span>
-          <input type="number" id="rTo" min="1"><span class="rq-lab" id="lab2">강 까지</span>
+<!-- 단어장을 고르면 1244줄에서 그 단어장의 단위(과·번·Day)로 바뀐다.
+                 고르기 전 기본값은 단위를 적지 않는다 — 84권 중 '강' 을 쓰는 권이 없다 -->
+          <input type="number" id="rFrom" min="1"><span class="rq-lab" id="lab1">~</span>
+          <input type="number" id="rTo" min="1"><span class="rq-lab" id="lab2">까지</span>
           <button class="btn sm" id="applyRange">적용</button>
           <button class="btn ghost sm" id="allRange">전체</button>
         </div>
@@ -907,7 +914,7 @@ tr:last-child td{border-bottom:none}
     <button class="btn ghost" id="again">새 테스트</button>
   </div>
   <div class="ans-table"><table>
-    <thead><tr><th>번호</th><th>영어</th><th>한글 뜻</th><th class="ud" id="thUnit">강</th><th>틀림</th></tr></thead>
+    <thead><tr><th>번호</th><th>영어</th><th>한글 뜻</th><th class="ud" id="thUnit">범위</th><th>틀림</th></tr></thead>
     <tbody id="ansBody"></tbody>
   </table></div>
 </div>
