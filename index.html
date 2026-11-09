@@ -36,13 +36,16 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{height:auto}
 body{min-height:100%}
+/* 한글은 어절을 지킨다 — 곳곳에서 "다시 모아서 나/옵니다", "단어 뜻쓰/기 테스트"
+   처럼 낱말 한가운데서 꺾였다. 영어가 칸보다 길 때만 끊게 받쳐 둔다 */
 body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
   background:var(--paper);color:var(--ink);font-size:16px;line-height:1.5;
   -webkit-font-smoothing:antialiased;
+  word-break:keep-all;overflow-wrap:break-word;
   padding-bottom:calc(var(--launch-h, 150px) + 60px)}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select{font-family:inherit;font-size:1rem;color:inherit}
-:focus-visible{outline:3px solid var(--amp);outline-offset:2px;border-radius:4px}
+:focus-visible{outline:3px solid var(--amp);outline-offset:2px;border-radius:7px}
 
 
 
@@ -69,6 +72,11 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 :root[data-theme="dark"] .gate-msg.wait{background:#1B2028;color:#A8B0BA;border-color:#2A3038}
 :root[data-theme="dark"] .pick.on{background:var(--amp-soft);border-color:var(--amp)}
 :root[data-theme="dark"] .unit.on{background:var(--amp-soft);border-color:var(--amp)}
+
+/* 단계 번호 배지도 --ink 를 바탕으로 쓴다 — 어두운 화면에서
+   거의 흰 바탕에 흰 글자(1.10:1)가 되어 1단계 숫자가 안 보였다.
+   끝난 단계(초록)·차례가 안 온 단계(회색)도 같이 어두운 글자로 둔다 */
+:root[data-theme="dark"] .step-no{color:#11151A}
 
 /* 꽉 찬 버튼 — 어두운 화면에서 --ink 가 거의 흰색이라
    흰 바탕에 흰 글자(대비 1.1:1)가 됐다. 「한 번 더」가 안 보였던 자리 */
@@ -98,10 +106,8 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 :root[data-theme="dark"] .gate-btn:disabled{background:#2A3038;color:#9AA2AD;
   border-color:#2A3038}
 
-/* 출제조건 띠 — --ink 를 배경으로 써서 어두운 화면에서만 흰 카드가 됐다 */
-:root[data-theme="dark"] .recipe{background:#20262F;color:var(--ink);
-  box-shadow:0 6px 24px rgba(0,0,0,.45)}
-:root[data-theme="dark"] .ptbl th{background:#20262F;color:var(--ink)}
+/* 출제조건 띠는 이제 --card/--line 을 쓰므로 화면 밝기를 알아서 따라간다 */
+/* .ptbl th 가 정답표 표 머리와 같은 값을 쓰므로 따로 손볼 것이 없다 */
 :root[data-theme="dark"] .pres-next{background:var(--amp-soft);border-color:var(--line)}
 
 /* 어두운 화면 보정 */
@@ -144,8 +150,12 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 
 /* ===== 연습 결과 ===== */
 .ptbl{width:100%;border-collapse:collapse;font-size:.88rem}
-.ptbl th{background:#15181D;color:#fff;padding:10px 6px;font-size:.76rem;font-weight:800;
-  letter-spacing:.02em;text-align:left;white-space:nowrap}
+/* 정답표 표 머리와 같은 모양으로 맞춘다 — 한쪽은 검은 띠에 흰 글자,
+   다른 쪽은 연회색 띠에 검은 글자라 화면마다 명암이 뒤집혀 있었다.
+   인쇄에서는 두 표 모두 연회색 띠 + 검은 글자로 나간다 */
+.ptbl th{background:var(--line-2);color:var(--ink-2);padding:10px 6px;font-size:.78rem;
+  font-weight:800;letter-spacing:.02em;text-align:left;white-space:nowrap;
+  border-bottom:1px solid var(--line)}
 .ptbl th:first-child{padding-left:10px}
 .ptbl th:last-child,.ptbl td:last-child{text-align:center;width:34px;padding-left:2px;padding-right:6px}
 /* 한글 뜻은 어절을 지킨다(keep-all) — 예전 word-break:normal 이
@@ -156,7 +166,7 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
    영어가 토막 나지 않게 하는 것은 아래 min-width 로 받친다 */
 .ptbl td{padding:11px 6px;border-bottom:1px solid var(--line-2);vertical-align:top;
   word-break:keep-all;overflow-wrap:anywhere}
-.ptbl td:first-child{padding-left:10px;width:26px;color:var(--ink-3);font-weight:800;font-size:.8rem}
+.ptbl td:first-child{padding-left:10px;width:26px;color:var(--ink-3);font-weight:800;font-size:.78rem}
 .ptbl tr:last-child td{border-bottom:none}
 .ptbl tr.no td{background:#FDF6F5}
 .ptbl .en{font-weight:800;color:var(--ink);word-break:keep-all;overflow-wrap:anywhere}
@@ -168,18 +178,18 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .ptbl .mine{font-weight:700}
 .ptbl .mine.o{color:#0A7A56}
 .ptbl .mine.x{color:var(--stop)}
-.ptbl .tag{display:block;font-style:normal;font-size:.72rem;font-weight:700;
+.ptbl .tag{display:block;font-style:normal;font-size:.78rem;font-weight:700;
   color:var(--ink-3);margin-top:3px}
 .ptbl .tag.bad{color:var(--amp-deep)}
 .ptbl .mk{font-weight:800;font-size:1rem}
 .ptbl .mk.o{color:#0E9F6E}
 .ptbl .mk.x{color:var(--stop)}
 .pl-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.pl-wrap .pl-h{padding:12px 16px;font-size:.82rem;font-weight:800;color:var(--ink-2);
+.pl-wrap .pl-h{padding:12px 16px;font-size:.78rem;font-weight:800;color:var(--ink-2);
   background:#FBFCFD;border-bottom:1px solid var(--line-2)}
 .pl-scroll{overflow-x:auto}
 @media(max-width:420px){
-  .ptbl{font-size:.82rem}
+  .ptbl{font-size:.78rem}
   .ptbl td{padding:9px 6px}
   .ptbl td:first-child{padding-left:10px;width:32px}
   .ptbl th:first-child{padding-left:10px}
@@ -187,12 +197,12 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 
 .pres{display:none}
 .pres.on{display:block}
-.pres-top{background:var(--card);border:1px solid var(--line);border-radius:16px;
+.pres-top{background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:24px 20px;text-align:center;margin-bottom:16px}
 .pres-sc{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ink)}
-.pres-sc i{font-style:normal;font-size:1.3rem;color:var(--ink-3)}
+.pres-sc i{font-style:normal;font-size:1.15rem;color:var(--ink-3)}
 .pres-d{margin-top:9px;font-size:.88rem;color:var(--ink-2);font-weight:700}
-.pres-bar{height:8px;border-radius:5px;background:var(--line-2);margin-top:16px;overflow:hidden}
+.pres-bar{height:8px;border-radius:7px;background:var(--line-2);margin-top:16px;overflow:hidden}
 .pres-bar i{display:block;height:100%;background:#0E9F6E}
 /* 다음에 뭘 할지 알려 주는 줄 — 0점이어도 읽고 움직일 수 있는 말을 넣는다 */
 .pres-next{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--amp-soft);
@@ -201,7 +211,7 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .pres-acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .pres-acts .btn{flex:1;min-width:130px}
 .pl{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.pl-h{padding:12px 16px;font-size:.82rem;font-weight:800;color:var(--ink-2);
+.pl-h{padding:12px 16px;font-size:.78rem;font-weight:800;color:var(--ink-2);
   background:#FBFCFD;border-bottom:1px solid var(--line-2);letter-spacing:.03em}
 .pl-r{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line-2)}
 .pl-r:last-child{border-bottom:none}
@@ -209,12 +219,12 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .pl-i{flex:none;width:26px;font-size:.78rem;color:var(--ink-3);font-weight:800;padding-top:2px}
 .pl-b{flex:1;min-width:0}
 .pl-q{font-weight:800;font-size:1rem;color:var(--ink);word-break:break-word}
-.pl-a{margin-top:5px;font-size:.86rem;font-weight:700;line-height:1.6}
+.pl-a{margin-top:5px;font-size:.88rem;font-weight:700;line-height:1.6}
 .pl-a .mine{color:var(--stop)}
 .pl-a .mine s{opacity:.65}
 .pl-a .right{color:#0A7A56}
 .pl-a .ok{color:#0A7A56}
-.pl-d{flex:none;font-size:.74rem;color:var(--ink-3);font-weight:700;padding-top:3px}
+.pl-d{flex:none;font-size:.78rem;color:var(--ink-3);font-weight:700;padding-top:3px}
 .pl-mk{flex:none;width:22px;text-align:center;font-weight:800;padding-top:1px}
 .pl-mk.o{color:#0E9F6E}
 .pl-mk.x{color:var(--stop)}
@@ -228,19 +238,24 @@ body.pracing{overflow:hidden}
 .pr-gauge{height:4px;background:var(--line-2);flex:none}
 .pr-gauge i{display:block;height:100%;background:var(--amp);width:0;transition:width .2s}
 
-.pr-top{flex:none;display:flex;align-items:center;gap:10px;padding:11px 16px;
+/* 바깥 여백은 모든 화면에서 18px — 설정 18 / 연습 16·14 / 실전 14·20 로 제각각이었다 */
+.pr-top{flex:none;display:flex;align-items:center;gap:10px;padding:11px 18px;
   border-bottom:1px solid var(--line-2);background:var(--card)}
-.pr-n{font-size:.95rem;font-weight:800;color:var(--ink)}
+.pr-n{font-size:1rem;font-weight:800;color:var(--ink)}
 .pr-n i{font-style:normal;color:var(--ink-3);font-weight:700}
 .pr-info{font-size:.78rem;color:var(--ink-3);font-weight:700;flex:1;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pr-x{width:32px;height:32px;border-radius:9px;background:var(--line-2);
+.pr-x{width:32px;height:32px;border-radius:10px;background:var(--line-2);
   color:var(--ink-2);font-weight:800;font-size:1rem;flex:none}
 
-/* 가운데: 남는 공간을 다 쓰되, 키보드가 올라오면 알아서 줄어든다 */
+/* 가운데: 남는 공간을 다 쓰되, 키보드가 올라오면 알아서 줄어든다.
+   예전에는 flex-start 라 단어가 맨 위에 붙고 그 아래로 620px 가 빈 회색이었다.
+   가운데로 모아 단어와 입력칸을 눈이 한 번에 잡게 한다.
+   safe 를 붙여, 키보드가 올라와 칸이 글보다 작아져도 윗줄이 잘려 나가지 않게 한다 */
 .pr-mid{flex:1;min-height:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:flex-start;padding:26px 18px 14px;text-align:center;
+  align-items:center;justify-content:center;padding:26px 18px 14px;text-align:center;
   overflow:hidden}
+.pr-mid{justify-content:safe center}
 .pr-q{font-size:clamp(1.55rem,7.2vw,2.9rem);font-weight:800;letter-spacing:-.03em;
   line-height:1.15;color:var(--ink);word-break:break-word}
 .pr-q.ko{font-size:clamp(1.3rem,5.4vw,2.2rem)}
@@ -248,29 +263,31 @@ body.pracing{overflow:hidden}
 .pr-mid.tight{padding-top:14px}
 .pr-mid.tight .pr-q{font-size:clamp(1.25rem,5.6vw,2rem)}
 .pr-mid.tight .pr-q.ko{font-size:clamp(1.1rem,4.6vw,1.7rem)}
-.pr-mid.tight .pr-hint{margin-top:6px;font-size:.75rem}
+.pr-mid.tight .pr-hint{margin-top:6px;font-size:.78rem}
 .pr-mid.tight .pr-mark{margin-top:10px;font-size:.88rem}
-.pr-hint{margin-top:9px;font-size:.8rem;color:var(--ink-3);font-weight:700}
+.pr-hint{margin-top:9px;font-size:.78rem;color:var(--ink-3);font-weight:700}
 
 /* 정답/오답 표시 */
-.pr-mark{margin-top:14px;font-size:.95rem;font-weight:800;line-height:1.6}
+.pr-mark{margin-top:14px;font-size:1rem;font-weight:800;line-height:1.6}
 .pr-mark.ok{color:#0E9F6E}
 .pr-mark.no{color:var(--stop)}
 /* 채점이 아닌 안내 (빈칸으로 확인, 영어 칸에 한글 등) */
-.pr-mark.tip{color:var(--amp-deep);font-weight:700;font-size:.9rem}
+.pr-mark.tip{color:var(--amp-deep);font-weight:700;font-size:.88rem}
 @keyframes epShake{0%,100%{transform:translateX(0)}
   20%{transform:translateX(-5px)}40%{transform:translateX(5px)}
   60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
 .pr-in.shake{animation:epShake .32s}
 @media(prefers-reduced-motion:reduce){.pr-in.shake{animation:none}}
-.pr-mark small{display:block;font-size:.82rem;font-weight:700;color:var(--ink-2);margin-top:5px}
+.pr-mark small{display:block;font-size:.78rem;font-weight:700;color:var(--ink-2);margin-top:5px}
 
 /* 아래 입력줄 — 키보드 바로 위에 붙는다 */
-.pr-bar{flex:none;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+/* stretch 로 둬야 입력칸과 옆 단추의 위·아래가 딱 맞는다.
+   center 였을 때는 글꼴·테두리 차이로 입력칸 56 / 단추 52 로 어긋났다 */
+.pr-bar{flex:none;padding:10px 18px calc(10px + env(safe-area-inset-bottom));
   background:var(--card);border-top:1px solid var(--line);
-  display:flex;gap:9px;align-items:center}
-.pr-in{flex:1;min-width:0;padding:15px 16px;border:2px solid var(--line);border-radius:12px;
-  background:#FBFCFD;font-size:1.12rem;font-weight:700;font-family:inherit;
+  display:flex;gap:9px;align-items:stretch}
+.pr-in{flex:1;min-width:0;padding:15px 16px;border:2px solid var(--line);border-radius:10px;
+  background:#FBFCFD;font-size:1.15rem;font-weight:700;font-family:inherit;
   transition:border-color .12s,background .12s}
 .pr-in:focus{outline:none;border-color:var(--amp);background:#fff}
 .pr-in.ok{border-color:#0E9F6E;background:#EEFBF5}
@@ -278,55 +295,69 @@ body.pracing{overflow:hidden}
 .pr-in.ok::placeholder{color:#0A7A56;opacity:.8}
 :root[data-theme="dark"] .pr-in.ok::placeholder{color:#6FE0B4;opacity:.8}
 .pr-in.no{border-color:var(--stop);background:#FDF1F0}
-.pr-skip{flex:none;padding:15px 15px;border-radius:12px;background:var(--line-2);
-  color:var(--ink-2);font-weight:800;font-size:.94rem;display:none}
+/* 처음부터 보여 준다 — 예전에는 빈칸으로 [확인]을 눌러 한 번 실패해야
+   나타나서, 모르는 단어에서 빠져나올 길이 숨어 있었다 */
+.pr-skip{flex:none;padding:15px 15px;border-radius:10px;background:var(--line-2);
+  color:var(--ink-2);font-weight:800;font-size:1rem;display:block}
 .pr-skip.on{display:block}
 .pr-skip:active{background:#D9DEE5}
-.pr-go{flex:none;padding:15px 20px;border-radius:12px;background:var(--amp);color:#fff;
+.pr-go{flex:none;padding:15px 20px;border-radius:10px;background:var(--amp);color:#fff;
   font-weight:800;font-size:1rem}
 .pr-go:active{background:var(--amp-deep)}
 
 @media(max-width:380px){
-  .pr-in{padding:13px 13px;font-size:1.05rem}
-  .pr-go,.pr-skip{padding:13px 13px;font-size:.9rem}
+  .pr-in{padding:13px 13px;font-size:1rem}
+  .pr-go,.pr-skip{padding:13px 13px;font-size:.88rem}
 }
 
 /* ===== 로그인 ===== */
+/* 안쪽 여백과 사이 간격을 조금씩 줄여 첫 화면에 마지막 줄까지 들어오게 한다
+   (871px → 844px 안). safe 를 붙여, 그래도 넘칠 때 윗줄이 잘리지 않게 한다 */
 #gate{position:fixed;inset:0;z-index:400;background:var(--paper);
-  display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+  /* 좌우 24px 은 그대로 둔다 — 카드 x=24·폭 342 가 검수 합격 기준이다.
+     위아래만 줄여 마지막 줄이 첫 화면에 들어오게 한다 */
+  display:none;align-items:center;justify-content:center;padding:14px 24px;overflow-y:auto}
+#gate.on{align-items:safe center}
 #gate.on{display:flex}
 body.gated{overflow:hidden}
 body.booting .wrap,body.booting .launch{visibility:hidden}
 .gate-box{width:100%;max-width:380px}
 .gate-logo{display:block;width:min(62%,210px);height:auto;margin:0 auto 26px}
-.gate-card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+.gate-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:26px 22px;box-shadow:0 8px 30px rgba(21,24,29,.07)}
-.gate-t{font-size:1.18rem;font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:6px}
-.gate-d{font-size:.85rem;color:var(--ink-2);font-weight:600;text-align:center;
-  line-height:1.75;margin-bottom:22px}
-.gf{margin-bottom:14px}
-.gf label{display:block;font-size:.79rem;font-weight:800;color:var(--ink-2);margin-bottom:7px}
-.gf input{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:11px;
+.gate-t{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:6px}
+.gate-d{font-size:.88rem;color:var(--ink-2);font-weight:600;text-align:center;
+  line-height:1.75;margin-bottom:18px}
+.gf{margin-bottom:12px}
+.gf label{display:block;font-size:.78rem;font-weight:800;color:var(--ink-2);margin-bottom:7px}
+.gf input{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:10px;
   background:#FBFCFD;font-weight:700;font-size:1rem;transition:.12s}
 .gf input:focus{background:#fff;border-color:var(--amp);outline:none;
   box-shadow:0 0 0 3px rgba(255,122,0,.13)}
 .gf input::placeholder{color:#B6BDC6;font-weight:600}
-#gCode{letter-spacing:.14em;text-transform:uppercase;font-size:1.1rem}
-.gate-btn{width:100%;padding:16px;border-radius:12px;background:var(--amp);color:#fff;
-  font-weight:800;font-size:1.05rem;margin-top:8px;transition:.13s}
+/* 어두운 화면에서는 같은 색이 9.67:1 로 또렷해져, 안 넣은 안내글이
+   이미 적어 넣은 값처럼 보였다(실제 입력 글자 16.63:1).
+   어두운 바탕에 맞는 흐린 색으로 따로 준다 — 3.65:1 */
+:root[data-theme="dark"] .gf input::placeholder{color:#68707A}
+/* 자간은 코드(영문·숫자)에만 필요하다. 한글 안내글에까지 걸려
+   「선 생 님 께  받 은  코 드」 가 됐고, 글자도 옆 칸(16px)과 달랐다 */
+#gCode{letter-spacing:.14em;text-transform:uppercase;font-size:1rem}
+#gCode::placeholder{letter-spacing:normal}
+.gate-btn{width:100%;padding:16px;border-radius:10px;background:var(--amp);color:#fff;
+  font-weight:800;font-size:1rem;margin-top:6px;transition:.13s}
 .gate-btn:hover{background:var(--amp-deep)}
 .gate-btn:disabled{background:#C6CCD4;color:#474E58;cursor:not-allowed}
-.gate-msg{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:.87rem;
+.gate-msg{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:.88rem;
   font-weight:700;line-height:1.55;display:none}
 .gate-msg.on{display:block}
 .gate-msg{white-space:pre-line}   /* 여러 줄 안내를 줄마다 끊어 보여준다 */
 .gate-msg.err{background:#FDEDEC;color:#9C2A23;border:1px solid #F4C7C3}
 .gate-msg.wait{background:#FFF7E6;color:#8A5A00;border:1px solid #F5DEB0}
-.gate-foot{text-align:center;margin-top:20px;font-size:.8rem;color:var(--ink-3);
-  font-weight:600;line-height:1.7}
+.gate-foot{text-align:center;margin-top:14px;font-size:.78rem;color:var(--ink-3);
+  font-weight:600;line-height:1.55}
 @media(max-width:400px){
   .gate-card{padding:22px 18px}
-  .gate-logo{margin-bottom:20px}
+  .gate-logo{margin-bottom:10px}
 }
 #splash{position:fixed;inset:0;z-index:500;background:#fff;
   display:flex;align-items:center;justify-content:center;padding:24px;
@@ -336,43 +367,61 @@ body.booting .wrap,body.booting .launch{visibility:hidden}
 body.splashing{overflow:hidden}
 body.nobar{padding-bottom:40px}
 .top{max-width:940px;margin:0 auto;padding:28px 18px 0}
-.brand{display:flex;align-items:center;gap:14px;margin-bottom:6px;font-size:1.85rem}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:6px;font-size:1.45rem}
 .brand .logo{margin-left:auto;height:1em}
 .theme-b{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);
   background:var(--card);color:var(--ink-2);font-size:1rem;line-height:1;flex:none;
   margin-left:auto;display:flex;align-items:center;justify-content:center;transition:.13s}
 .theme-b:hover{background:var(--paper);color:var(--ink)}
 .brand .logo{margin-left:12px}
-@media(max-width:430px){.theme-b{width:30px;height:30px;font-size:.92rem}}   /* 아래 fitLogo()가 정확한 값으로 다시 잡음 */
+@media(max-width:430px){.theme-b{width:30px;height:30px;font-size:.88rem}}   /* 아래 fitLogo()가 정확한 값으로 다시 잡음 */
 .logo{width:auto;display:block;flex:none}
 @media(max-width:430px){.brand{font-size:1.45rem;gap:10px}}
 .brand b{font-size:1em;font-weight:800;letter-spacing:-.025em;white-space:nowrap;line-height:1}
-.brand-rule{height:3px;background:var(--logo);width:44px;border-radius:2px;margin:12px 0 22px}
+.brand-rule{height:3px;background:var(--logo);width:44px;border-radius:7px;margin:12px 0 22px}
 .res-logo{height:34px;width:auto;display:block;margin-bottom:14px}
 .stage-logo{height:17px;width:auto;opacity:.45;flex:none}
 .done-sym{height:56px;width:auto;opacity:.9;margin-bottom:2px}
 
-.recipe{position:sticky;top:0;z-index:60;background:var(--ink);color:#fff;border-radius:var(--r);
-  padding:16px 18px;margin-bottom:24px;box-shadow:0 6px 24px rgba(21,24,29,.18)}
-/* 10.9px 이라 작고 흐렸다 — 조금 키우고 밝게 */
-.recipe-label{font-size:.76rem;font-weight:800;letter-spacing:.12em;color:#B7BFC9;margin-bottom:8px}
-.recipe-line{display:flex;flex-wrap:wrap;align-items:center;gap:7px 9px;font-size:1.02rem;font-weight:600;line-height:1.8}
-.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+/* 누를 수 없는 표시판이라 단계 카드보다 눈에 덜 띄어야 한다.
+   예전에는 밝은 화면에서 거의 검정(21,24,29), 어두운 화면에서는 배경보다
+   밝은 판이었고, 큰 그림자(0 6px 24px)도 이 판에만 있었다.
+   다른 카드와 같은 바탕·테두리로 낮춘다 */
+.recipe{position:sticky;top:0;z-index:60;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);border-radius:var(--r);
+  padding:16px 18px;margin-bottom:24px}
+/* 한글은 자간을 벌리지 않는다 — 벌리면 띄어쓰기가 글자 사이에 묻혀
+   「출 제 조 건」 처럼 읽힌다 */
+.recipe-label{font-size:.78rem;font-weight:800;color:var(--ink-3);margin-bottom:8px}
+.recipe-line{display:flex;flex-wrap:wrap;align-items:center;gap:7px 9px;font-size:1rem;font-weight:600;line-height:1.8}
+.chip{background:var(--paper);border:1px solid var(--line);color:var(--ink-2);
   padding:3px 11px;border-radius:999px;white-space:nowrap}
-.chip.set{background:var(--amp);border-color:var(--amp);color:#fff}
-.chip.empty{color:#AEB6C1}       /* 2.47:1 → 7.6:1 */
-.recipe-sep{color:#8E97A3;font-weight:400}
+/* 고른 값은 검은 글자로 둔다 — amp-deep 글자는 3.87:1 로 기준(4.5)에 못 미쳤고,
+   흑백으로 보면 고른 칩과 안 고른 칩이 같은 회색이 됐다.
+   이제 고른 칩은 진한 글자, 안 고른 칩은 흐린 글자로 흑백에서도 갈린다 */
+.chip.set{background:var(--amp-soft);border-color:var(--amp);color:var(--ink)}
+/* 칩이 무엇을 말하는 자리인지 칩 안에 적어 둔다 */
+.chip i{font-style:normal;font-weight:700;font-size:.78rem;color:var(--ink-3);margin-right:5px}
+.chip.empty{color:var(--ink-3)}
 
 .wrap{max-width:940px;margin:0 auto;padding:0 18px}
 .step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+/* 아직 못 쓰는 단계는 제목 줄만 남기고 속을 접는다.
+   예전에는 첫 화면 2163px 중 1690px(78%)가 흐린 채 열려 있어,
+   단어장을 고르기 전에 2.6 화면을 내려야 했다 */
 .step.locked{opacity:.42;pointer-events:none;filter:grayscale(.4)}
+.step.locked .step-body{display:none}
+.step.locked .step-head{border-bottom:none}
 .step-head{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line-2)}
 .step-no{width:26px;height:26px;flex:none;border-radius:7px;background:var(--ink);color:#fff;
-  display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800}
+  display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800}
 .step.done .step-no{background:var(--go)}
+/* 아직 차례가 오지 않은 단계는 번호를 회색으로 둔다 —
+   2·3·4 가 한꺼번에 검정이면 지금 무엇을 할 차례인지 알 수 없다 */
+.step.ahead .step-no{background:var(--ink-3)}
 /* 제목과 메모가 글자 한가운데서 끊기지 않게 */
-.step-title{font-size:1.02rem;font-weight:700;letter-spacing:-.01em;word-break:keep-all}
-.step-note{margin-left:auto;font-size:.82rem;color:var(--ink-3);font-weight:600;
+.step-title{font-size:1rem;font-weight:700;letter-spacing:-.01em;word-break:keep-all}
+.step-note{margin-left:auto;font-size:.78rem;color:var(--ink-3);font-weight:600;
   text-align:right;word-break:keep-all}
 .step-body{padding:20px}
 
@@ -381,74 +430,91 @@ body.nobar{padding-bottom:40px}
   font-weight:600;margin-bottom:16px;background:#FBFCFD}
 .cat{margin-bottom:18px}
 .cat:last-child{margin-bottom:0}
-.cat-t{font-size:.74rem;font-weight:800;letter-spacing:.12em;color:var(--ink-3);margin-bottom:9px}
+.cat-t{font-size:.78rem;font-weight:800;letter-spacing:.12em;color:var(--ink-3);margin-bottom:9px}
 .books{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px}
-.book{border:1px solid var(--line);border-radius:11px;padding:14px 15px;background:#fff;text-align:left;transition:.12s}
+.book{border:1px solid var(--line);border-radius:10px;padding:14px 15px;background:#fff;text-align:left;transition:.12s}
 .book:hover{border-color:var(--ink-3)}
 .book.on{border-color:var(--amp);background:var(--amp-soft);box-shadow:inset 0 0 0 1px var(--amp)}
-.book-t{font-weight:800;font-size:.95rem;margin-bottom:3px;letter-spacing:-.01em}
+.book-t{font-weight:800;font-size:1rem;margin-bottom:3px;letter-spacing:-.01em}
 .book-d{font-size:.78rem;color:var(--ink-2);font-weight:600}
-.catcard{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:10px;overflow:hidden}
+.catcard{border:1px solid var(--line);border-radius:10px;background:#fff;margin-bottom:10px;overflow:hidden}
 .catcard.open{border-color:var(--amp)}
-.cath{display:flex;align-items:center;gap:12px;width:100%;padding:16px 17px;text-align:left}
-.cath b{font-size:1.02rem;font-weight:800;letter-spacing:-.01em}
-.cath .cnt{margin-left:auto;font-size:.8rem;color:var(--ink-3);font-weight:700}
-.cath .arw{width:17px;text-align:center;color:var(--ink-3);font-size:.84rem;font-weight:800;transition:.15s}
+/* 세 단의 오른쪽 끝(권수)과 줄 높이를 맞춘다 — 왼쪽은 단계가 보이게 들여쓰되,
+   오른쪽은 한 세로줄에 세운다. 예전에는 오른끝 350→337→327,
+   줄 높이 54→49→47 로 단마다 달랐다 */
+.cath{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;
+  min-height:52px;text-align:left}
+.cath b{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+.cath .cnt{margin-left:auto;font-size:.78rem;color:var(--ink-3);font-weight:700}
+.cath .arw{width:17px;text-align:center;color:var(--ink-3);font-size:.88rem;font-weight:800;transition:.15s}
 .catcard.open .cath{background:var(--amp-soft)}
 .catcard.open .arw{transform:rotate(90deg);color:var(--amp-deep)}
-.catb{display:none;border-top:1px solid var(--line-2);padding:12px;background:#FBFCFD}
+.catb{display:none;border-top:1px solid var(--line-2);padding:12px 0 12px 12px;background:#FBFCFD}
 .catcard.open .catb{display:block}
 .catb .books{grid-template-columns:1fr}
 .catb .book{background:#fff}
-.series{border:1px solid var(--line);border-radius:11px;background:#fff;margin-bottom:9px;overflow:hidden}
+.series{border:1px solid var(--line);border-radius:10px;background:#fff;margin-bottom:9px;overflow:hidden}
 .series.open{border-color:var(--amp)}
-.series-h{display:flex;align-items:center;gap:10px;width:100%;padding:14px 16px;text-align:left}
-.series-h b{font-weight:800;font-size:.97rem;letter-spacing:-.01em}
+.series-h{display:flex;align-items:center;gap:10px;width:100%;padding:14px 16px;
+  min-height:52px;text-align:left}
+.series-h b{font-weight:800;font-size:1rem;letter-spacing:-.01em}
 .series-h .cnt{margin-left:auto;font-size:.78rem;color:var(--ink-3);font-weight:700}
-.series-h .arw{width:17px;text-align:center;color:var(--ink-3);font-size:.84rem;font-weight:800;transition:.15s}
+.series-h .arw{width:17px;text-align:center;color:var(--ink-3);font-size:.88rem;font-weight:800;transition:.15s}
 .series.open .series-h{background:var(--amp-soft)}
 .series.open .arw{transform:rotate(90deg);color:var(--amp-deep)}
-.series-b{display:none;border-top:1px solid var(--line-2);padding:10px}
+.series-b{display:none;border-top:1px solid var(--line-2);padding:10px 0 10px 10px}
 .series.grp>.series-h b{font-weight:800}
 .series.grp>.series-b{background:#FBFCFD}
 .series .series{margin-bottom:7px}
 .series .series:last-child{margin-bottom:0}
 .series.open .series-b{display:block}
-.brow{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:9px;
+/* 책 이름이 위 단(학년) 이름과 같은 세로줄에서 시작하게 32px 들여쓴다 —
+   화살표(17)+사이(10)+안쪽여백(16) 만큼 위 단의 글자가 밀려 있기 때문이다 */
+.brow{display:flex;align-items:center;gap:12px;width:100%;padding:11px 16px 11px 32px;min-height:52px;border-radius:10px;
   text-align:left;border:1px solid transparent;transition:.1s}
 .brow:hover{background:#FBFCFD;border-color:var(--line)}
 .brow.on{background:var(--amp-soft);border-color:var(--amp)}
-.brow .bt{font-weight:700;font-size:.92rem}
+.brow .bt{font-weight:700;font-size:.88rem}
 .brow .bd{margin-left:auto;font-size:.78rem;color:var(--ink-2);font-weight:600;white-space:nowrap}
-.empty-note{padding:26px 18px;text-align:center;color:var(--ink-2);font-size:.9rem;font-weight:600;
-  background:#FBFCFD;border:1px dashed var(--line);border-radius:11px;line-height:1.7}
+.empty-note{padding:26px 18px;text-align:center;color:var(--ink-2);font-size:.88rem;font-weight:600;
+  background:#FBFCFD;border:1px dashed var(--line);border-radius:10px;line-height:1.7}
 
-.btn{padding:11px 18px;border-radius:9px;font-weight:700;font-size:.92rem;background:var(--ink);color:#fff;transition:.13s}
+/* 테두리 1px 을 안쪽 여백에서 빼지 않아, 테두리만 있는 단추가 꽉 찬 단추보다
+   2px 높고 1px 올라앉았다. 꽉 찬 단추에도 같은 두께의 투명 테두리를 둬서
+   네 군데(적용/전체, 50/범위 전체, 연습결과, 정답표)를 한 번에 맞춘다 */
+/* 줄 높이를 숫자로 못박는다 — 두지 않으면 글꼴이 알아서 잡아,
+   숫자만 든 [50] 과 한글이 든 [범위 전체] 가 같은 단추인데 2px 달라진다 */
+.btn{padding:11px 18px;border:1px solid transparent;border-radius:10px;font-weight:700;
+  font-size:.88rem;line-height:1.35;background:var(--ink);color:#fff;transition:.13s}
 .btn:hover{background:#000}
-.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost{background:#fff;color:var(--ink);border-color:var(--line)}
 .btn.ghost:hover{background:var(--paper)}
 .btn.amp{background:var(--amp)}
 .btn.amp:hover{background:var(--amp-deep)}
-.btn.sm{padding:8px 13px;font-size:.84rem}
+.btn.sm{padding:8px 13px;font-size:.88rem}
 /* 못 누르는 버튼도 글자는 읽혀야 한다 — 흰 글자였을 때 1.62:1 */
 .btn:disabled{background:#C6CCD4;color:#474E58;cursor:not-allowed}
 
-.msg{padding:12px 14px;border-radius:9px;font-size:.88rem;font-weight:600;margin-top:14px;line-height:1.6}
+.msg{padding:12px 14px;border-radius:10px;font-size:.88rem;font-weight:600;margin-top:14px;line-height:1.6}
 .msg.err{background:#FDEDEC;color:#9C2A23;border:1px solid #F4C7C3}
 .msg.ok{background:#E9F7F1;color:#0A6B4A;border:1px solid #BFE5D5}
 .msg.warn{background:#FFF7E6;color:#8A5A00;border:1px solid #F5DEB0}
 
-.sub-t{font-size:.76rem;font-weight:800;letter-spacing:.11em;color:var(--ink-3);margin-bottom:10px}
+.sub-t{font-size:.78rem;font-weight:800;color:var(--ink-3);margin-bottom:10px}
 .tabs{display:inline-flex;background:#EDF0F4;border-radius:10px;padding:4px;gap:4px;margin-bottom:14px}
-.tab{padding:8px 16px;border-radius:7px;font-size:.87rem;font-weight:700;color:var(--ink-2)}
+.tab{padding:8px 16px;border-radius:7px;font-size:.88rem;font-weight:700;color:var(--ink-2)}
 .tab.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(21,24,29,.1)}
-.pick-n{display:block;margin-top:7px;font-size:.8rem;font-weight:800;color:var(--amp-deep)}
+.pick-n{display:block;margin-top:7px;font-size:.78rem;font-weight:800;color:var(--amp-deep)}
 .pick.off .pick-n{color:var(--ink-3)}
-.rq-lab{font-weight:700;font-size:.92rem;color:var(--ink-2)}
-.picked-note{margin-top:13px;font-size:.87rem;font-weight:700;color:var(--ink-2)}
-.picked-note b{color:var(--amp-deep)}
+/* 아직 범위를 안 골랐을 때의 개수 — 이 단어장 전체 개수라는 뜻으로 흐리게 */
+.pick-n.dim{color:var(--ink-3)}
+.rq-lab{font-weight:700;font-size:.88rem;color:var(--ink-2)}
+.picked-note{margin-top:13px;font-size:.88rem;font-weight:700;color:var(--ink-2)}
+/* 굵기를 적어 두지 않으면 <b> 가 둘레 글자(700)보다 한 단 더 굵은 900 이 되어,
+   쓰는 굵기가 4종(400/600/700/800)을 넘는다 */
+.picked-note b{color:var(--amp-deep);font-weight:800}
 .range-quick{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.range-quick input{width:74px;padding:9px;border:1px solid var(--line);border-radius:8px;text-align:center;font-weight:700}
+.range-quick input{width:74px;padding:9px;border:1px solid var(--line);border-radius:7px;text-align:center;font-weight:700}
 /* 칩마다 너비가 달라 열이 들쭉날쭉했다 — 격자로 세로줄을 맞춘다.
    칸 폭은 단어장마다 다르다. 88px 로 못박았더니 이름이 긴 Day 단어장
    26권에서 "Day"/"70" 이 두 줄로 갈라졌다. 이름 길이에 맞춰
@@ -458,52 +524,62 @@ body.nobar{padding-bottom:40px}
   background:#FBFCFD;border:1px solid var(--line);border-radius:10px}
 .unit{display:flex;align-items:center;gap:7px;padding:7px 10px 7px 9px;
   white-space:nowrap;
-  border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;
-  font-size:.86rem;font-weight:700;color:var(--ink-2);transition:.1s;user-select:none}
+  border:1px solid var(--line);border-radius:7px;background:#fff;cursor:pointer;
+  font-size:.88rem;font-weight:700;color:var(--ink-2);transition:.1s;user-select:none}
 .unit input{width:16px;height:16px;margin:0;accent-color:var(--amp);cursor:pointer}
 .unit.on{background:var(--amp-soft);border-color:var(--amp);color:var(--amp-deep)}
 
 .picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.pick{border:1px solid var(--line);border-radius:11px;padding:15px 16px;background:#fff;text-align:left;transition:.12s}
+.pick{border:1px solid var(--line);border-radius:10px;padding:15px 16px;background:#fff;text-align:left;transition:.12s}
 .pick:hover{border-color:var(--ink-3)}
 .pick.on{border-color:var(--amp);background:var(--amp-soft);box-shadow:inset 0 0 0 1px var(--amp)}
 .pick.off{opacity:.4;pointer-events:none}
-.pick-t{font-weight:800;font-size:.98rem;margin-bottom:4px}
-.pick-d{font-size:.8rem;color:var(--ink-2);line-height:1.5}
+.pick-t{font-weight:800;font-size:1rem;margin-bottom:4px}
+.pick-d{font-size:.78rem;color:var(--ink-2);line-height:1.5}
 
 .times{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--line-2)}
 .time-f{display:flex;align-items:center;gap:9px}
-.time-f label{font-size:.85rem;font-weight:700;color:var(--ink-2)}
-.time-f input{width:64px;padding:8px;border:1px solid var(--line);border-radius:8px;text-align:center;font-weight:700}
+.time-f label{font-size:.88rem;font-weight:700;color:var(--ink-2)}
+.time-f input{width:64px;padding:8px;border:1px solid var(--line);border-radius:7px;text-align:center;font-weight:700}
 
-.count-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.count-row input{width:96px;padding:12px;border:1px solid var(--line);border-radius:9px;
-  text-align:center;font-weight:800;font-size:1.2rem}
-.count-avail{font-size:.85rem;color:var(--ink-2);font-weight:600}
+/* 칸·안내를 윗줄에, 빠른 고르기 단추 다섯을 아랫줄에 세로줄 맞춰 세운다.
+   예전에는 한 줄 안에 높이가 48·37·21 세 가지였고, 오른쪽에 51.9px 를
+   남겨 두고 [50] 만 다음 줄로 떨어져 줄이 억지로 꺾였다.
+   마지막 칸만 넓게 둔 것은 [범위 전체] 가 한 줄에 들어가게 하기 위함이다 */
+.count-row{display:grid;grid-template-columns:repeat(4,1fr) 1.4fr;gap:8px;align-items:stretch}
+.count-row input{grid-row:1;grid-column:1 / span 2;width:auto;padding:12px;
+  border:1px solid var(--line);border-radius:10px;
+  text-align:center;font-weight:800;font-size:1.15rem}
+.count-row .btn{grid-row:2;padding-left:4px;padding-right:4px;white-space:nowrap}
+.count-avail{grid-row:1;grid-column:3 / span 3;align-self:center;
+  font-size:.88rem;color:var(--ink-2);font-weight:600;word-break:keep-all}
 
 .launch{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.94);
   backdrop-filter:blur(10px);border-top:1px solid var(--line);
   padding:14px 18px calc(14px + env(safe-area-inset-bottom))}
 .launch-in{flex-wrap:wrap;max-width:940px;margin:0 auto;display:flex;align-items:center;gap:14px}
-.launch-txt{font-size:.85rem;color:var(--ink-2);font-weight:600;flex:1;line-height:1.45}
+.launch-txt{font-size:.88rem;color:var(--ink-2);font-weight:600;flex:1;line-height:1.45}
 /* 두 버튼이 무엇이 다른지 — 앱이 스스로 설명하게 한다 */
 .launch-how{width:100%;order:9;font-size:.78rem;line-height:1.6;color:var(--ink-2);
   font-weight:600;border-top:1px solid var(--line-2);padding-top:8px;margin-top:2px}
 .launch-how b{color:var(--ink);font-weight:800}
 /* 짧은 안내글 — 단계 안에서 쓴다 */
-.howto{font-size:.84rem;line-height:1.7;color:var(--ink-2);font-weight:600;
-  background:#FBFCFD;border:1px solid var(--line-2);border-radius:9px;
+.howto{font-size:.88rem;line-height:1.7;color:var(--ink-2);font-weight:600;
+  background:#FBFCFD;border:1px solid var(--line-2);border-radius:10px;
   padding:11px 13px;margin-bottom:12px}
 .howto b{color:var(--ink);font-weight:800}
 :root[data-theme="dark"] .howto{background:#13171C;border-color:var(--line)}
-.launch-btn.alt{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.launch-btn.alt{background:var(--card);color:var(--ink);border-color:var(--line)}
 @media(max-width:430px){
-  .launch-btn{padding-left:15px;padding-right:15px;font-size:.95rem}
+  .launch-btn{padding-left:15px;padding-right:15px;font-size:1rem}
   .launch-in .launch-txt{width:100%;order:-1;margin-bottom:6px}
 }
 .launch-btn.alt:active{background:var(--line-2)}
 .launch-btn.alt:disabled{background:var(--card);color:var(--ink-3);border-color:var(--line-2)}
-.launch-btn{padding:15px 34px;border-radius:11px;background:var(--amp);color:#fff;font-weight:800;font-size:1.05rem}
+/* 꽉 찬 단추에도 같은 두께의 투명 테두리를 둔다 — 없으면 테두리가 있는
+   [연습 모드]만 176px, [실전 테스트]는 174px 가 된다 */
+.launch-btn{padding:15px 34px;border:1.5px solid transparent;border-radius:10px;
+  background:var(--amp);color:#fff;font-weight:800;font-size:1rem;line-height:1.35}
 .launch-btn:hover{background:var(--amp-deep)}
 .launch-btn:disabled{background:#C6CCD4;color:#474E58;cursor:not-allowed}
 
@@ -512,21 +588,23 @@ body.nobar{padding-bottom:40px}
 .stage.on{display:flex}
 .gauge{height:6px;background:var(--line-2);flex:none}
 .gauge-fill{height:100%;background:var(--amp);width:0}
-.stage-top{display:flex;align-items:center;gap:14px;padding:16px 20px;flex:none;
-  font-size:.86rem;font-weight:700;color:var(--ink-3)}
-/* 「1 / 5」 가 390px 에서 두 줄로 갈라졌다 — 숫자는 붙여 두고,
-   길어지는 쪽(출제조건 글)만 줄여 보여준다 */
-.qnum{color:var(--ink);font-size:1.05rem;font-weight:800;letter-spacing:-.02em;
+/* 윗줄: 로고 · 문항 번호 · 조작 단추.  아랫줄: 출제조건 글 한 줄 통째로.
+   한 줄에 다 넣었을 때는 출제조건이 166px 로 눌려 "단어 뜻쓰…" 로 잘렸고,
+   문항 번호가 커지면 자르는 자리가 또 바뀌었다 */
+.stage-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:16px 18px;
+  flex:none;font-size:.88rem;font-weight:700;color:var(--ink-3)}
+.qnum{color:var(--ink);font-size:1rem;font-weight:800;letter-spacing:-.02em;
   white-space:nowrap;flex:none}
 .qnum i{color:var(--ink-3);font-style:normal;font-weight:600;white-space:nowrap}
-#stageInfo{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* 제 줄을 통째로 쓴다 — 자르지 않는다 */
+#stageInfo{order:9;flex:1 1 100%;min-width:0;white-space:normal;line-height:1.45}
 .stage-top .sp{margin-left:auto;display:flex;gap:8px;flex:none}
 @media(max-width:430px){
-  .stage-top{gap:8px;padding:12px 14px}
-  .stage-logo{display:none}
+  .stage-top{gap:8px 10px;padding:12px 18px}
 }
-.icon-b{width:38px;height:38px;border-radius:9px;background:var(--line-2);color:var(--ink-2);
-  display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700}
+.icon-b{width:38px;height:38px;border-radius:10px;background:var(--line-2);color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;
+  white-space:nowrap}
 .icon-b:hover{background:var(--line)}
 .stage-mid{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
 .word{font-size:clamp(2.6rem,11vw,6.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;
@@ -538,51 +616,60 @@ body.nobar{padding-bottom:40px}
 .slot .blackout-t{min-height:1.2em}
 .slot .tick{min-height:.9em;line-height:1}
 .blackout{display:flex;flex-direction:column;align-items:center;gap:18px}
-.blackout-t{font-size:1.05rem;font-weight:800;color:var(--ink-2);letter-spacing:.1em}
+/* 줄 높이를 자리맡음(min-height:1.2em)과 같게 못박는다 — 비어 있다가
+   「뜻 쓰세요」가 들어차는 순간 칸이 커져 글자 전체가 위로 튀었다 */
+.blackout-t{font-size:1rem;font-weight:800;color:var(--ink-2);line-height:1.2}
 .tick{font-size:clamp(3rem,14vw,7rem);font-weight:800;color:var(--ink);opacity:.11;line-height:1}
-.stage-bot{flex:none;padding:16px 20px calc(20px + env(safe-area-inset-bottom));
+.stage-bot{flex:none;padding:16px 18px calc(20px + env(safe-area-inset-bottom));
   text-align:center;font-size:.78rem;color:var(--ink-3);font-weight:600}
 .done-wrap{text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
 .done-t{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-.done-d{font-size:.95rem;font-weight:600;color:var(--ink-2);line-height:1.7}
-.ans-btn{padding:17px 40px;border-radius:12px;background:var(--amp);color:#fff;
+.done-d{font-size:1rem;font-weight:600;color:var(--ink-2);line-height:1.7}
+.ans-btn{padding:17px 40px;border-radius:10px;background:var(--amp);color:#fff;
   font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
 .ans-btn:hover{background:var(--amp-deep)}
 .spread{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
 .sp-pill{background:var(--line-2);border:1px solid var(--line);border-radius:7px;
-  padding:4px 10px;font-size:.79rem;font-weight:700;color:var(--ink-2)}
+  padding:4px 10px;font-size:.78rem;font-weight:700;color:var(--ink-2)}
 .sp-pill b{color:var(--amp-deep);font-weight:800;margin-left:4px}
 .ready{text-align:center}
 .ready-n{font-size:clamp(5rem,22vw,11rem);font-weight:800;line-height:1;color:var(--amp)}
 .ready-t{font-size:1rem;font-weight:700;color:var(--ink-2);margin-top:12px;letter-spacing:.06em}
 .paused .word,.paused .blackout,.paused .slot{opacity:.18}
 .pause-flag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:.08em;display:none}
+  font-size:1.15rem;font-weight:800;color:var(--ink);letter-spacing:.08em;display:none}
 .stage.paused .pause-flag{display:block}
 
 .result{display:none}
 .result.on{display:block}
 .res-head{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:14px}
-.res-t{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
-.res-meta{font-size:.9rem;color:var(--ink-2);font-weight:600;line-height:1.6}
-.score-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line-2)}
+.res-t{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.res-meta{font-size:.88rem;color:var(--ink-2);font-weight:600;line-height:1.6}
+/* 이름 칸·점수 박스·단추의 위아래를 맞춘다 — center 였을 때 42 vs 49.2 로 어긋났다 */
+.score-row{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line-2)}
+.score-row .score-box{display:flex;align-items:center}
 .score-box{background:var(--amp-soft);border:1px solid var(--line);border-radius:10px;
-  padding:11px 17px;font-weight:800;font-size:1.05rem;color:var(--amp-deep)}
-.name-in{padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-weight:600;width:170px}
-.res-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  padding:11px 17px;font-weight:800;font-size:1rem;color:var(--amp-deep)}
+.name-in{padding:10px 12px;border:1px solid var(--line);border-radius:7px;font-weight:600;width:170px}
+/* 네 단추를 2열 같은 폭으로 묶는다 — 글자 길이대로 늘어놓으면
+   오른쪽 끝이 197·318·180·289 로 제각각이라 오른쪽이 톱니처럼 보였다.
+   한글은 어절을 지켜 끊는다 */
+.res-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.res-actions .btn{padding-left:12px;padding-right:12px;word-break:keep-all}
 /* overflow:hidden 이면 표가 넓어질 때 오른쪽 칸이 잘려 사라진다.
    잘리는 순서가 한글 뜻 → 강 → '틀림' 이라, 체크박스가 사라지면
    그 회차는 채점 자체를 못 한다. 넘칠 때는 잘라 없애지 말고 밀어 두자 */
 .ans-table{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   overflow-x:auto;overflow-y:hidden}
-table{width:100%;border-collapse:collapse;font-size:.86rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
 th{background:var(--line-2);padding:9px 12px;text-align:left;font-weight:700;color:var(--ink-2);
-  font-size:.76rem;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+  font-size:.78rem;letter-spacing:.04em;border-bottom:1px solid var(--line)}
 td{padding:8px 12px;border-bottom:1px solid var(--line-2)}
 tr:last-child td{border-bottom:none}
 .en{font-weight:700}
-.ans-table td.no{color:var(--ink-3);font-weight:700;width:52px;font-size:.82rem}
-.ans-table td.wr{width:74px;text-align:center}
+.ans-table td.no{color:var(--ink-3);font-weight:700;width:52px;font-size:.78rem}
+/* 머리글도 칸과 같이 가운데로 — 머리는 왼쪽, 체크 칸은 가운데라 어긋나 있었다 */
+.ans-table td.wr,.ans-table th.wr{width:74px;text-align:center}
 /* '과' 칸이 36px 밖에 안 돼 4 / 과 로 두 줄이 됐다.
    width:1% + nowrap 으로 글자 길이만큼만 쓰게 한다 (다른 칸은 밀리지 않는다) */
 .ans-table td.ud,.ans-table th.ud{white-space:nowrap;width:1%}
@@ -592,7 +679,10 @@ tr:last-child td{border-bottom:none}
    끊으면 철자를 확인하라고 보여주는 표에서 철자가 쪼개진다.
    대신 한글 칸만 넘칠 때 글자 사이에서 끊게 해 폭을 양보시키고,
    그래도 넘치면 바깥 상자가 밀어 준다(잘라 없애지 않는다) */
-.ans-table td,.ans-table th{word-break:keep-all}
+/* overflow-wrap 은 기본값으로 묶어 둔다 — body 에서 break-word 를 물려받으면
+   칸의 최소 폭이 가장 긴 낱말만큼 커져 표가 화면 밖으로 밀린다.
+   한글 칸(3번째)만 아래에서 따로 양보시킨다 */
+.ans-table td,.ans-table th{word-break:keep-all;overflow-wrap:normal}
 /* 한글 칸만 양보시키면 46px 까지 쪼그라들어 '종결/하다,/끝내/다,' 처럼
    두 글자씩 끊긴다. 최소 폭을 줘서 그 밑으로는 안 내려가게 한다.
    그래도 넘치면 바깥 상자가 밀어 주므로(overflow-x:auto) 잘리지 않는다 */
@@ -612,34 +702,43 @@ tr:last-child td{border-bottom:none}
   .icon-b{width:44px;height:44px}
   .unit{padding:9px 14px 9px 11px}
   .unit input{width:19px;height:19px}
-  .ans-table table{font-size:.8rem}
+  .ans-table table{font-size:.78rem}
   .ans-table td,.ans-table th{padding:7px 8px}
   .range-quick input{width:62px;padding:11px 6px}
   .tab{padding:10px 15px}
-  .brow{padding:13px 12px}
+  .brow{padding:13px 16px 13px 32px}
   .top{padding-top:20px}
-  .recipe-line{font-size:.94rem}
+  .recipe-line{font-size:1rem}
   /* 두 버튼을 나란히 둔다 — 세로로 쌓으면 아래 띠가 화면을 너무 먹는다 */
   .launch-in{flex-direction:row;flex-wrap:wrap;align-items:stretch;gap:8px}
-  .launch{padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+  .launch{padding:10px 18px calc(10px + env(safe-area-inset-bottom))}
   /* flex-basis 를 100% 로 줘야 제 줄을 차지한다 (flex:1 만으로는 눌린다).
      긴 출제조건 글은 한 줄로 줄여 띠가 화면을 덜 먹게 한다 — 같은 내용이
      화면 맨 위 출제조건 띠에 그대로 있다 */
   /* 안내만 남으므로 짧다 — 줄이지 않고 그대로 보여준다 */
   .launch-in .launch-txt{flex:1 1 100%;width:100%;order:-1;margin-bottom:0;
-    font-size:.8rem;line-height:1.4;text-align:center;word-break:keep-all}
-  .launch-btn{flex:1 1 0;width:auto;padding:13px 6px;font-size:.96rem}
-  .launch-how{flex:1 1 100%;font-size:.74rem;line-height:1.5;padding-top:7px}
+    font-size:.78rem;line-height:1.4;text-align:center;word-break:keep-all}
+  .launch-btn{flex:1 1 0;width:auto;padding:13px 6px;font-size:1rem}
+  .launch-how{flex:1 1 100%;font-size:.78rem;line-height:1.5;padding-top:7px}
   .toast{bottom:calc(var(--launch-h, 150px) + 26px)}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* 결과를 보는 동안에는 맨 위 띠를 감춘다 — 로고가 한 화면에 두 번
+   (위 띠 158px + 카드 안 122px) 나오고, 이미 끝난 테스트의 출제조건이
+   결과 위에 그대로 남아 있었다. 인쇄는 원래 위 띠를 빼므로 영향 없다 */
+body.on-result .top{display:none}
 
 .print-only{display:none}
 
 @media print{
   body{background:#fff;padding:0}
   .top,.wrap>.step,.launch,.recipe,.stage,#prac,#gate,#splash{display:none!important}
-  .res-actions,.pres-acts,.score-row .btn{display:none!important}
+  /* 화면에서 채점하는 칸(이름 입력칸·점수 박스·단추)은 종이에 찍지 않는다.
+     찍으면 손으로 쓰는 「이름 ___ 점수 ___」 줄과 두 벌이 되고,
+     채점 전 점수(12/12)가 학부모께 가는 종이에 미리 박힌다.
+     대신 화면에서 적어 둔 이름·점수는 아래 손글씨 줄에 옮겨 적는다 */
+  .res-actions,.pres-acts,.score-row{display:none!important}
 
   /* 지금 보고 있는 화면만 찍는다.
      예전에는 .result 를 무조건 펴서, 연습 결과를 인쇄하면 내용이 빈
@@ -652,6 +751,13 @@ tr:last-child td{border-bottom:none}
   /* 「이름 ____ 점수 ____ 날짜 ____」 줄.
      .print-only 규칙이 이 블록 뒤에 있어 눌려 안 찍혔던 자리 */
   .print-only{display:block!important}
+
+  /* 흑백으로 뽑으면 로고(회색조 197)가 본문 글자(24)보다 훨씬 흐려,
+     종이 위에서 브랜드가 가장 먼저 사라졌다. 인쇄할 때만 단색 짙은 회색으로
+     바꾼다 — 화면에서는 그대로 주황이다. 197 × .25 ≈ 49 */
+  .logo,.res-logo,.gate-logo,.stage-logo,.done-sym,#splash img{
+    filter:grayscale(1) brightness(.25);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;opacity:1}
 
   .res-head,.ans-table,.pres-top,.pl-wrap{border:1px solid #000;border-radius:0;box-shadow:none}
   th{background:#eee!important;color:#000!important;
@@ -668,6 +774,11 @@ tr:last-child td{border-bottom:none}
   .ptbl .mk,.ptbl .mk.o,.ptbl .mk.x,.ptbl .tag,.ptbl .tag.bad{color:#000!important}
   .pl-wrap .pl-h,.pl-h{background:#fff!important;color:#000!important}
   .pres-sc,.pres-sc i,.pres-d{color:#000!important}
+  /* 흑백에서 가장 흐리게 남던 두 자리 — 문항 번호(회색조 109)와
+     과별 개수(118). 본문(24)에 가깝게 끌어올린다. 글자색만 바꾸므로
+     칸 폭·줄바꿈은 그대로다 */
+  .ans-table td.no,.ptbl td:first-child{color:#333!important}
+  .sp-pill,.sp-pill b{color:#000!important}
   .pres-bar{display:none!important}
   thead{display:table-header-group}
   tr{page-break-inside:avoid}
@@ -738,11 +849,13 @@ tr:last-child td{border-bottom:none}
 
   <div class="recipe">
     <div class="recipe-label">출 제 조 건</div>
+    <!-- 칩 사이의 가운뎃점을 뺐다. 칩마다 바탕이 있어 이미 나뉘어 보이는데,
+         줄이 바뀔 때마다 점이 줄 끝에 혼자 남았다 -->
     <div class="recipe-line">
-      <span class="chip empty" id="rBook">단어장</span><span class="recipe-sep">·</span>
-      <span class="chip empty" id="rRange">범위</span><span class="recipe-sep">·</span>
-      <span class="chip empty" id="rType">단어 유형</span><span class="recipe-sep">·</span>
-      <span class="chip empty" id="rMode">테스트 모드</span><span class="recipe-sep">·</span>
+      <span class="chip empty" id="rBook">단어장</span>
+      <span class="chip empty" id="rRange">범위</span>
+      <span class="chip empty" id="rType">단어 유형</span>
+      <span class="chip empty" id="rMode">테스트 모드</span>
       <span class="chip empty" id="rCount">문항 수</span>
     </div>
   </div>
@@ -880,7 +993,7 @@ tr:last-child td{border-bottom:none}
     <div class="pres-d" id="prDesc"></div>
     <div class="pres-bar"><i id="prBar"></i></div>
     <div class="pres-next" id="prNext"></div>
-    <div class="print-only" style="margin-top:14px;font-size:.95rem;font-weight:700;text-align:left">
+    <div class="print-only" style="margin-top:14px;font-size:1rem;font-weight:700;text-align:left">
       이름 ______________　　　날짜 ______________
     </div>
   </div>
@@ -901,8 +1014,8 @@ tr:last-child td{border-bottom:none}
     <div class="res-t">정답표</div>
     <div class="res-meta" id="resMeta"></div>
     <div class="spread" id="spread"></div>
-    <div class="print-only" style="margin-top:14px;font-size:.95rem;font-weight:700">
-      이름 ______________　　　점수 ______ / <span id="pTotal"></span>　　　날짜 ______________
+    <div class="print-only" style="margin-top:14px;font-size:1rem;font-weight:700">
+      이름 <span id="pName">______________</span>　　　점수 <span id="pScore">______</span> / <span id="pTotal"></span>　　　날짜 ______________
     </div>
     <div class="score-row">
       <input type="text" class="name-in" id="stuName" placeholder="학생 이름">
@@ -917,7 +1030,7 @@ tr:last-child td{border-bottom:none}
     <button class="btn ghost" id="again">새 테스트</button>
   </div>
   <div class="ans-table"><table>
-    <thead><tr><th>번호</th><th>영어</th><th>한글 뜻</th><th class="ud" id="thUnit">범위</th><th>틀림</th></tr></thead>
+    <thead><tr><th>번호</th><th>영어</th><th>한글 뜻</th><th class="ud" id="thUnit">범위</th><th class="wr">틀림</th></tr></thead>
     <tbody id="ansBody"></tbody>
   </table></div>
 </div>
@@ -963,9 +1076,11 @@ tr:last-child td{border-bottom:none}
     <div class="qnum"><span id="qNow">1</span><i> / <span id="qAll">30</span></i></div>
     <div id="stageInfo"></div>
     <div class="sp">
-      <button class="icon-b" id="bPause" title="일시정지 (스페이스)">II</button>
-      <button class="icon-b" id="bSkip" title="바로 다음 (→)">▶</button>
-      <button class="icon-b" id="bQuit" title="종료 (Esc)">✕</button>
+      <!-- 글자 없는 기호(II ▶ ✕)는 뜻을 알 수 없었다. 뜻을 적어 둔 아래 줄은
+           폰에서 숨어 있어 기댈 데도 없었으므로, 단추에 바로 한글로 적는다 -->
+      <button class="icon-b" id="bPause" title="일시정지 (스페이스)">멈춤</button>
+      <button class="icon-b" id="bSkip" title="바로 다음 (→)">다음</button>
+      <button class="icon-b" id="bQuit" title="끝내기 (Esc)">그만</button>
     </div>
   </div>
   <div class="stage-mid" id="stageMid"></div>
@@ -1174,12 +1289,25 @@ function renderCatalog(q){
       var card = el.parentNode, id = card.dataset.cat;
       var willOpen = !card.classList.contains("open");
       $("catalog").querySelectorAll(".catcard").forEach(function(x){ x.classList.remove("open"); });
-      if(willOpen){ card.classList.add("open"); S.openCat = id; }
+      if(willOpen){ card.classList.add("open"); S.openCat = id; keepInView(el, card); }
       else S.openCat = "";
     };
   });
   $("catalog").querySelectorAll(".series-h").forEach(function(el){
-    el.onclick = function(e){ e.stopPropagation(); el.parentNode.classList.toggle("open"); };
+    el.onclick = function(e){
+      e.stopPropagation();
+      var box = el.parentNode;                      /* .series */
+      var willOpen = !box.classList.contains("open");
+      /* 같은 단의 형제만 닫는다 — 한 단에 하나만 열려 있게 해서
+         뒤 내용이 762px 씩 밀려 내려가지 않게 한다 */
+      var sibs = box.parentNode.children;
+      for(var i = 0; i < sibs.length; i++){
+        if(sibs[i] !== box && sibs[i].classList &&
+           sibs[i].classList.contains("series")) sibs[i].classList.remove("open");
+      }
+      box.classList.toggle("open", willOpen);
+      if(willOpen) keepInView(el, box);
+    };
   });
   $("catalog").querySelectorAll("[data-id]").forEach(function(el){
     el.onclick = function(){ selectBook(el.dataset.id); };
@@ -1420,23 +1548,49 @@ function refresh(){
   $("launchTxt").style.display = $("launchTxt").textContent ? "" : "none";
   setTimeout(syncLaunchHeight, 0);
 
-  if(ready) [2,3,4].forEach(function(n){ $("s"+n).classList.add("done"); });
+  /* 단계 배지 — 실제로 끝난 단계만 초록으로 둔다.
+     예전에는 단어장만 고르면 2·3·4 가 한꺼번에 초록이 되어,
+     바로 아래 띠가 "2단계에서 범위를 골라 주세요" 라고 말하는 순간에도
+     다 끝난 것처럼 보였다. 끝나지 않은 첫 단계가 지금 할 차례다 */
+  var d2 = ready && S.picked.length > 0;
+  var dn4 = d2 && c > 0 && c <= max;
+  var doneMap = {s2: d2, s3: d2, s4: dn4};   /* 테스트 모드는 늘 하나 골라져 있다 */
+  var atNow = true;
+  ["s2","s3","s4"].forEach(function(id){
+    var el = $(id), fin = doneMap[id];
+    el.classList.toggle("done", !!fin);
+    el.classList.toggle("ahead", !fin && !atNow);
+    if(!fin) atNow = false;
+  });
+  /* 가운뎃점을 뒤 낱말에 붙여 둔다(줄바꿈 없는 빈칸) — 예전에는 줄이 바뀔 때
+     "고른 범위 없음 ·" 처럼 점만 줄 끝에 혼자 남았다 */
   $("n2").textContent = ready
-    ? ((rangeText() || "고른 범위 없음") + (S.hasType ? " · " + typeTxt(S.wordType) : "")) : "";
+    ? ((rangeText() || "고른 범위 없음") + (S.hasType ? " · " + typeTxt(S.wordType) : "")) : "";
   $("n4").textContent = ready ? "최대 " + max + "개" : "";
   if(ready){
-    var inR = inRange();
+    /* 범위를 고르기 전에는 고른 범위가 없으니 세 장이 모두 "0개" 가 되어,
+       단어가 하나도 없는 단어장처럼 읽혔다. 고르기 전에는 이 단어장
+       전체 개수를 흐린 글자로 적어 둔다 — 고르고 나면 고른 범위 개수로 바뀐다 */
+    var sel = S.picked.length > 0;
+    var inR = sel ? inRange() : S.words;
     var mn = dedupe(inR.filter(function(w){ return w.type === "main"; })).length;
     var sb = dedupe(inR.filter(function(w){ return w.type === "sub"; })).length;
     $("cnMain").textContent = mn + "개";
     $("cnAll").textContent = dedupe(inR).length + "개";
     $("cnSub").textContent = sb + "개";
+    ["cnMain","cnAll","cnSub"].forEach(function(id){
+      $(id).classList.toggle("dim", !sel);
+    });
     $("pickedNote").innerHTML = S.picked.length
       ? "고른 범위 <b>" + esc(rangeText()) + "</b> · 출제할 수 있는 단어 <b>" + max + "개</b>"
       /* 예전에는 '강' 이 박혀 있어, 단위가 번·Day 인 58권에서 틀린 말이 나왔다.
          단위어를 끼워 넣으면 "번 번호를" 처럼 어색해지므로 단위어를 뺀다 —
          바로 위 입력칸 옆에 이 단어장의 단위(과 ~ / 번 까지 …)가 이미 적혀 있다 */
-      : "<b>시험 볼 범위를 골라 주세요.</b><br>위 칸에 처음과 끝 번호를 넣고 [적용], 책을 다 보려면 [전체]를 누르면 됩니다.";
+      /* 안내 문구는 지금 열린 탭을 따라가야 한다. 「직접 고르기」 화면에는
+         칸도 [적용]도 [전체]도 없고 [전체 선택]·[모두 해제]만 있다 */
+      : "<b>시험 볼 범위를 골라 주세요.</b><br>" + (S.tab === "chk"
+        ? "위에서 볼 곳을 하나씩 눌러 고르고, 책을 다 보려면 [전체 선택]을 누르면 됩니다."
+        : "위 칸에 처음과 끝 번호를 넣고 [적용], 책을 다 보려면 [전체]를 누르면 됩니다.");
   }
 }
 
@@ -1445,9 +1599,11 @@ function recipeSentence(){
     + (S.hasType ? typeTxt(S.wordType) : "전체 단어") + " · "
     + MODE_TXT[S.mode] + " · " + S.count + "개";
 }
+/* 고른 뒤에도 그 칩이 무엇을 말하는 자리인지 남겨 둔다 —
+   예전에는 고르면 자리 이름이 사라져, 칩 다섯이 값만 늘어선 같은 모양이 됐다 */
 function setChip(id, val, ph){
   var el = $(id);
-  if(val){ el.textContent = val; el.className = "chip set"; }
+  if(val){ el.innerHTML = "<i>" + esc(ph) + "</i>" + esc(val); el.className = "chip set"; }
   else { el.textContent = ph; el.className = "chip empty"; }
 }
 
@@ -1481,6 +1637,8 @@ function startTest(list){
   }
   if(!p.length) return;
   S.quiz = p; S.idx = 0; S.paused = false;
+  $("bPause").textContent = "멈춤"; $("bPause").title = "일시정지 (스페이스)";
+  $("bPause").style.display = ""; $("bSkip").style.display = "";
   $("stageMid").innerHTML = "";   // 이전 틀을 지운다
   $("qAll").textContent = p.length;
   $("stageInfo").textContent = (S.hasType ? typeTxt(S.wordType) + " · " : "") + MODE_TXT[S.mode];
@@ -1569,6 +1727,9 @@ function togglePause(){
   if(S.phase === "") return;
   S.paused = !S.paused;
   $("stage").classList.toggle("paused", S.paused);
+  /* 단추가 지금 무엇을 하는지 그대로 적는다 */
+  $("bPause").textContent = S.paused ? "계속" : "멈춤";
+  $("bPause").title = S.paused ? "이어서 하기 (스페이스)" : "일시정지 (스페이스)";
   if(S.paused){ cancelAnimationFrame(S.raf); clearTimeout(S.timer); }
   else { S.phaseEnd = performance.now() + S.remain; tickLoop(); }
 }
@@ -1576,7 +1737,11 @@ function skipNow(){
   if(!$("stage").classList.contains("on")) return;
   if(S.phase === "") return;
   S.phaseEnd = performance.now();
-  if(S.paused){ S.paused = false; $("stage").classList.remove("paused"); tickLoop(); }
+  if(S.paused){
+    S.paused = false; $("stage").classList.remove("paused");
+    $("bPause").textContent = "멈춤"; $("bPause").title = "일시정지 (스페이스)";
+    tickLoop();
+  }
 }
 function quitTest(){
   clearTimeout(S.timer);
@@ -1590,6 +1755,11 @@ function finish(){
   cancelAnimationFrame(S.raf);
   S.paused = false; S.phase = ""; S.doneFn = null; S.finished = true;
   $("stage").classList.remove("paused");
+  /* 끝난 뒤에는 [멈춤]·[다음] 이 아무 일도 하지 않는다 — 치워서
+     [그만] 하나만 남긴다. 다시 시작할 때 startTest 가 되살린다 */
+  $("bPause").style.display = "none";
+  $("bSkip").style.display  = "none";
+  $("bPause").textContent = "멈춤"; $("bPause").title = "일시정지 (스페이스)";
   $("gauge").style.width = "100%";
   $("stageMid").innerHTML =
     '<div class="done-wrap">'
@@ -1766,15 +1936,20 @@ var LOGO_TEXT_RATIO = 0.723;   // 로고 이미지에서 한글이 차지하는 
 
 function fitLogo(){
   var b = document.querySelector(".brand b");
-  var el = document.querySelector(".brand .logo");
-  if(!b || !el) return;
+  if(!b) return;
   try {
     var cs = getComputedStyle(b);
     var ctx = document.createElement("canvas").getContext("2d");
     ctx.font = cs.fontStyle + " " + cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
     var m = ctx.measureText(b.textContent || "단어 테스트");
     var h = (m.actualBoundingBoxAscent || 0) + (m.actualBoundingBoxDescent || 0);
-    if(h > 4) el.style.height = (h / LOGO_TEXT_RATIO) + "px";
+    if(h <= 4) return;
+    /* 화면마다 로고 크기가 달랐다(위 띠 158px · 정답표 카드 안 122px).
+       제목 글자 높이에 맞춰 한 크기로 맞춘다 */
+    var px = (h / LOGO_TEXT_RATIO) + "px";
+    document.querySelectorAll(".brand .logo, .res-logo").forEach(function(el){
+      el.style.height = px;
+    });
   } catch(e){}
 }
 
@@ -2776,6 +2951,42 @@ function selectAllUnits(){ S.picked = S.units.slice(); syncRangeInputs(); render
 $("allRange").onclick = selectAllUnits;
 $("allRange2").onclick = selectAllUnits;
 $("noneRange").onclick = function(){ S.picked = []; renderUnits(); refresh(); };
+/* 펼친 자리가 화면 밖으로 밀리면 끌어온다 */
+function keepInView(head, box){
+  setTimeout(function(){
+    var bar  = $("launch");
+    var barH = (bar && bar.style.display !== "none") ? bar.offsetHeight : 0;
+    var free = window.innerHeight - barH;          /* 아래 띠에 가리지 않는 높이 */
+    var hr = head.getBoundingClientRect();
+    var br = (box || head).getBoundingClientRect();
+    if(hr.top >= 0 && br.bottom <= free) return;   /* 이미 다 보인다 */
+    var soft = !(window.matchMedia &&
+                 window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    window.scrollTo({top: Math.max(0, hr.top + window.pageYOffset - 12),
+                     behavior: soft ? "smooth" : "auto"});
+  }, 0);
+}
+
+/* 탭을 바꾸면 바뀐 자리가 화면 안에 보여야 한다.
+   「직접 고르기」로 바꾸면 새로 뜬 체크 칸이 아래 고정 띠(150px 안팎) 밑에
+   들어가, 뷰포트 안에서는 아무 변화가 없는 것처럼 보였다 */
+function revealRangePane(){
+  setTimeout(function(){
+    var tabs = document.querySelector("#s2 .tabs");
+    var pane = $(S.tab === "chk" ? "tabChk" : "tabNum");
+    if(!tabs || !pane) return;
+    var bar  = $("launch");
+    var barH = (bar && bar.style.display !== "none") ? bar.offsetHeight : 0;
+    var free = window.innerHeight - barH;          /* 띠에 가리지 않는 높이 */
+    var pr   = pane.getBoundingClientRect();
+    if(pr.top >= 0 && pr.bottom <= free) return;   /* 이미 다 보인다 */
+    var tr = tabs.getBoundingClientRect();
+    var soft = !(window.matchMedia &&
+                 window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    window.scrollTo({top: Math.max(0, tr.top + window.pageYOffset - 12),
+                     behavior: soft ? "smooth" : "auto"});
+  }, 0);
+}
 document.querySelectorAll(".tab").forEach(function(t){
   t.onclick = function(){
     document.querySelectorAll(".tab").forEach(function(x){ x.classList.remove("on"); });
@@ -2784,6 +2995,8 @@ document.querySelectorAll(".tab").forEach(function(t){
     $("tabNum").style.display = (S.tab === "num") ? "" : "none";
     $("tabChk").style.display = (S.tab === "chk") ? "" : "none";
     if(S.tab === "chk") renderUnits(); else syncRangeInputs();
+    refresh();            /* 안내 문구를 탭에 맞춰 다시 쓴다 */
+    revealRangePane();
   };
 });
 
@@ -2855,7 +3068,20 @@ $("retryMiss").onclick = function(){
   if(!m.length){ alert("틀림으로 표시한 단어가 없습니다."); return; }
   startTest(S.order === "random" ? shuffle(m) : m);
 };
-$("printBtn").onclick = function(){ window.print(); };
+/* 종이에 찍기 직전에, 화면에서 적어 둔 이름·점수를 손글씨 줄로 옮긴다.
+   화면 입력칸은 인쇄에서 숨기므로(위 @media print) 두 벌로 찍히지 않는다.
+   틀림 표시가 하나도 없으면 아직 채점을 안 한 것으로 보고 점수는 빈 줄로 둔다 —
+   채점 전인데 만점이 찍혀 나가던 자리 */
+function syncPrintHead(){
+  var nm = ($("stuName").value || "").trim();
+  $("pName").textContent = nm || "______________";
+  var boxes = $("ansBody").querySelectorAll(".wchk");
+  var miss = 0, any = false;
+  boxes.forEach(function(b){ if(b.checked){ miss++; any = true; } });
+  $("pScore").textContent = any ? String(boxes.length - miss) : "______";
+}
+window.addEventListener("beforeprint", syncPrintHead);
+$("printBtn").onclick = function(){ syncPrintHead(); window.print(); };
 $("exportMiss").onclick = function(){
   var m = missWords();
   if(!m.length){ alert("틀림으로 표시한 단어가 없습니다."); return; }
@@ -2873,6 +3099,19 @@ $("again").onclick = function(){
   window.scrollTo(0,0);
 };
 window.addEventListener("resize", syncLaunchHeight);
+
+/* 결과 화면이 떠 있는 동안 맨 위 띠를 감춘다.
+   #result·#pres 의 class 를 지켜보므로 부르는 자리를 빠뜨릴 일이 없다 */
+function syncTopBar(){
+  var on = $("result").classList.contains("on") || $("pres").classList.contains("on");
+  document.body.classList.toggle("on-result", on);
+}
+if(window.MutationObserver){
+  var topObs = new MutationObserver(syncTopBar);
+  topObs.observe($("result"), {attributes:true, attributeFilter:["class"]});
+  topObs.observe($("pres"),   {attributes:true, attributeFilter:["class"]});
+}
+syncTopBar();
 window.addEventListener("orientationchange", function(){ setTimeout(syncLaunchHeight, 250); });
 if(window.ResizeObserver){
   try { new ResizeObserver(syncLaunchHeight).observe($("launch")); } catch(e){}
