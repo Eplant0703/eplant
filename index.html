@@ -251,6 +251,14 @@ body.pracing{overflow:hidden}
 .pr-mid.tight .pr-hint{margin-top:6px;font-size:.75rem}
 .pr-mid.tight .pr-mark{margin-top:10px;font-size:.88rem}
 .pr-hint{margin-top:9px;font-size:.8rem;color:var(--ink-3);font-weight:700}
+.pr-hint.warn{color:var(--no)}
+/* 시험 중 기록은 흑백으로 뽑아도 보여야 한다 — 색만으로 알리지 않고
+   테두리와 굵은 글자로도 드러낸다 */
+.pres-warn{display:none;margin-top:12px;padding:9px 12px;border:2px solid var(--no);
+  border-radius:9px;font-size:.84rem;font-weight:800;color:var(--no);text-align:left;line-height:1.5}
+.pres-warn.on{display:block}
+.res-warn{margin:10px 0 0;padding:8px 11px;border:2px solid #000;border-radius:8px;
+  font-size:.8rem;font-weight:800;line-height:1.5}
 
 /* 정답/오답 표시 */
 .pr-mark{margin-top:14px;font-size:.95rem;font-weight:800;line-height:1.6}
@@ -880,6 +888,7 @@ tr:last-child td{border-bottom:none}
     <div class="pres-d" id="prDesc"></div>
     <div class="pres-bar"><i id="prBar"></i></div>
     <div class="pres-next" id="prNext"></div>
+    <div class="pres-warn" id="prLeft"></div>
     <div class="print-only" style="margin-top:14px;font-size:.95rem;font-weight:700;text-align:left">
       이름 ______________　　　날짜 ______________
     </div>
@@ -900,6 +909,7 @@ tr:last-child td{border-bottom:none}
     <img class="res-logo" src="logo-wide.png" alt="영어발전소" onerror="this.style.display='none'">
     <div class="res-t">정답표</div>
     <div class="res-meta" id="resMeta"></div>
+    <div class="res-warn" id="resWarn" style="display:none"></div>
     <div class="spread" id="spread"></div>
     <div class="print-only" style="margin-top:14px;font-size:.95rem;font-weight:700">
       이름 ______________　　　점수 ______ / <span id="pTotal"></span>　　　날짜 ______________
@@ -1514,6 +1524,7 @@ function startTest(list){
   }
   if(!p.length) return;
   S.quiz = p; S.idx = 0; S.paused = false;
+  PROCTOR.reset();
   $("stageMid").innerHTML = "";   // 이전 틀을 지운다
   $("qAll").textContent = p.length;
   $("stageInfo").textContent = (S.hasType ? typeTxt(S.wordType) + " · " : "") + MODE_TXT[S.mode];
@@ -1651,6 +1662,9 @@ function renderResult(){
   $("resMeta").textContent = S.bookName + " · " + (rangeText() || "-") + " · "
     + (S.hasType ? typeTxt(S.wordType) : "전체 단어") + " · " + MODE_TXT[S.mode] + " · " + S.quiz.length + "개";
   $("pTotal").textContent = S.quiz.length;
+  /* 시험 중 기록 — 정답표를 인쇄하거나 사진 찍어 올리면 그대로 찍힌다 */
+  var rw = $("resWarn"), rline = proctorLine();
+  if(rw){ rw.textContent = rline; rw.style.display = rline ? "" : "none"; }
 
   var cnt = {}, ord = [];
   S.quiz.forEach(function(w){
@@ -2247,6 +2261,7 @@ function startPractice(){
   if(!p.length) return;
 
   P.list = p; P.idx = 0; P.done = []; P.checking = false; P.open = true;
+  PROCTOR.reset();
   P.pool = {};
   /* 범위 전체로 만든다. 뽑힌 문항만으로 만들면, 같은 뜻인 형제가
      이번에 안 뽑혔을 때 그 답이 오답 처리된다 (14문항 전부 오답이던 자리).
@@ -2332,6 +2347,30 @@ function pracNote(text){
     if(!P.checking){ m.style.display = "none"; m.textContent = ""; }
     el.classList.remove("shake");
   }, 2200);
+}
+
+/* 화면을 벗어났다 왔을 때 — 답을 봤을 수 있으므로 이 문항은 틀린 것으로
+   굳히고 넘긴다. 학생이 다시 들어와 답을 쳐 넣는 것을 막는다 */
+function pracForceWrong(){
+  var w = P.list[P.idx];
+  if(!w || P.checking) return;
+  if(P.auto){ clearTimeout(P.auto); P.auto = null; }
+  var askKo = (S.mode === "spelling");
+  P.done.push({en: w.en, ko: w.ko, day: w.day, mine: "", ok: false, askKo: askKo,
+               typo: false, pos: false, alt: false, voice: false, same: false,
+               left: true});
+  P.checking = true; P.wrong = true;
+  $("prGauge").style.width = ((P.idx + 1) / P.list.length * 100) + "%";
+  var el = $("prIn");
+  el.value = ""; el.readOnly = true; el.className = "pr-in no";
+  $("prGo").style.display = "none";
+  $("prHint").style.display = "none";
+  var m = $("prMark");
+  m.style.display = ""; m.className = "pr-mark no";
+  m.innerHTML = "정답 : " + esc(askKo ? w.en : w.ko)
+    + "<small>시험 중에 다른 화면을 봐서 이 문항은 틀린 것으로 넘깁니다</small>";
+  beep(320, 160);
+  $("prSkip").classList.add("on");
 }
 
 function pracCheck(fromKey){
@@ -2440,10 +2479,13 @@ function pracFinish(){
 }
 
 function pracQuit(){
+  PROCTOR.pause();
   if(P.done.length && !confirm("연습을 그만둘까요?\n지금까지 푼 것은 결과로 보여드립니다.")){
+    PROCTOR.go();
     $("prIn").focus();   /* 취소하면 키보드가 내려가 있던 것을 되돌린다 */
     return;
   }
+  PROCTOR.go();
   P.open = false;
   if(P.auto){ clearTimeout(P.auto); P.auto = null; }
   P.checking = false; P.wrong = false;
@@ -2486,6 +2528,14 @@ function renderPracResult(){
     : pct >= 80 ? "거의 다 왔습니다. [틀린 단어만 다시]로 남은 " + wrong + "개만 마무리하면 됩니다."
     : pct >= 50 ? "절반 넘게 맞았습니다. [틀린 단어만 다시]를 눌러 " + wrong + "개만 채우면 됩니다."
     : "아직 눈에 익지 않은 단어가 많습니다. [틀린 단어만 다시]를 눌러 틀린 것만 두세 번 돌려 보세요. 그게 가장 빠릅니다.";
+
+  /* 시험 중 기록 — 결과를 사진 찍어 올리면 선생님이 바로 본다 */
+  var lw = $("prLeft"), line = proctorLine();
+  if(line){
+    var gave = d.filter(function(x){ return x.left; }).length;
+    lw.textContent = line + (gave ? ("  ·  그래서 틀린 것으로 넘긴 문항 " + gave + "개") : "");
+    lw.classList.add("on");
+  } else { lw.textContent = ""; lw.classList.remove("on"); }
 
   var askKo = d.length ? d[0].askKo : false;
   var html = '<div class="pl-wrap"><div class="pl-h">'
@@ -2535,6 +2585,7 @@ function pracRetryWrong(){
   if(!p.length) return;
   $("pres").classList.remove("on");
   P.list = p; P.idx = 0; P.done = []; P.checking = false; P.open = true;
+  PROCTOR.reset();
   P.pool = {};
   /* 범위 전체로 만든다. 뽑힌 문항만으로 만들면, 같은 뜻인 형제가
      이번에 안 뽑혔을 때 그 답이 오답 처리된다 (14문항 전부 오답이던 자리).
@@ -2877,7 +2928,9 @@ $("bQuit").onclick = function(){
   if(S.quiz.length && S.idx < S.quiz.length){
     var wasPaused = S.paused;
     if(!wasPaused) togglePause();       /* 묻는 동안 시간이 흐르지 않게 */
+    PROCTOR.pause();
     var go = confirm("실전 테스트를 그만둘까요?\n지금까지 푼 것은 채점하지 않고 끝납니다.");
+    PROCTOR.go();
     if(!go){
       if(!wasPaused) togglePause();     /* 이어서 진행 */
       return;
@@ -2931,9 +2984,137 @@ if(window.ResizeObserver){
   try { new ResizeObserver(syncLaunchHeight).observe($("launch")); } catch(e){}
 }
 
+/* ───────────────────────── 시험 감독 ─────────────────────────
+   답을 보고 쓰는 길을 막는다. 앱이 잡을 수 있는 것은 네 가지다.
+     ① 다른 앱으로 넘어갔다 오기 (화면 숨김)
+     ② 화면 분할에서 옆 창을 만지기 (창이 포커스를 잃음)
+     ③ 붙여넣기·끌어놓기
+     ④ 자판 자동완성·글라이드 입력 (한 번에 여러 글자가 들어옴)
+   앱이 못 잡는 것은 분명히 해 둔다 — 옆에 책을 펴 두는 것, 다른 기기로
+   찾아보는 것, 종이에 적어 둔 것을 보는 것. 이건 앱 밖의 일이다.
+
+   잡히면 연습은 그 문항을 오답으로 굳히고 넘어가고, 실전은 멈춘다.
+   횟수는 결과 화면과 인쇄물에 찍힌다 — 학생이 결과를 사진 찍어
+   단톡방에 올리므로, 거기 찍히면 원장님이 바로 본다. */
+var PROCTOR = {
+  out: 0, split: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
+  live: function(){
+    if(this.hold) return false;
+    if($("prac").classList.contains("on")) return "prac";
+    if($("stage").classList.contains("on") && !S.paused) return "stage";
+    return false;
+  },
+  reset: function(){ this.out = this.split = this.paste = this.auto = 0; this.marks = []; this.w0 = vw(); },
+  total: function(){ return this.out + this.split + this.paste + this.auto; },
+  hit: function(kind){
+    var where = this.live();
+    if(!where) return false;
+    var t = Date.now();
+    /* 화면을 벗어나면 숨김과 포커스 잃음이 같이 울린다. 한 번으로 센다.
+       붙여넣기·자동완성은 따로 센다 — 섞어서 거르면 붙여넣기 한 번이
+       바로 뒤에 일어난 화면 이탈을 먹어 버린다 */
+    if(kind === "out" || kind === "split"){
+      if(t - this.last < 900) return false;
+      this.last = t;
+    }
+    this[kind]++;
+    this.marks.push({ kind: kind, no: (where === "prac" && P ? P.idx + 1 : 0) });
+    return where;
+  },
+  /* 묻는 창을 띄우는 동안에는 세지 않는다 (confirm 도 포커스를 뺏는다) */
+  pause: function(){ this.hold++; },
+  go: function(){ var self = this; setTimeout(function(){ if(self.hold) self.hold--; }, 400); }
+};
+/* 자판이 올라와도 안 흔들리는 값을 쓴다. visualViewport 는 자판에 따라
+   바뀌어서, 답을 치려고 자판을 올린 것을 화면 분할로 잘못 볼 수 있다 */
+function vw(){ return Math.round(window.innerWidth || 0); }
+
+var LEAVE_TXT = {
+  out:   "다른 화면으로 넘어갔습니다",
+  split: "화면이 나뉘었습니다",
+  paste: "붙여넣기는 쓸 수 없습니다",
+  auto:  "자판이 넣어 주는 글자는 쓸 수 없습니다"
+};
+
+function proctorLeave(kind){
+  var where = PROCTOR.hit(kind);
+  if(!where) return;
+  if(where === "stage"){
+    if(!S.paused) togglePause();
+    return;
+  }
+  /* 연습 — 보고 왔을 수 있으므로 이 문항은 오답으로 굳히고 넘어간다 */
+  if(kind === "paste" || kind === "auto"){ pracWarn(LEAVE_TXT[kind]); return; }
+  pracWarn(LEAVE_TXT[kind] + ". 이 문항은 틀린 것으로 넘깁니다.");
+  if(!P.checking && P.list && P.list[P.idx]) pracForceWrong();
+}
+
+function pracWarn(txt){
+  var el = $("prHint");
+  if(!el) return;
+  var keep = el.textContent, cls = el.className;
+  el.textContent = txt; el.className = cls + " warn";
+  setTimeout(function(){ el.textContent = keep; el.className = cls; }, 2200);
+  try { if(navigator.vibrate) navigator.vibrate(120); } catch(e){}
+}
+
+/* 화면 숨김 — 홈으로 나가기, 다른 앱 열기, 화면 끄기 */
 document.addEventListener("visibilitychange", function(){
-  if(document.hidden && $("stage").classList.contains("on") && !S.paused) togglePause();
+  if(document.hidden) proctorLeave("out");
 });
+/* 포커스 잃음 — 화면 분할에서 옆 창 만지기, 알림창 내리기 */
+window.addEventListener("blur", function(){ proctorLeave("out"); });
+/* 가로 폭이 갑자기 줄면 화면을 나눈 것이다.
+   세로 높이는 자판이 올라와도 바뀌므로 보지 않는다 */
+window.addEventListener("resize", function(){
+  if(!PROCTOR.live()) return;
+  var w = vw();
+  if(!PROCTOR.w0){ PROCTOR.w0 = w; return; }
+  if(w && PROCTOR.w0 && Math.abs(w - PROCTOR.w0) / PROCTOR.w0 > 0.2){
+    PROCTOR.w0 = w;
+    proctorLeave("split");
+  }
+});
+
+/* 입력칸 — 붙여넣기·자동완성 막기 */
+(function(){
+  var el = $("prIn");
+  if(!el) return;
+  ["paste","drop","copy","cut"].forEach(function(ev){
+    el.addEventListener(ev, function(e){
+      if(!PROCTOR.live()) return;
+      e.preventDefault(); proctorLeave("paste");
+    });
+  });
+  el.addEventListener("contextmenu", function(e){ if(PROCTOR.live()) e.preventDefault(); });
+  el.addEventListener("beforeinput", function(e){
+    if(!PROCTOR.live()) return;
+    var t = e.inputType || "";
+    if(t === "insertFromPaste" || t === "insertFromDrop" || t === "insertFromYank"){
+      e.preventDefault(); proctorLeave("paste"); return;
+    }
+    /* 자판이 통째로 바꿔 넣는 것 — 아이폰 예측 입력, 자동 고침 */
+    if(t === "insertReplacementText"){
+      e.preventDefault(); proctorLeave("auto"); return;
+    }
+    /* 영어쓰기에서 한 번에 두 글자 넘게 들어오는 것 — 글라이드 입력,
+       안드로이드 예측 입력. 한글은 조합해서 들어오므로 보지 않는다 */
+    if(S.mode === "spelling" && t === "insertText" && e.data && e.data.length > 1){
+      e.preventDefault(); proctorLeave("auto"); return;
+    }
+  });
+})();
+
+/* 결과에 붙일 한 줄 — 없으면 빈 문자열 */
+function proctorLine(){
+  if(!PROCTOR.total()) return "";
+  var p = [];
+  if(PROCTOR.out)   p.push("다른 화면 " + PROCTOR.out + "회");
+  if(PROCTOR.split) p.push("화면 분할 " + PROCTOR.split + "회");
+  if(PROCTOR.paste) p.push("붙여넣기 " + PROCTOR.paste + "회");
+  if(PROCTOR.auto)  p.push("자동완성 " + PROCTOR.auto + "회");
+  return "시험 중 " + p.join(" · ");
+}
 
 (function(){
   var sp = $("splash"), gone = false;
