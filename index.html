@@ -1967,6 +1967,9 @@ function cleanKo(v){
     .replace(/\([^)]*\)/g, " ")
     .replace(/\[[^\]]*\]/g, " ")
     .replace(/[~\-–—…·\.'"'"]/g, " ")
+    /* 괄호를 떼고 남는 = 와 / 도 지운다. 안 지우면 "~을 고수하다(= cling to)"
+       가 "을고수하다=" 가 되어 학생이 쓴 "을 고수하다" 와 어긋난다 */
+    .replace(/[=\/+]/g, " ")
     .replace(/[A-Za-z0-9]/g, " ")
     .replace(/\s+/g, "")
     .trim();
@@ -2002,6 +2005,8 @@ function koForms(raw, posHead){
   //   예전에는 괄호 안을 지운 "접근" 만 정답이어서, 보이는 대로 쓰면 틀렸다.
   //   "(소수) 민족의" → "소수민족의" 도 같은 경우.
   add(cleanKo(String(raw || "").replace(/[()\[\]]/g, " ")));
+  /* 여기까지가 화면에 뜬 뜻 그대로다. 아래 길이 거르기에서 빼 둔다 */
+  var shown = out.length;
 
   /* 앞 글자를 품사표기로 보고 떼어 내던 규칙은 없앴다.
      단어장 84권에 구분자가 따라오는 진짜 품사표기는 0건이고,
@@ -2024,12 +2029,15 @@ function koForms(raw, posHead){
     var m = base.match(/^(?:에서|에게|으로|부터|까지|에|을|를|로|와|과|의|가|이)(.+)$/);
     if(m && m[1].length >= 2) add(m[1]);
   }
-  /* 기호·숫자·물결을 떼다가 한 글자가 된 형태는 버린다.
-     "~때문에" 에 "에", "~로(서)" 에 "로", "0의" 에 "의" 한 글자만 써도
-     맞던 자리. 뜻 자체가 한 글자인 말(잎·힘·꽤)은 원문도 한 글자이므로 남는다 */
+  /* 기호·숫자·물결을 떼다가 한 글자가 된 형태는 버린다 — "~때문에" 의 "에".
+     단 화면에 뜬 뜻 그대로(shown 앞쪽)는 버리지 않는다.
+     예전에는 길이로만 걸러서, 괄호가 붙은 한 글자 뜻이 전부 오답이 됐다 —
+       (길이가) 긴 → "긴",  (생물) 종 → "종",  (시간 단위의) 분 → "분",
+       (미국 호주의) 주 → "주",  (조리용) 불 → "불".
+     학생이 화면에 보이는 대로 써도 틀렸다고 나오던 자리다 */
   var rawLen = String(raw || "").replace(/\s+/g, "").length;
   if(rawLen > 1){
-    var keep = out.filter(function(v){ return v.length >= 2; });
+    var keep = out.filter(function(v, i){ return i < shown || v.length >= 2; });
     /* 걸러서 아무것도 안 남으면 그대로 둔다 — "10년" 처럼 숫자를 떼면
        한 글자만 남는 뜻은 답할 방법이 없어진다 */
     if(keep.length) out = keep;
@@ -2041,10 +2049,22 @@ function koForms(raw, posHead){
 function splitKo(v, posHead){
   var t = String(v || "")
     .replace(/^\s*(?:n|v|a|ad|adv|adj|prep|pron|conj|int|aux|pl|숙|명|동|형|부|전|접|대|감)\.\s*/i, " ")
-    .replace(/[①②③④⑤⑥⑦⑧⑨⑩]/g, ",")
-    .replace(/[;/]/g, ",");
+    .replace(/[①②③④⑤⑥⑦⑧⑨⑩]/g, ",");
+  /* 괄호 안의 콤마·세미콜론·슬래시로는 자르지 않는다.
+     "~을 고수하다(= cling to / stick to)" 를 슬래시에서 자르면
+     "~을 고수하다(= cling to" 와 "stick to)" 로 갈라져,
+     학생이 무엇을 써도 맞지 않는 문제가 된다 */
+  var parts = [], buf = "", dep = 0, ch;
+  for(var i = 0; i < t.length; i++){
+    ch = t.charAt(i);
+    if(ch === "(" || ch === "[") dep++;
+    else if(ch === ")" || ch === "]"){ if(dep > 0) dep--; }
+    if(dep === 0 && (ch === "," || ch === ";" || ch === "/")){ parts.push(buf); buf = ""; continue; }
+    buf += ch;
+  }
+  parts.push(buf);
   var out = [];
-  t.split(",").forEach(function(x){
+  parts.forEach(function(x){
     koForms(x, posHead).forEach(function(f){ if(out.indexOf(f) < 0) out.push(f); });
   });
   return out;
