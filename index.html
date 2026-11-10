@@ -982,7 +982,7 @@ var MANIFEST = "books.json";
 var S = {
   catalog: null, books: [], bookId: "", pending: null,
   bookName: "", unitWord: "강", mainLabel: "메인단어", subLabel: "파생어", words: [],
-  units: [], picked: [], hasType: false,
+  units: [], picked: [], hasType: false, hasMain: false, typeNote: "",
   openCat: "", wordType: "main", mode: "meaning", order: "random", count: 30, tab: "num",
   quiz: [], idx: 0, timer: null, raf: null, paused: false,
   phase: "", finished: false, phaseEnd: 0, phaseLen: 0, remain: 0, doneFn: null,
@@ -1210,7 +1210,12 @@ function selectBook(id){
       S.unitWord = d.unitWord || b.unitWord || "강";
       S.subLabel  = d.subLabel  || b.subLabel  || "파생어";
       S.mainLabel = d.mainLabel || b.mainLabel || "메인단어";
+      /* 두 묶음이 무엇인지는 단어장마다 다르다. 교과서의 본문은
+         대화문에서 갈라져 나온 말이 아니라 아예 다른 단어다.
+         그래서 설명을 앱에 박지 않고 단어장 쪽에서 가져온다. */
+      S.typeNote  = d.typeNote  || b.typeNote  || "";
       S.hasType = w.some(function(x){ return x.type === "sub"; });
+      S.hasMain = w.some(function(x){ return x.type === "main"; });
       msg("m1","ok","‘" + esc(S.bookName) + "’ 단어 " + w.length + "개를 불러왔습니다.");
       afterWords();
       if(S.pending){ var q = S.pending; S.pending = null; applyLink(q); }
@@ -1267,19 +1272,27 @@ function afterWords(){
   picks[2].querySelector(".pick-t").textContent = L + "만";
   picks[2].querySelector(".pick-d").textContent = L + "만 골라 출제합니다";
   picks.forEach(function(p){ p.classList.remove("on","off"); });
-  picks[0].classList.add("on");
-  S.wordType = "main";
+  /* 중2 8과처럼 대화문이 아예 없는 과도 있다. 그런 단어장에서
+     「대화문만」을 기본으로 켜 두면 0개가 떠서 고장난 것처럼 보인다. */
+  var d0 = (S.hasType && !S.hasMain) ? 1 : 0;
+  picks[d0].classList.add("on");
+  S.wordType = d0 ? "all" : "main";
+  if(!S.hasMain && S.hasType) picks[0].classList.add("off");
   if(!S.hasType){
     picks[1].classList.add("off");
     picks[2].classList.add("off");
     $("typeHelp").textContent = "이 단어장은 단어를 나눠 놓지 않아 전체 단어로 출제합니다.";
     msg("m3","warn","이 단어장에는 구분이 없어 전체 단어로 출제합니다.");
   } else {
-    /* 세 가지가 무엇이 다른지 이 단어장의 말로 적어 준다 */
-    $("typeHelp").textContent = M + "는 교재에 크게 실린 단어, " + L
-      + "는 그 단어에서 갈라져 나온 말입니다(happy → happily). "
-      + "시험 범위가 교재에 실린 단어까지면 「" + M + "만」으로 두세요.";
-    msg("m3","");
+    /* 세 가지가 무엇이 다른지 이 단어장의 말로 적어 준다.
+       단어장이 제 설명을 들고 있으면 그것을 쓴다 */
+    $("typeHelp").textContent = S.typeNote ? S.typeNote
+      : (M + "는 교재에 크게 실린 단어, " + L
+         + "는 그 단어에서 갈라져 나온 말입니다(happy → happily). "
+         + "시험 범위가 교재에 실린 단어까지면 「" + M + "만」으로 두세요.");
+    if(!S.hasMain){
+      msg("m3","warn","이 " + S.unitWord + "에는 " + M + "이 없어 " + L + "만 출제합니다.");
+    } else { msg("m3",""); }
   }
   refresh();
 }
@@ -1431,6 +1444,26 @@ function refresh(){
     $("cnMain").textContent = mn + "개";
     $("cnAll").textContent = dedupe(inR).length + "개";
     $("cnSub").textContent = sb + "개";
+    /* 고른 범위에 대화문이 없는 과가 있다(중2 8과). 「대화문만」인 채로 두면
+       0개가 떠서 고장난 것처럼 보이고, 학생은 본문 단어를 통째로 안 보게 된다.
+       그래서 무엇을 눌러야 하는지 그 자리에서 말해 준다 */
+    if(S.hasType && S.picked.length && mn === 0 && sb > 0 && S.wordType === "main"){
+      /* 고른 범위에 대화문이 하나도 없는 과가 있다(중2 8과). 그대로 두면
+         0개가 떠서 시작도 못 하고, 학생은 본문 단어를 통째로 안 보게 된다.
+         단어가 더 많은 쪽으로 옮겨 주고, 옮겼다고 말해 준다.
+         __flip 은 옮기고 다시 들어와 또 옮기는 것을 막는 표시다 */
+      S.wordType = "all";
+      if(!refresh.__flip){ refresh.__flip = 1; refresh(); refresh.__flip = 0; }
+      var p0 = $("typePicks").querySelectorAll(".pick");
+      p0[0].classList.add("off"); p0[0].classList.remove("on");
+      p0[1].classList.add("on");
+      msg("m3","warn","고른 범위에는 " + (S.mainLabel||"메인단어") + "이 없어 「"
+        + typeTxt("all") + "」으로 바꿨습니다.");
+      return;
+    } else if(S.hasType && S.picked.length){
+      $("typePicks").querySelectorAll(".pick")[0].classList.remove("off");
+      if(!refresh.__flip) msg("m3","");
+    }
     $("pickedNote").innerHTML = S.picked.length
       ? "고른 범위 <b>" + esc(rangeText()) + "</b> · 출제할 수 있는 단어 <b>" + max + "개</b>"
       /* 예전에는 '강' 이 박혀 있어, 단위가 번·Day 인 58권에서 틀린 말이 나왔다.

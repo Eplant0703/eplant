@@ -26,10 +26,11 @@
    "category": "mid_text",
    "file": "중1-동아-윤정미.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
-   "count": 595,
-   "units": "1과~8과"
+   "mainLabel": "대화문",
+   "subLabel": "본문",
+   "count": 598,
+   "units": "1과~8과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-동아-이병민",
@@ -39,10 +40,11 @@
    "category": "mid_text",
    "file": "중1-동아-이병민.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 609,
-   "units": "1과~9과"
+   "units": "1과~9과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-미래엔-문영인",
@@ -52,10 +54,11 @@
    "category": "mid_text",
    "file": "중1-미래엔-문영인.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 706,
-   "units": "1과~9과"
+   "units": "1과~9과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-비상-황종배",
@@ -65,10 +68,11 @@
    "category": "mid_text",
    "file": "중1-비상-황종배.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 741,
-   "units": "1과~8과"
+   "units": "1과~8과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-지학사-송미정",
@@ -78,10 +82,11 @@
    "category": "mid_text",
    "file": "중1-지학사-송미정.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 696,
-   "units": "1과~8과"
+   "units": "1과~8과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-천재-소영순",
@@ -91,10 +96,11 @@
    "category": "mid_text",
    "file": "중1-천재-소영순.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 606,
-   "units": "1과~8과"
+   "units": "1과~8과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-천재-이상기",
@@ -104,10 +110,11 @@
    "category": "mid_text",
    "file": "중1-천재-이상기.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 625,
-   "units": "1과~9과"
+   "units": "1과~9과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-ne능률-김기택",
@@ -117,10 +124,11 @@
    "category": "mid_text",
    "file": "중1-ne능률-김기택.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 722,
-   "units": "1과~8과"
+   "units": "1과~8과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-ybm-김은형",
@@ -130,10 +138,11 @@
    "category": "mid_text",
    "file": "중1-ybm-김은형.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 707,
-   "units": "1과~9과"
+   "units": "1과~9과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중1-ybm-박준언",
@@ -143,10 +152,11 @@
    "category": "mid_text",
    "file": "중1-ybm-박준언.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 611,
-   "units": "1과~8과"
+   "units": "1과~8과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-동아-윤정미",
@@ -156,10 +166,11 @@
    "category": "mid_text",
    "file": "중2-동아-윤정미.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
-   "count": 441,
-   "units": "1과~6과"
+   "mainLabel": "대화문",
+   "subLabel": "본문",
+   "count": 579,
+   "units": "1과~8과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-동아-이병민",
@@ -169,10 +180,11 @@
    "category": "mid_text",
    "file": "중2-동아-이병민.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 466,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-미래엔-문영인",
@@ -182,10 +194,11 @@
    "category": "mid_text",
    "file": "중2-미래엔-문영인.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 392,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-비상-황종배",
@@ -195,10 +208,11 @@
    "category": "mid_text",
    "file": "중2-비상-황종배.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 420,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-지학사-송미정",
@@ -208,10 +222,11 @@
    "category": "mid_text",
    "file": "중2-지학사-송미정.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 476,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-천재-소영순",
@@ -221,10 +236,11 @@
    "category": "mid_text",
    "file": "중2-천재-소영순.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 513,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-천재-이상기",
@@ -234,10 +250,11 @@
    "category": "mid_text",
    "file": "중2-천재-이상기.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 420,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-ne능률-김기택",
@@ -247,10 +264,11 @@
    "category": "mid_text",
    "file": "중2-ne능률-김기택.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 486,
-   "units": "1과~7과"
+   "units": "1과~7과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-ybm-김은형",
@@ -260,10 +278,11 @@
    "category": "mid_text",
    "file": "중2-ybm-김은형.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 454,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중2-ybm-박준언",
@@ -273,10 +292,11 @@
    "category": "mid_text",
    "file": "중2-ybm-박준언.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "대화문",
+   "subLabel": "본문",
    "count": 436,
-   "units": "1과~6과"
+   "units": "1과~6과",
+   "typeNote": "대화문은 교과서 대화문에 나오는 단어, 본문은 읽기 지문에 나오는 단어입니다. 둘은 겹치지 않는 다른 단어라서, 시험 범위에 본문이 들어가면 「본문 포함」으로 골라야 합니다."
   },
   {
    "id": "중3-동아-윤정미",
@@ -286,10 +306,11 @@
    "category": "mid_text",
    "file": "중3-동아-윤정미.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "단어",
+   "subLabel": "숙어",
    "count": 266,
-   "units": "5과~8과"
+   "units": "5과~8과",
+   "typeNote": "단어와 숙어를 따로 묶어 두었습니다. 숙어까지 시험 범위면 「숙어 포함」으로 고르세요."
   },
   {
    "id": "중3-동아-이병민",
@@ -299,10 +320,11 @@
    "category": "mid_text",
    "file": "중3-동아-이병민.json",
    "unitWord": "과",
-   "mainLabel": "메인단어",
-   "subLabel": "파생어",
+   "mainLabel": "단어",
+   "subLabel": "숙어",
    "count": 255,
-   "units": "5과~8과"
+   "units": "5과~8과",
+   "typeNote": "단어와 숙어를 따로 묶어 두었습니다. 숙어까지 시험 범위면 「숙어 포함」으로 고르세요."
   },
   {
    "id": "고1-2022년-9월학평",
