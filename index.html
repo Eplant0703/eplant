@@ -290,6 +290,13 @@ body.pracing{overflow:hidden}
 .launch-rule{margin:0 0 10px;padding:8px 11px;border:1px solid var(--line);
   border-radius:9px;background:var(--amp-soft);color:var(--amp-deep);
   font-size:.76rem;font-weight:700;line-height:1.55;text-align:left}
+:root[data-theme="dark"] .pres-warn{border-color:var(--stop)}
+@media print{
+  /* 흑백 복사에서 이 줄만 44% 회색으로 흐렸다. 표 글자와 같게 맞춘다 */
+  .pres-warn,.pres-warn *,.res-warn,.res-warn *{color:#000 !important;border-color:#000 !important}
+  /* 화면용 이름 입력칸·점수 칩이 손글씨 줄과 겹쳐 찍혔다 */
+  #stuName,.pres-score,.res-score{display:none !important}
+}
 .mk-note{margin-top:8px;font-size:.72rem;font-weight:600;line-height:1.5;color:var(--ink-2)}
 /* 시험 중 기록은 흑백으로 뽑아도 보여야 한다 — 색만으로 알리지 않고
    테두리와 굵은 글자로도 드러낸다 */
@@ -2073,6 +2080,13 @@ function koForms(raw, posHead){
   //   예전에는 괄호 안을 지운 "접근" 만 정답이어서, 보이는 대로 쓰면 틀렸다.
   //   "(소수) 민족의" → "소수민족의" 도 같은 경우.
   add(cleanKo(String(raw || "").replace(/[()\[\]]/g, " ")));
+  /* 뜻이 숫자나 로마자인 낱말이 있다. 「하나, 1」 「20, 스물」 「소셜 미디어, SNS」.
+     cleanKo 가 영숫자를 지워서 그 조각이 빈 문자열이 되고, 학생이 1 이나 SNS 라고
+     쓰면 오답이 됐다. 영숫자를 남긴 형태도 같이 들고 간다 */
+  add(String(raw || "")
+        .replace(/\([^)]*\)/g, " ").replace(/\[[^\]]*\]/g, " ")
+        .replace(/[~\-–—…·.,;:'"'"\/=+()\[\]]/g, " ")
+        .replace(/\s+/g, "").trim());
   /* 여기까지가 화면에 뜬 뜻 그대로다. 아래 길이 거르기에서 빼 둔다 */
   var shown = out.length;
 
@@ -2192,7 +2206,17 @@ function koStem(w){
 /* 정답 하나와 견준다 */
 function matchOne(mine, right){
   var a = cleanKo(mine), b = cleanKo(right);
-  if(!a || !b) return null;
+  /* 뜻이 숫자나 로마자인 낱말이 있다 — 「하나, 1」의 1, 「20, 스물」의 20,
+     「소셜 미디어, SNS」의 SNS. cleanKo 가 영숫자를 지워 빈 문자열이
+     되는 바람에 학생이 1 이라고 써도 오답이었다. 워드마스터 초등 수사가
+     전부 여기에 해당한다. 빈 문자열이 될 때만 영숫자를 남겨 견준다 */
+  if(!a || !b){
+    var an = function(v){
+      return String(v || "").replace(/[^0-9A-Za-z가-힣]/g, "").toLowerCase();
+    };
+    var a2 = an(mine), b2 = an(right);
+    return (a2 && b2 && a2 === b2) ? {ok: true} : null;
+  }
 
   // 1) 있는 그대로 같은가
   if(a === b) return {ok: true};
@@ -2405,14 +2429,15 @@ function pracNote(text){
 
 /* 화면을 벗어났다 왔을 때 — 답을 봤을 수 있으므로 이 문항은 틀린 것으로
    굳히고 넘긴다. 학생이 다시 들어와 답을 쳐 넣는 것을 막는다 */
-function pracForceWrong(){
+function pracForceWrong(why){
   var w = P.list[P.idx];
   if(!w || P.checking) return;
+  var left = (why !== "skip");
   if(P.auto){ clearTimeout(P.auto); P.auto = null; }
   var askKo = (S.mode === "spelling");
   P.done.push({en: w.en, ko: w.ko, day: w.day, mine: "", ok: false, askKo: askKo,
                typo: false, pos: false, alt: false, voice: false, same: false,
-               left: true});
+               left: left});
   P.checking = true; P.wrong = true;
   $("prGauge").style.width = ((P.idx + 1) / P.list.length * 100) + "%";
   var el = $("prIn");
@@ -2422,7 +2447,9 @@ function pracForceWrong(){
   var m = $("prMark");
   m.style.display = ""; m.className = "pr-mark no";
   m.innerHTML = "정답 : " + esc(askKo ? w.en : w.ko)
-    + "<small>시험 중에 다른 화면을 봐서 이 문항은 틀린 것으로 넘깁니다</small>";
+    + "<small>" + (left
+        ? "시험 중에 다른 화면을 봐서 이 문항은 틀린 것으로 넘깁니다"
+        : "넘긴 문항입니다. 정답을 한 번 읽고 넘어가세요") + "</small>";
   beep(320, 160);
   $("prSkip").classList.add("on");
 }
@@ -2592,8 +2619,10 @@ function renderPracResult(){
      시작해도 이 숫자는 남는다 */
   var lw = $("prLeft"), line = proctorLine(), today = PROCTOR.today();
   var gave = d.filter(function(x){ return x.left; }).length;
-  if(line || today){
-    var head = line || "이번 판은 걸린 것이 없음";
+  /* 이번 판에 걸린 것이 없으면 상자를 띄우지 않는다. 깨끗한 학생 결과에
+     빨간 상자가 떠서 단톡방에서 「우리 애가 걸렸다」로 읽혔다 */
+  if(line){
+    var head = line;
     if(gave) head += "  ·  그래서 틀린 것으로 넘긴 문항 " + gave + "개";
     if(PROCTOR.round > 1) head += "  ·  " + PROCTOR.round + "회차(다시 푼 것)";
     if(today) head += "  ·  오늘 이 범위 누적 " + today + "회";
@@ -2874,7 +2903,11 @@ $("themeB").onclick = toggleTheme;
 $("practice").onclick = startPractice;
 $("prGo").onclick = function(){ pracCheck(false); };   /* 클릭을 키 입력으로 넘기지 않는다 */
 $("prSkip").onclick = function(){
-  if(!P.checking) return;
+  /* 아직 채점 전(빈 칸)에 누르면 아무 일도 안 했다. 바로 위 안내문은
+     「모르면 아래 [넘기기]를 누르면 됩니다」라고 적혀 있는데도 그랬다.
+     모르겠다는 뜻이므로 틀린 것으로 적고 정답을 보여 준다.
+     pracCheck 는 빈 칸이면 되돌아 나가므로 쓸 수 없다 */
+  if(!P.checking){ pracForceWrong("skip"); return; }
   if(P.auto){ clearTimeout(P.auto); P.auto = null; }
   P.idx++; pracShow();
 };
@@ -3072,9 +3105,17 @@ if(window.ResizeObserver){
 var PROCTOR = {
   out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
   live: function(){
-    if($("prac").classList.contains("on")) return "prac";
+    if($("prac").classList.contains("on")){
+      /* 연습도 마지막 문항까지 채점이 끝났으면 더 볼 것이 없다 */
+      if(P && P.list && P.done && P.done.length >= P.list.length) return false;
+      return "prac";
+    }
     /* 멈춤 중이라고 감시를 끄면 안 된다. 한 번 걸린 뒤로는 마음대로
        나갔다 올 수 있었다 — 값을 한 번 치르면 그 뒤가 공짜였다 */
+    /* 다 푼 뒤에는 감독을 끈다. 결과를 사진 찍어 단톡방에 올리려고
+       앱을 나가는 것이 원장님 운영 방식인데, 그것까지 「앱 전환」으로
+       찍혔다. 끝난 화면에서는 볼 것도 없다 */
+    if(S.finished) return false;
     if($("stage").classList.contains("on")) return "stage";
     return false;
   },
@@ -3090,7 +3131,7 @@ var PROCTOR = {
     try {
       var k = "ep_proc_" + new Date().toISOString().slice(0,10);
       var d = JSON.parse(localStorage.getItem(k) || "{}");
-      var id = (S.bookName || "") + "|" + rangeText();
+      var id = who() + "|" + (S.bookName || "") + "|" + rangeText();
       d[id] = (d[id] || 0) + 1;
       localStorage.setItem(k, JSON.stringify(d));
     } catch(e){}
@@ -3099,7 +3140,7 @@ var PROCTOR = {
     try {
       var k = "ep_proc_" + new Date().toISOString().slice(0,10);
       var d = JSON.parse(localStorage.getItem(k) || "{}");
-      return d[(S.bookName || "") + "|" + rangeText()] || 0;
+      return d[who() + "|" + (S.bookName || "") + "|" + rangeText()] || 0;
     } catch(e){ return 0; }
   },
   total: function(){ return this.out + this.split + this.swipe + this.paste + this.auto; },
@@ -3139,6 +3180,15 @@ var PROCTOR = {
 /* 자판이 올라와도 안 흔들리는 값을 쓴다. visualViewport 는 자판에 따라
    바뀌어서, 답을 치려고 자판을 올린 것을 화면 분할로 잘못 볼 수 있다 */
 function vw(){ return Math.round(window.innerWidth || 0); }
+/* 누적을 누구 것으로 쌓을지. 학원에서는 선생님 폰 하나로 반 학생을
+   차례로 돌린다. 기기 단위로 쌓으면 앞 학생 기록이 뒷 학생 결과에 붙는다.
+   접속 코드 열쇠 앞자리로 사람을 가른다 (이름·전화번호는 쓰지 않는다) */
+function who(){
+  try {
+    var g = JSON.parse(localStorage.getItem("ep_gate_v1") || "{}");
+    return String(g.h || "").slice(0, 8) || "-";
+  } catch(e){ return "-"; }
+}
 
 var LEAVE_TXT = {
   out:   "다른 앱으로 넘어가려고 했습니다",
@@ -3175,7 +3225,7 @@ function shieldUp(kind){
   else if(S.quiz) cur = S.quiz[S.idx];
   if(sw){
     sw.textContent = cur ? ((P && $("prac").classList.contains("on")
-      ? (P.idx + 1) : (S.idx + 1)) + "번  " + cur.en) : "";
+      ? (P.idx + 1) : (S.idx + 1)) + "번 " + cur.en) : "";
     sw.style.display = cur ? "" : "none";
   }
   el.classList.add("on");
@@ -3303,7 +3353,7 @@ function pracWarn(txt){
   var last = Date.now();
   /* 0.5초는 너무 빡빡하다. 낡은 폰·절전 모드·배경 내려받기로 저절로 걸린다.
      1.2초로 올린다. 앱 스위처를 열었다 닫는 데는 그보다 오래 걸린다 */
-  var GAP = 1200;
+  var GAP = 2000;
   function tick(){
     var now = Date.now(), gap = now - last;
     last = now;
@@ -3347,6 +3397,7 @@ document.addEventListener("click", function(e){
 });
 /* 가로 폭이 갑자기 줄면 화면을 나눈 것이다.
    세로 높이는 자판이 올라와도 바뀌므로 보지 않는다 */
+window.addEventListener("orientationchange", function(){ PROCTOR.spin = Date.now(); });
 window.addEventListener("resize", function(){
   if(!PROCTOR.live()) return;
   var w = vw();
@@ -3356,6 +3407,9 @@ window.addEventListener("resize", function(){
      보고 분할이라고 잡았다. 침대에 누워 폰을 돌린 학생이 아무 짓도 안 하고
      걸렸다. 늘어난 경우는 기준만 바꾸고 넘긴다 */
   if(!w){ return; }
+  /* 화면을 돌리는 동안에는 보지 않는다. 가로로 눕혔다 다시 세울 때
+     폭이 844 → 390 으로 줄어 분할로 잡히던 자리다 */
+  if(PROCTOR.spin && Date.now() - PROCTOR.spin < 1200){ PROCTOR.w0 = w; return; }
   if(w >= PROCTOR.w0){ PROCTOR.w0 = w; return; }
   if((PROCTOR.w0 - w) / PROCTOR.w0 > 0.2){
     PROCTOR.w0 = w;
