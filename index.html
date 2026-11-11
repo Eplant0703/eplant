@@ -3204,6 +3204,35 @@ function pracWarn(txt){
   });
 })();
 
+/* ── 그리기가 끊긴 시간 재기 ──────────────────────────────
+   원장님 화면 녹화로 확인한 것. 아이폰에서 앱 스위처를 잠깐 열었다
+   닫으면 blur 도 visibilitychange 도 울리지 않는다. 앱을 끝까지
+   내린 것이 아니라서다. 그래서 앞에 걸어 둔 신호가 하나도 안 잡혔고,
+   학생은 썸네일에서 단어를 보고 돌아와 답을 맞혔다.
+
+   다만 앱 스위처가 떠 있는 동안에는 이 화면을 그리지 않는다.
+   그래서 그리기 신호(requestAnimationFrame)가 멈춘다.
+   끊긴 시간을 재면, 아무 이벤트가 없어도 다녀온 것을 알 수 있다.
+   화면 분할·알림창·홈 화면 미리보기도 같은 방법으로 잡힌다 */
+(function(){
+  var last = Date.now();
+  var GAP = 500;        /* 시험 중에는 할 일이 없어 이만큼 끊기지 않는다 */
+  function tick(){
+    var now = Date.now(), gap = now - last;
+    last = now;
+    if(gap > GAP && PROCTOR.live()) proctorLeave("out");
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  /* 그리기가 아예 멈춰 있는 동안에도 시계는 돈다. 돌아왔을 때
+     위 tick 이 큰 간격을 보고 잡는다. 혹시 rAF 가 되살아나지 않는
+     기기를 대비해 타이머로도 한 번 더 본다 */
+  setInterval(function(){
+    var now = Date.now(), gap = now - last;
+    if(gap > GAP * 3 && PROCTOR.live()){ last = now; proctorLeave("out"); }
+  }, 1000);
+})();
+
 /* 화면 숨김 — 홈으로 나가기, 다른 앱 열기, 화면 끄기 */
 document.addEventListener("visibilitychange", function(){
   if(document.hidden) proctorLeave("out");
