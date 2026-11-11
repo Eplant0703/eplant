@@ -252,6 +252,17 @@ body.pracing{overflow:hidden}
 .pr-mid.tight .pr-mark{margin-top:10px;font-size:.88rem}
 .pr-hint{margin-top:9px;font-size:.8rem;color:var(--ink-3);font-weight:700}
 .pr-hint.warn{color:var(--no)}
+/* 가림막은 반드시 불투명해야 한다. 비치면 덮는 뜻이 없다 */
+.shield{position:fixed;inset:0;z-index:99999;display:none;
+  background:#0b0f14;color:#fff;align-items:center;justify-content:center;padding:24px}
+.shield.on{display:flex}
+.shield-in{max-width:320px;text-align:center}
+.shield-mark{width:56px;height:56px;margin:0 auto 16px;border-radius:50%;
+  border:3px solid #ff6b6b;color:#ff6b6b;font-size:1.9rem;font-weight:800;
+  line-height:50px}
+.shield-ttl{font-size:1.12rem;font-weight:800;line-height:1.45;margin-bottom:10px}
+.shield-sub{font-size:.86rem;font-weight:600;line-height:1.65;color:#b6bdc6;margin-bottom:22px}
+.shield .btn{width:100%}
 /* 시험 중 기록은 흑백으로 뽑아도 보여야 한다 — 색만으로 알리지 않고
    테두리와 굵은 글자로도 드러낸다 */
 .pres-warn{display:none;margin-top:12px;padding:9px 12px;border:2px solid var(--no);
@@ -2997,15 +3008,15 @@ if(window.ResizeObserver){
    횟수는 결과 화면과 인쇄물에 찍힌다 — 학생이 결과를 사진 찍어
    단톡방에 올리므로, 거기 찍히면 원장님이 바로 본다. */
 var PROCTOR = {
-  out: 0, split: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
+  out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
   live: function(){
     if(this.hold) return false;
     if($("prac").classList.contains("on")) return "prac";
     if($("stage").classList.contains("on") && !S.paused) return "stage";
     return false;
   },
-  reset: function(){ this.out = this.split = this.paste = this.auto = 0; this.marks = []; this.w0 = vw(); },
-  total: function(){ return this.out + this.split + this.paste + this.auto; },
+  reset: function(){ this.out = this.split = this.swipe = this.paste = this.auto = 0; this.marks = []; this.w0 = vw(); },
+  total: function(){ return this.out + this.split + this.swipe + this.paste + this.auto; },
   hit: function(kind){
     var where = this.live();
     if(!where) return false;
@@ -3013,7 +3024,7 @@ var PROCTOR = {
     /* 화면을 벗어나면 숨김과 포커스 잃음이 같이 울린다. 한 번으로 센다.
        붙여넣기·자동완성은 따로 센다 — 섞어서 거르면 붙여넣기 한 번이
        바로 뒤에 일어난 화면 이탈을 먹어 버린다 */
-    if(kind === "out" || kind === "split"){
+    if(kind === "out" || kind === "split" || kind === "swipe"){
       if(t - this.last < 900) return false;
       this.last = t;
     }
@@ -3030,22 +3041,59 @@ var PROCTOR = {
 function vw(){ return Math.round(window.innerWidth || 0); }
 
 var LEAVE_TXT = {
-  out:   "다른 화면으로 넘어갔습니다",
-  split: "화면이 나뉘었습니다",
+  out:   "다른 앱으로 넘어가려고 했습니다",
+  split: "화면이 둘로 나뉘었습니다",
+  swipe: "화면 아래에서 쓸어올렸습니다",
   paste: "붙여넣기는 쓸 수 없습니다",
   auto:  "자판이 넣어 주는 글자는 쓸 수 없습니다"
 };
 
+/* ── 가림막 ──────────────────────────────────────────────
+   앱을 바꾸려는 순간 화면을 통째로 덮는다.
+
+   왜 덮어야 하나. 지금까지는 문항만 오답으로 넘겼는데, 그 사이에도
+   단어와 정답이 화면에 그대로 떠 있었다. 그래서
+     아이폰 앱 스위처 — 작은 화면(썸네일)에 단어가 그대로 찍힌다
+     아이폰 Slide Over — 사전 앱을 옆에 띄워도 이 화면이 계속 보인다
+     안드로이드 분할 화면 — 위아래로 나란히 놓고 보면 그대로 보인다
+   덮어 두면 바꿔 봐야 볼 것이 없다. 전환하려는 '시도'를 미리 잡지
+   못해도 상관없어진다 — 넘어가는 순간 이미 가려져 있기 때문이다.
+
+   포커스를 잃는 순간(blur)이 화면 숨김(visibilitychange)보다 먼저
+   울린다. 앱 스위처가 뜨는 그 순간이라 썸네일이 찍히기 전에 덮인다.
+
+   돌아와도 저절로 걷히지 않는다. 단추를 눌러야 열리고, 그때 그 문항은
+   이미 틀린 것으로 넘어가 있다. */
+function shieldUp(kind){
+  var el = $("shield");
+  if(!el || el.classList.contains("on")) return;
+  $("shieldTxt").textContent = LEAVE_TXT[kind] || LEAVE_TXT.out;
+  el.classList.add("on");
+  try { var i = $("prIn"); if(i) i.blur(); } catch(e){}
+}
+function shieldDown(){
+  var el = $("shield");
+  if(!el) return;
+  el.classList.remove("on");
+  if($("prac").classList.contains("on") && !P.checking) $("prIn").focus();
+}
+
 function proctorLeave(kind){
   var where = PROCTOR.hit(kind);
-  if(!where) return;
+  if(!where){
+    /* 시험 중이 아니어도 덮는 것이 맞는 경우가 있다 — 이미 덮여 있으면 그대로 둔다 */
+    return;
+  }
+  if(kind === "paste" || kind === "auto"){
+    if(where === "prac") pracWarn(LEAVE_TXT[kind]);
+    return;
+  }
+  /* 화면을 벗어났다 — 실전·연습 둘 다 먼저 덮는다 */
+  shieldUp(kind);
   if(where === "stage"){
     if(!S.paused) togglePause();
     return;
   }
-  /* 연습 — 보고 왔을 수 있으므로 이 문항은 오답으로 굳히고 넘어간다 */
-  if(kind === "paste" || kind === "auto"){ pracWarn(LEAVE_TXT[kind]); return; }
-  pracWarn(LEAVE_TXT[kind] + ". 이 문항은 틀린 것으로 넘깁니다.");
   if(!P.checking && P.list && P.list[P.idx]) pracForceWrong();
 }
 
@@ -3058,12 +3106,44 @@ function pracWarn(txt){
   try { if(navigator.vibrate) navigator.vibrate(120); } catch(e){}
 }
 
+/* 아이폰에서 앱을 바꾸려면 화면 맨 아래 가로줄을 위로 쓸어올린다.
+   그 동작이 시스템에 넘어가기 전에 페이지로 먼저 오는 경우가 있어서
+   잡아 둔다. 안드로이드의 제스처·최근앱 단추는 페이지로 오지 않아
+   미리 잡을 수 없다 — 그쪽은 가림막이 대신한다.
+   가로세로 돌리는 것과는 아무 상관이 없다. 아래 가장자리에서
+   위로 올라가는 동작만 본다 */
+(function(){
+  var y0 = 0, x0 = 0, armed = false;
+  document.addEventListener("touchstart", function(e){
+    if(!PROCTOR.live() || !e.touches.length) return;
+    var t = e.touches[0];
+    y0 = t.clientY; x0 = t.clientX;
+    armed = (window.innerHeight - y0) <= 26;      // 맨 아래 가장자리에서 시작
+  }, {passive: true});
+  document.addEventListener("touchmove", function(e){
+    if(!armed || !PROCTOR.live() || !e.touches.length) return;
+    var t = e.touches[0];
+    if(y0 - t.clientY > 36 && Math.abs(t.clientX - x0) < 70){
+      armed = false;
+      proctorLeave("swipe");
+    }
+  }, {passive: true});
+  document.addEventListener("touchend", function(){ armed = false; }, {passive: true});
+})();
+
 /* 화면 숨김 — 홈으로 나가기, 다른 앱 열기, 화면 끄기 */
 document.addEventListener("visibilitychange", function(){
   if(document.hidden) proctorLeave("out");
 });
 /* 포커스 잃음 — 화면 분할에서 옆 창 만지기, 알림창 내리기 */
 window.addEventListener("blur", function(){ proctorLeave("out"); });
+/* 가림막은 단추를 눌러야 걷힌다. 돌아오자마자 저절로 열리면
+   앱 스위처에서 눈으로 본 것을 그대로 쳐 넣을 수 있다.
+   가림막 마크업이 이 스크립트보다 뒤에 있어, 문서에 걸어 둔다 */
+document.addEventListener("click", function(e){
+  var t = e.target;
+  if(t && t.id === "shieldGo") shieldDown();
+});
 /* 가로 폭이 갑자기 줄면 화면을 나눈 것이다.
    세로 높이는 자판이 올라와도 바뀌므로 보지 않는다 */
 window.addEventListener("resize", function(){
@@ -3109,8 +3189,9 @@ window.addEventListener("resize", function(){
 function proctorLine(){
   if(!PROCTOR.total()) return "";
   var p = [];
-  if(PROCTOR.out)   p.push("다른 화면 " + PROCTOR.out + "회");
+  if(PROCTOR.out)   p.push("앱 전환 " + PROCTOR.out + "회");
   if(PROCTOR.split) p.push("화면 분할 " + PROCTOR.split + "회");
+  if(PROCTOR.swipe) p.push("앱 전환 시도 " + PROCTOR.swipe + "회");
   if(PROCTOR.paste) p.push("붙여넣기 " + PROCTOR.paste + "회");
   if(PROCTOR.auto)  p.push("자동완성 " + PROCTOR.auto + "회");
   return "시험 중 " + p.join(" · ");
@@ -3170,5 +3251,16 @@ if("serviceWorker" in navigator){
   });
 }
 </script>
+
+<!-- 가림막 — 앱을 바꾸려는 순간 화면을 통째로 덮는다.
+     썸네일·분할화면·Slide Over 어디에도 단어가 남지 않는다 -->
+<div class="shield" id="shield">
+  <div class="shield-in">
+    <div class="shield-mark">!</div>
+    <div class="shield-ttl" id="shieldTxt">다른 앱으로 넘어가려고 했습니다</div>
+    <div class="shield-sub">시험 중에는 다른 앱을 쓸 수 없습니다.<br>이 문항은 틀린 것으로 넘어갔고, 기록에 남습니다.</div>
+    <button class="btn" id="shieldGo" type="button">돌아가기</button>
+  </div>
+</div>
 </body>
 </html>

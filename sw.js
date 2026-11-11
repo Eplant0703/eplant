@@ -1,5 +1,5 @@
 "use strict";
-var CACHE = "eplant-voca-v44";
+var CACHE = "eplant-voca-v45";
 /* data/books.json 을 함께 담는다. 없으면 설치 직후 첫 오프라인에서
    단어장이 0권으로 뜬다 */
 var SHELL = ["./index.html", "./manifest.json", "./logo-wide.png", "./symbol.png",
