@@ -3175,16 +3175,28 @@ function pracWarn(txt){
     if(PROCTOR.live() && !inBox(e.target)) e.preventDefault();
   });
   document.addEventListener("selectstart", function(e){
-    if(PROCTOR.live() && !inBox(e.target)) e.preventDefault();
+    /* 입력칸에 커서가 있는 동안에는 막지 않는다. 막으면 아이폰이
+       커서를 놓지 못해 자판이 안 올라온다 */
+    if(PROCTOR.live() && !inBox(e.target) && !inBox(document.activeElement)) e.preventDefault();
   });
   /* 아이폰은 길게 누르면 글자가 잡히면서 번역 단추가 뜬다.
-     0.4초 넘게 누르고 있으면 선택을 풀어 준다 */
+     0.4초 넘게 누르고 있으면 선택을 풀어 준다.
+
+     주의 — 입력칸에 커서가 있을 때 선택을 지우면 아이폰이 자판을
+     내려 버린다. 다음 문항에서 자판이 안 올라오던 것이 이것이었다.
+     그래서 ① 입력칸에 커서가 있으면 손대지 않고
+            ② 실제로 잡힌 글자가 있을 때만 푼다 */
   var hold = null;
   document.addEventListener("touchstart", function(e){
     if(!PROCTOR.live() || inBox(e.target)) return;
     clearTimeout(hold);
     hold = setTimeout(function(){
-      try { var sel = window.getSelection(); if(sel) sel.removeAllRanges(); } catch(err){}
+      try {
+        var a = document.activeElement;
+        if(inBox(a)) return;                       /* 입력 중이면 건드리지 않는다 */
+        var sel = window.getSelection();
+        if(sel && !sel.isCollapsed) sel.removeAllRanges();
+      } catch(err){}
     }, 400);
   }, {passive: true});
   ["touchend","touchmove","touchcancel"].forEach(function(ev){
@@ -3201,14 +3213,14 @@ window.addEventListener("blur", function(){ proctorLeave("out"); });
 /* 앱을 내릴 때 울리는 것들. 어느 것이 먼저 울지는 기기마다 달라서 다 건다 */
 window.addEventListener("pagehide", function(){ proctorLeave("out"); });
 document.addEventListener("freeze", function(){ proctorLeave("out"); });
-/* 자판이 내려가면서 입력칸이 포커스를 잃는 것도 앱을 바꾸려는 첫 동작일 때가
-   많다. 창까지 포커스를 잃었는지 한 박자 뒤에 확인한다 */
+/* 입력칸이 포커스를 잃는 것만으로는 앱을 바꿨다고 볼 수 없다.
+   답을 쓰다 단추를 누르거나 자판을 내려도 울리기 때문이다.
+   화면이 실제로 숨겨졌을 때만 센다 */
 window.addEventListener("focusout", function(){
   if(!PROCTOR.live()) return;
   setTimeout(function(){
-    if(!document.hasFocus || document.hasFocus()) return;
-    proctorLeave("out");
-  }, 120);
+    if(document.hidden) proctorLeave("out");
+  }, 150);
 });
 /* 가림막은 단추를 눌러야 걷힌다. 돌아오자마자 저절로 열리면
    앱 스위처에서 눈으로 본 것을 그대로 쳐 넣을 수 있다.
