@@ -253,9 +253,16 @@ body.pracing{overflow:hidden}
 .pr-hint{margin-top:9px;font-size:.8rem;color:var(--ink-3);font-weight:700}
 .pr-hint.warn{color:var(--no)}
 /* 가림막은 반드시 불투명해야 한다. 비치면 덮는 뜻이 없다 */
-.shield{position:fixed;inset:0;z-index:99999;display:none;
-  background:#0b0f14;color:#fff;align-items:center;justify-content:center;padding:24px}
-.shield.on{display:flex}
+.shield{position:fixed;inset:0;z-index:2147483647;
+  background:#0b0f14;color:#fff;display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  /* display 를 바꾸면 자리를 다시 계산하고 다시 그려야 해서 한 프레임이 늦는다.
+     그 한 프레임 사이에 안드로이드·아이폰이 앱 스위처 썸네일을 찍어 버려서
+     단어가 그대로 남았다. 늘 그려 둔 채 투명도만 바꾸면 합성 단계에서
+     끝나 훨씬 빨리 덮인다 */
+  opacity:0;pointer-events:none;visibility:hidden;
+  will-change:opacity;transform:translateZ(0)}
+.shield.on{opacity:1;pointer-events:auto;visibility:visible}
 .shield-in{max-width:320px;text-align:center}
 .shield-mark{width:56px;height:56px;margin:0 auto 16px;border-radius:50%;
   border:3px solid #ff6b6b;color:#ff6b6b;font-size:1.9rem;font-weight:800;
@@ -263,6 +270,20 @@ body.pracing{overflow:hidden}
 .shield-ttl{font-size:1.12rem;font-weight:800;line-height:1.45;margin-bottom:10px}
 .shield-sub{font-size:.86rem;font-weight:600;line-height:1.65;color:#b6bdc6;margin-bottom:22px}
 .shield .btn{width:100%}
+/* 길게 눌러 번역·찾아보기가 뜨는 길을 막는다.
+   아이폰은 touch-callout, 안드로이드는 글자 선택을 막아야 메뉴가 안 뜬다.
+   입력칸은 빼 둔다 — 거기까지 막으면 쓴 답을 고치지 못한다 */
+#prac, #stage, #result{
+  -webkit-touch-callout:none; -webkit-user-select:none; -moz-user-select:none;
+  -ms-user-select:none; user-select:none;
+  -webkit-tap-highlight-color:transparent}
+#prac input, #stage input, #result input,
+#prac textarea, #result textarea{
+  -webkit-touch-callout:default; -webkit-user-select:text; user-select:text}
+/* 어느 단어에서 그랬는지 — 흑백으로 뽑아도 줄이 서게 라벨을 왼쪽에 둔다 */
+.mk-row{display:flex;gap:8px;margin-top:6px;font-size:.78rem;font-weight:700;line-height:1.5}
+.mk-k{flex:none;min-width:72px}
+.mk-v{flex:1;font-weight:600;word-break:keep-all;overflow-wrap:anywhere}
 /* 시험 중 기록은 흑백으로 뽑아도 보여야 한다 — 색만으로 알리지 않고
    테두리와 굵은 글자로도 드러낸다 */
 .pres-warn{display:none;margin-top:12px;padding:9px 12px;border:2px solid var(--no);
@@ -968,8 +989,12 @@ tr:last-child td{border-bottom:none}
     <div class="pr-mark" id="prMark" style="display:none"></div>
   </div>
   <div class="pr-bar">
+    <!-- 자판이 글자를 거들지 못하게 끌 수 있는 것은 다 꺼 둔다.
+         name 을 두지 않아야 브라우저가 지난 입력을 기억해 흘리지 않는다 -->
     <input type="text" class="pr-in" id="prIn" autocomplete="off" autocorrect="off"
-           autocapitalize="off" spellcheck="false" enterkeyhint="next">
+           autocapitalize="off" spellcheck="false" data-form-type="other"
+           data-lpignore="true" data-1p-ignore="true" data-gramm="false"
+           data-enable-grammarly="false" enterkeyhint="next">
     <button class="pr-skip" id="prSkip">넘기기</button>
     <button class="pr-go" id="prGo">확인</button>
   </div>
@@ -1675,7 +1700,10 @@ function renderResult(){
   $("pTotal").textContent = S.quiz.length;
   /* 시험 중 기록 — 정답표를 인쇄하거나 사진 찍어 올리면 그대로 찍힌다 */
   var rw = $("resWarn"), rline = proctorLine();
-  if(rw){ rw.textContent = rline; rw.style.display = rline ? "" : "none"; }
+  if(rw){
+    rw.innerHTML = rline ? (esc(rline) + proctorHtml()) : "";
+    rw.style.display = rline ? "" : "none";
+  }
 
   var cnt = {}, ord = [];
   S.quiz.forEach(function(w){
@@ -2544,7 +2572,8 @@ function renderPracResult(){
   var lw = $("prLeft"), line = proctorLine();
   if(line){
     var gave = d.filter(function(x){ return x.left; }).length;
-    lw.textContent = line + (gave ? ("  ·  그래서 틀린 것으로 넘긴 문항 " + gave + "개") : "");
+    lw.innerHTML = esc(line + (gave ? ("  ·  그래서 틀린 것으로 넘긴 문항 " + gave + "개") : ""))
+                 + proctorHtml();
     lw.classList.add("on");
   } else { lw.textContent = ""; lw.classList.remove("on"); }
 
@@ -3029,7 +3058,12 @@ var PROCTOR = {
       this.last = t;
     }
     this[kind]++;
-    this.marks.push({ kind: kind, no: (where === "prac" && P ? P.idx + 1 : 0) });
+    /* 어느 단어에서 그랬는지까지 남긴다. 몇 회인지만으로는
+       어디서 막혔는지 알 수 없어서 선생님이 확인할 수가 없다 */
+    var w = null, no = 0;
+    if(where === "prac" && P && P.list){ w = P.list[P.idx]; no = P.idx + 1; }
+    else if(where === "stage" && S.quiz){ w = S.quiz[S.idx]; no = S.idx + 1; }
+    this.marks.push({ kind: kind, no: no, en: (w ? w.en : ""), ko: (w ? w.ko : "") });
     return where;
   },
   /* 묻는 창을 띄우는 동안에는 세지 않는다 (confirm 도 포커스를 뺏는다) */
@@ -3069,6 +3103,8 @@ function shieldUp(kind){
   if(!el || el.classList.contains("on")) return;
   $("shieldTxt").textContent = LEAVE_TXT[kind] || LEAVE_TXT.out;
   el.classList.add("on");
+  /* 읽어서 그리기를 그 자리에서 끝낸다. 이걸 안 하면 다음 프레임으로 밀린다 */
+  try { void el.offsetHeight; } catch(e){}
   try { var i = $("prIn"); if(i) i.blur(); } catch(e){}
 }
 function shieldDown(){
@@ -3131,12 +3167,49 @@ function pracWarn(txt){
   document.addEventListener("touchend", function(){ armed = false; }, {passive: true});
 })();
 
+/* 길게 눌러 뜨는 메뉴(번역·찾아보기·복사)를 막는다.
+   입력칸에서는 막지 않는다 — 쓴 답을 고치지 못하게 되기 때문이다 */
+(function(){
+  function inBox(t){ return t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA"); }
+  document.addEventListener("contextmenu", function(e){
+    if(PROCTOR.live() && !inBox(e.target)) e.preventDefault();
+  });
+  document.addEventListener("selectstart", function(e){
+    if(PROCTOR.live() && !inBox(e.target)) e.preventDefault();
+  });
+  /* 아이폰은 길게 누르면 글자가 잡히면서 번역 단추가 뜬다.
+     0.4초 넘게 누르고 있으면 선택을 풀어 준다 */
+  var hold = null;
+  document.addEventListener("touchstart", function(e){
+    if(!PROCTOR.live() || inBox(e.target)) return;
+    clearTimeout(hold);
+    hold = setTimeout(function(){
+      try { var sel = window.getSelection(); if(sel) sel.removeAllRanges(); } catch(err){}
+    }, 400);
+  }, {passive: true});
+  ["touchend","touchmove","touchcancel"].forEach(function(ev){
+    document.addEventListener(ev, function(){ clearTimeout(hold); }, {passive: true});
+  });
+})();
+
 /* 화면 숨김 — 홈으로 나가기, 다른 앱 열기, 화면 끄기 */
 document.addEventListener("visibilitychange", function(){
   if(document.hidden) proctorLeave("out");
 });
 /* 포커스 잃음 — 화면 분할에서 옆 창 만지기, 알림창 내리기 */
 window.addEventListener("blur", function(){ proctorLeave("out"); });
+/* 앱을 내릴 때 울리는 것들. 어느 것이 먼저 울지는 기기마다 달라서 다 건다 */
+window.addEventListener("pagehide", function(){ proctorLeave("out"); });
+document.addEventListener("freeze", function(){ proctorLeave("out"); });
+/* 자판이 내려가면서 입력칸이 포커스를 잃는 것도 앱을 바꾸려는 첫 동작일 때가
+   많다. 창까지 포커스를 잃었는지 한 박자 뒤에 확인한다 */
+window.addEventListener("focusout", function(){
+  if(!PROCTOR.live()) return;
+  setTimeout(function(){
+    if(!document.hasFocus || document.hasFocus()) return;
+    proctorLeave("out");
+  }, 120);
+});
 /* 가림막은 단추를 눌러야 걷힌다. 돌아오자마자 저절로 열리면
    앱 스위처에서 눈으로 본 것을 그대로 쳐 넣을 수 있다.
    가림막 마크업이 이 스크립트보다 뒤에 있어, 문서에 걸어 둔다 */
@@ -3167,6 +3240,12 @@ window.addEventListener("resize", function(){
     });
   });
   el.addEventListener("contextmenu", function(e){ if(PROCTOR.live()) e.preventDefault(); });
+  /* 한글은 조합해서 들어온다. 조합 중일 때는 여러 글자가 와도 정상이다.
+     조합 없이 통으로 들어오는 것만 자판이 거든 것으로 본다 */
+  el.addEventListener("compositionstart", function(){ el.__cmp = true; });
+  el.addEventListener("compositionend", function(){
+    setTimeout(function(){ el.__cmp = false; }, 60);
+  });
   el.addEventListener("beforeinput", function(e){
     if(!PROCTOR.live()) return;
     var t = e.inputType || "";
@@ -3177,9 +3256,11 @@ window.addEventListener("resize", function(){
     if(t === "insertReplacementText"){
       e.preventDefault(); proctorLeave("auto"); return;
     }
-    /* 영어쓰기에서 한 번에 두 글자 넘게 들어오는 것 — 글라이드 입력,
-       안드로이드 예측 입력. 한글은 조합해서 들어오므로 보지 않는다 */
-    if(S.mode === "spelling" && t === "insertText" && e.data && e.data.length > 1){
+    /* 한 번에 두 글자 넘게 통으로 들어오는 것 — 글라이드 입력, 예측 입력.
+       영어쓰기는 늘 막는다. 한글 뜻쓰기는 조합 중이 아닐 때만 막는다.
+       조합까지 막으면 한글 입력 자체가 안 된다 */
+    if(t === "insertText" && e.data && e.data.length > 1 &&
+       (S.mode === "spelling" || !el.__cmp)){
       e.preventDefault(); proctorLeave("auto"); return;
     }
   });
@@ -3195,6 +3276,40 @@ function proctorLine(){
   if(PROCTOR.paste) p.push("붙여넣기 " + PROCTOR.paste + "회");
   if(PROCTOR.auto)  p.push("자동완성 " + PROCTOR.auto + "회");
   return "시험 중 " + p.join(" · ");
+}
+
+/* 어느 단어에서 그랬는지. 몇 회인지만 적으면 선생님이 확인할 수가 없다.
+   같은 단어에서 여러 번이면 "x2" 로 묶는다 */
+var MARK_TXT = { out: "앱 전환", split: "화면 분할", swipe: "앱 전환 시도",
+                 paste: "붙여넣기", auto: "자동완성" };
+function proctorMarks(){
+  if(!PROCTOR.marks.length) return [];
+  var byKind = {};
+  PROCTOR.marks.forEach(function(m){
+    var k = m.kind;
+    if(!byKind[k]) byKind[k] = [];
+    var tag = (m.no ? m.no + "번 " : "") + (m.en || "—");
+    var last = byKind[k][byKind[k].length - 1];
+    if(last && last.tag === tag) last.n++;
+    else byKind[k].push({ tag: tag, n: 1 });
+  });
+  var out = [];
+  ["out","swipe","split","paste","auto"].forEach(function(k){
+    if(!byKind[k]) return;
+    out.push({
+      name: MARK_TXT[k],
+      list: byKind[k].map(function(x){ return x.tag + (x.n > 1 ? " x" + x.n : ""); }).join(" · ")
+    });
+  });
+  return out;
+}
+function proctorHtml(){
+  var ms = proctorMarks();
+  if(!ms.length) return "";
+  return ms.map(function(m){
+    return '<div class="mk-row"><span class="mk-k">' + esc(m.name)
+         + '</span><span class="mk-v">' + esc(m.list) + '</span></div>';
+  }).join("");
 }
 
 (function(){
