@@ -2427,6 +2427,10 @@ function pracForceWrong(){
   $("prSkip").classList.add("on");
 }
 
+/* 화면이 가려져 넘긴 문항인지 정답표에서 알아볼 수 있게 한다.
+   전에는 그냥 빈칸 오답으로 보여서 왜 틀렸는지 알 수 없었다 */
+function leftTag(x){ return x && x.left ? "화면 가려짐" : ""; }
+
 function pracCheck(fromKey){
   if(P.checking){
     /* 틀린 문제는 엔터로 넘기지 못하게 한다.
@@ -2615,7 +2619,10 @@ function renderPracResult(){
       ? (x.typo ? '<em class="tag">오타 보정</em>'
         : x.same ? '<em class="tag">같은 뜻 단어</em>'
         : x.alt ? '<em class="tag">다른 뜻으로 인정</em>' : "")
-      : (x.voice ? '<em class="tag bad">능동·수동 다름</em>'
+      /* 화면이 가려져 넘긴 문항을 먼저 본다. 그냥 빈칸 오답으로만
+         보이면 학생도 선생님도 왜 틀렸는지 알 수 없다 */
+      : (x.left  ? '<em class="tag bad">화면 가려짐</em>'
+        : x.voice ? '<em class="tag bad">능동·수동 다름</em>'
         : x.pos  ? '<em class="tag bad">품사 다름</em>' : "");
     var cQ = '<td class="ko">' + esc(x.ko) + "</td>";
     var cA = '<td class="en">' + esc(x.en) + "</td>";
@@ -3065,9 +3072,10 @@ if(window.ResizeObserver){
 var PROCTOR = {
   out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
   live: function(){
-    if(this.hold) return false;
     if($("prac").classList.contains("on")) return "prac";
-    if($("stage").classList.contains("on") && !S.paused) return "stage";
+    /* 멈춤 중이라고 감시를 끄면 안 된다. 한 번 걸린 뒤로는 마음대로
+       나갔다 올 수 있었다 — 값을 한 번 치르면 그 뒤가 공짜였다 */
+    if($("stage").classList.contains("on")) return "stage";
     return false;
   },
   reset: function(){ this.out = this.split = this.swipe = this.paste = this.auto = 0;
@@ -3095,14 +3103,22 @@ var PROCTOR = {
     } catch(e){ return 0; }
   },
   total: function(){ return this.out + this.split + this.swipe + this.paste + this.auto; },
-  hit: function(kind){
+  hit: function(kind, already){
     var where = this.live();
     if(!where) return false;
+    /* 묻는 창이 떠 있는 동안에는 '창 때문에 울린 것'만 걸러낸다.
+       창을 띄워 둔 채 다른 앱에 다녀오는 길로 쓰이던 구멍이었다 */
+    if(this.hold && (kind === "paste" || kind === "auto")) return false;
     var t = Date.now();
     /* 화면을 벗어나면 숨김과 포커스 잃음이 같이 울린다. 한 번으로 센다.
        붙여넣기·자동완성은 따로 센다 — 섞어서 거르면 붙여넣기 한 번이
        바로 뒤에 일어난 화면 이탈을 먹어 버린다 */
     if(kind === "out" || kind === "split" || kind === "swipe"){
+      /* 나갈 때(blur)와 돌아올 때(그리기 끊김)가 따로 울린다.
+         한 번 다녀온 것을 2회로 세던 자리다. '이 신호가 오기 전에'
+         이미 덮여 있었으면 그 다녀옴은 한 번으로 본다.
+         지금 덮였는지를 보면 안 된다 — 바로 위에서 내가 덮었기 때문이다 */
+      if(already) return false;
       if(t - this.last < 900) return false;
       this.last = t;
     }
@@ -3175,7 +3191,13 @@ function shieldDown(){
 }
 
 function proctorLeave(kind){
-  var where = PROCTOR.hit(kind);
+  var soft = (kind === "paste" || kind === "auto");
+  /* 덮기 전에 '이미 덮여 있었는지'를 먼저 봐 둔다 */
+  var already = $("shield").classList.contains("on");
+  /* 세지 않더라도 덮기는 한다. 전에는 중복 거르기에 걸리면
+     가림막까지 건너뛰어 단어가 그대로 보였다 */
+  if(!soft && PROCTOR.live()) shieldUp(kind);
+  var where = PROCTOR.hit(kind, already);
   if(!where){
     /* 시험 중이 아니어도 덮는 것이 맞는 경우가 있다 — 이미 덮여 있으면 그대로 둔다 */
     return;
@@ -3212,6 +3234,9 @@ function pracWarn(txt){
   var y0 = 0, x0 = 0, armed = false;
   document.addEventListener("touchstart", function(e){
     if(!PROCTOR.live() || !e.touches.length) return;
+    var tg = e.target;
+    if(tg && (tg.tagName === "BUTTON" || tg.tagName === "INPUT" ||
+              (tg.closest && tg.closest("button")))){ armed = false; return; }
     var t = e.touches[0];
     y0 = t.clientY; x0 = t.clientX;
     armed = (window.innerHeight - y0) <= 12;      // 맨 아래 가장자리에서 시작
@@ -3342,19 +3367,20 @@ window.addEventListener("resize", function(){
 (function(){
   var el = $("prIn");
   if(!el) return;
-  ["paste","drop","copy","cut"].forEach(function(ev){
+  /* 붙여넣기·끌어놓기는 막고 센다. 복사·잘라내기는 막기만 하고 세지 않는다 —
+     학생이 자기가 쓴 답을 복사한 것까지 「붙여넣기 2회」로 결과지에 찍혔다 */
+  ["paste","drop"].forEach(function(ev){
     el.addEventListener(ev, function(e){
       if(!PROCTOR.live()) return;
       e.preventDefault(); proctorLeave("paste");
     });
   });
-  el.addEventListener("contextmenu", function(e){ if(PROCTOR.live()) e.preventDefault(); });
-  /* 한글은 조합해서 들어온다. 조합 중일 때는 여러 글자가 와도 정상이다.
-     조합 없이 통으로 들어오는 것만 자판이 거든 것으로 본다 */
-  el.addEventListener("compositionstart", function(){ el.__cmp = true; });
-  el.addEventListener("compositionend", function(){
-    setTimeout(function(){ el.__cmp = false; }, 60);
+  ["copy","cut"].forEach(function(ev){
+    el.addEventListener(ev, function(e){ if(PROCTOR.live()) e.preventDefault(); });
   });
+  el.addEventListener("contextmenu", function(e){ if(PROCTOR.live()) e.preventDefault(); });
+  /* 한글 조합 여부를 보던 코드는 없앴다. 읽는 곳이 없어 죽어 있었고,
+     실제 보호는 「한글 뜻쓰기에서는 아무것도 막지 않는다」 한 줄이다 */
   el.addEventListener("beforeinput", function(e){
     if(!PROCTOR.live()) return;
     var t = e.inputType || "";
@@ -3371,11 +3397,18 @@ window.addEventListener("resize", function(){
 
        영어는 한 글자씩 들어오므로 이 두 가지는 자판이 거든 것이 맞다 */
     if(S.mode !== "spelling") return;
-    /* 자판이 통째로 바꿔 넣는 것 — 아이폰 예측 입력, 자동 고침 */
-    if(t === "insertReplacementText"){
-      e.preventDefault(); proctorLeave("auto"); return;
-    }
-    /* 한 번에 두 글자 넘게 통으로 들어오는 것 — 글라이드 입력, 예측 입력 */
+
+    /* 여기서 입력을 막는 것은 조심해야 한다. 같은 방식으로 두 번 사고가 났다 —
+       v46 다음 문항에서 자판이 안 올라옴, v48 아이폰 한글이 안 쳐짐.
+       그래서 둘을 갈라 놓는다.
+
+       ① 자판이 통째로 바꿔 끼우는 것(insertReplacementText) — 막지 않는다.
+          자판에 따라 정상 입력에도 쓰여서, 막으면 글자가 안 쳐질 수 있다.
+          기록만 남겨 결과에 「자동완성 N회」로 보이게 한다.
+          글자가 쳐지는 것이 먼저다.
+       ② 한 번에 두 글자 넘게 통으로 들어오는 것 — 막는다.
+          영어는 한 글자씩 들어오므로 이건 글라이드·예측 입력이 확실하다. */
+    if(t === "insertReplacementText"){ proctorLeave("auto"); return; }
     if(t === "insertText" && e.data && e.data.length > 1){
       e.preventDefault(); proctorLeave("auto"); return;
     }
@@ -3490,7 +3523,7 @@ if("serviceWorker" in navigator){
     <div class="shield-mark">!</div>
     <div class="shield-ttl" id="shieldTxt">다른 앱으로 넘어가려고 했습니다</div>
     <div class="shield-word" id="shieldWord"></div>
-    <div class="shield-sub">시험 볼 때는 다른 앱을 쓸 수 없어.<br>이 문제는 틀린 걸로 넘어갔어. 다음 문제부터 이어서 풀면 돼.</div>
+    <div class="shield-sub">시험 볼 때는 다른 앱을 쓸 수 없어.<br>이 문제는 틀린 걸로 넘어갔고, 결과 화면에 남아.<br>전화나 알림 때문이었으면 선생님께 말하면 돼.</div>
     <button class="btn" id="shieldGo" type="button">이어서 풀기</button>
   </div>
 </div>
