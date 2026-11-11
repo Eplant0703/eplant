@@ -3293,15 +3293,22 @@ window.addEventListener("resize", function(){
     if(t === "insertFromPaste" || t === "insertFromDrop" || t === "insertFromYank"){
       e.preventDefault(); proctorLeave("paste"); return;
     }
+    /* 아래 두 가지는 영어쓰기에서만 막는다.
+
+       한글 뜻쓰기에서는 막으면 안 된다. 아이폰 한글 자판은 글자를
+       조합하면서 앞 글자를 통째로 바꿔 끼우는데(insertReplacementText),
+       그것까지 막으니 「증가」를 치면 증개 → 휏 → 증ㄱ → 빈칸 으로
+       글자가 깨졌다. 원장님 화면 녹화로 확인한 결함이다.
+       자판이 거드는 것을 막는 것보다 글자가 쳐지는 것이 먼저다.
+
+       영어는 한 글자씩 들어오므로 이 두 가지는 자판이 거든 것이 맞다 */
+    if(S.mode !== "spelling") return;
     /* 자판이 통째로 바꿔 넣는 것 — 아이폰 예측 입력, 자동 고침 */
     if(t === "insertReplacementText"){
       e.preventDefault(); proctorLeave("auto"); return;
     }
-    /* 한 번에 두 글자 넘게 통으로 들어오는 것 — 글라이드 입력, 예측 입력.
-       영어쓰기는 늘 막는다. 한글 뜻쓰기는 조합 중이 아닐 때만 막는다.
-       조합까지 막으면 한글 입력 자체가 안 된다 */
-    if(t === "insertText" && e.data && e.data.length > 1 &&
-       (S.mode === "spelling" || !el.__cmp)){
+    /* 한 번에 두 글자 넘게 통으로 들어오는 것 — 글라이드 입력, 예측 입력 */
+    if(t === "insertText" && e.data && e.data.length > 1){
       e.preventDefault(); proctorLeave("auto"); return;
     }
   });
