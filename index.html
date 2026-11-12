@@ -3149,7 +3149,7 @@ if(window.ResizeObserver){
 /* 아이폰인가. 아이패드는 데스크톱 사파리처럼 보고하므로 터치 수로 가른다 */
 var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-var APP_VER = "v55";
+var APP_VER = "v56";
 
 var PROCTOR = {
   out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
@@ -3338,12 +3338,19 @@ function pracWarn(txt){
               (tg.closest && tg.closest("button")))){ armed = false; return; }
     var t = e.touches[0];
     y0 = t.clientY; x0 = t.clientX;
-    armed = (window.innerHeight - y0) <= 12;      // 맨 아래 가장자리에서 시작
+    /* 아이폰에서 앱 스위처를 열려면 맨 아래 가로줄을 위로 쓸어올린다.
+       그 손동작이 페이지로 오는지가 관건이다. 아이폰은 앱 스위처만
+       열었을 때 페이지를 멈추지 않아(원장님 확인) 끊김으로는 못 잡는다.
+       이 손동작이 유일하게 남은 길이라 넓게 잡는다 */
+    var band = IS_IOS ? 44 : 12;
+    armed = (window.innerHeight - y0) <= band;
+    if(armed) PROCTOR.edge = (PROCTOR.edge || 0) + 1;   /* 아래쪽 터치가 오긴 하는지 */
   }, {passive: true});
   document.addEventListener("touchmove", function(e){
     if(!armed || !PROCTOR.live() || !e.touches.length) return;
     var t = e.touches[0];
-    if(y0 - t.clientY > 60 && Math.abs(t.clientX - x0) < 70){
+    var up = IS_IOS ? 18 : 60;
+    if(y0 - t.clientY > up && Math.abs(t.clientX - x0) < 90){
       armed = false;
       proctorLeave("swipe");
     }
@@ -3437,7 +3444,8 @@ function diag(){
   var t = APP_VER + " " + (IS_IOS ? "iOS" : "AOS")
         + " " + (PROCTOR.live() ? "감독중" : "꺼짐")
         + " " + PROCTOR.total() + "회"
-        + " " + Math.round(PROCTOR.maxGap || 0) + "ms";
+        + " " + Math.round(PROCTOR.maxGap || 0) + "ms"
+        + " 끝터치" + (PROCTOR.edge || 0);
   if(el.textContent !== t) el.textContent = t;
 }
 
