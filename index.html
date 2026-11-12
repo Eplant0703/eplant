@@ -287,6 +287,8 @@ body.pracing{overflow:hidden}
 .mk-k{flex:none;min-width:72px}
 .mk-v{flex:1;font-weight:600;word-break:keep-all;overflow-wrap:anywhere}
 /* 학부모가 결과 사진을 받았을 때 '커닝했다'로만 읽히지 않게 한 줄 붙인다 */
+.pr-diag{font-size:.62rem;font-weight:800;color:var(--ink-3);letter-spacing:.2px;
+  margin-left:auto;margin-right:8px;white-space:nowrap}
 .ver-tag{margin:-4px 0 10px;font-size:.68rem;font-weight:700;color:var(--ink-3);text-align:center}
 .launch-rule{margin:0 0 10px;padding:8px 11px;border:1px solid var(--line);
   border-radius:9px;background:var(--amp-soft);color:var(--amp-deep);
@@ -1007,6 +1009,9 @@ tr:last-child td{border-bottom:none}
   <div class="pr-top">
     <div class="pr-n"><span id="prNow">1</span><i> / <span id="prAll">30</span></i></div>
     <div class="pr-info" id="prInfo"></div>
+    <!-- 판번호와 감독 상태. 사진 한 장으로 "새 판을 받았나 / 감독이 도나"를
+         가릴 수 있어야 한다. 전에는 매번 추측으로 원인을 찾았다 -->
+    <div class="pr-diag" id="prDiag"></div>
     <button class="pr-x" id="prQuit" title="그만두기">✕</button>
   </div>
   <div class="pr-mid">
@@ -3109,7 +3114,7 @@ if(window.ResizeObserver){
 /* 아이폰인가. 아이패드는 데스크톱 사파리처럼 보고하므로 터치 수로 가른다 */
 var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-var APP_VER = "v53";
+var APP_VER = "v54";
 
 var PROCTOR = {
   out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
@@ -3360,6 +3365,7 @@ function pracWarn(txt){
    화면 분할·알림창·홈 화면 미리보기도 같은 방법으로 잡힌다 */
 (function(){
   var last = Date.now();
+  PROCTOR.maxGap = 0;
   /* 0.5초는 너무 빡빡하다. 낡은 폰·절전 모드·배경 내려받기로 저절로 걸린다.
      1.2초로 올린다. 앱 스위처를 열었다 닫는 데는 그보다 오래 걸린다 */
   /* 안드로이드는 앱 스위처를 열면 blur·visibilitychange 가 울려서
@@ -3367,11 +3373,13 @@ function pracWarn(txt){
      그런데 기준을 2초로 올려 두니, 스위처를 1~2초 안에 열었다 닫으면
      아이폰에서는 아무것도 안 잡혔다 — 원장님이 실기기에서 확인한 것이다.
      아이폰만 기준을 낮춘다. 아이폰은 기기가 빨라 2초씩 버벅이지 않는다 */
-  var GAP = IS_IOS ? 700 : 2000;
+  var GAP = IS_IOS ? 400 : 2000;
   function tick(){
     var now = Date.now(), gap = now - last;
     last = now;
+    if(gap > 60 && gap > PROCTOR.maxGap) PROCTOR.maxGap = gap;
     if(gap > GAP && PROCTOR.live()) proctorLeave("out");
+    diag();
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
@@ -3382,6 +3390,37 @@ function pracWarn(txt){
     var now = Date.now(), gap = now - last;
     if(gap > GAP * 3 && PROCTOR.live()){ last = now; proctorLeave("out"); }
   }, 1000);
+})();
+
+/* 머리줄에 판번호와 감독 상태를 적는다 */
+function diag(){
+  var el = $("prDiag");
+  if(!el) return;
+  var t = APP_VER + " " + (IS_IOS ? "iOS" : "AOS")
+        + " " + (PROCTOR.live() ? "감독중" : "꺼짐")
+        + " " + PROCTOR.total() + "회"
+        + " " + Math.round(PROCTOR.maxGap || 0) + "ms";
+  if(el.textContent !== t) el.textContent = t;
+}
+
+/* 아이폰에서 앱 스위처를 열면 자판이 반드시 내려간다. 그때 보이는 화면의
+   높이가 확 늘어난다. 아이폰은 blur 도 visibilitychange 도 안 울려서,
+   이것이 「나가려 한다」를 알 수 있는 또 하나의 길이다.
+   답을 쓰던 중(채점 전)에만 본다 — 채점 뒤에는 앱이 스스로 자판을 내린다 */
+(function(){
+  if(!IS_IOS || !window.visualViewport) return;
+  var h0 = 0;
+  window.visualViewport.addEventListener("resize", function(){
+    var h = Math.round(window.visualViewport.height);
+    if(!h0){ h0 = h; return; }
+    var grew = (h - h0) / (h0 || 1);
+    h0 = h;
+    if(grew < 0.2) return;                       /* 자판이 내려간 것만 */
+    if(PROCTOR.live() !== "prac") return;
+    if(P && P.checking) return;                  /* 채점 뒤는 앱이 내린 것 */
+    if($("shield").classList.contains("on")) return;
+    proctorLeave("out");
+  });
 })();
 
 /* 화면 숨김 — 홈으로 나가기, 다른 앱 열기, 화면 끄기 */
