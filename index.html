@@ -287,6 +287,7 @@ body.pracing{overflow:hidden}
 .mk-k{flex:none;min-width:72px}
 .mk-v{flex:1;font-weight:600;word-break:keep-all;overflow-wrap:anywhere}
 /* 학부모가 결과 사진을 받았을 때 '커닝했다'로만 읽히지 않게 한 줄 붙인다 */
+.ver-tag{margin:-4px 0 10px;font-size:.68rem;font-weight:700;color:var(--ink-3);text-align:center}
 .launch-rule{margin:0 0 10px;padding:8px 11px;border:1px solid var(--line);
   border-radius:9px;background:var(--amp-soft);color:var(--amp-deep);
   font-size:.76rem;font-weight:700;line-height:1.55;text-align:left}
@@ -985,6 +986,9 @@ tr:last-child td{border-bottom:none}
 <div class="launch" id="launch">
   <div class="launch-in">
     <div class="launch-txt" id="launchTxt">단어장을 고르면 시작할 수 있습니다.</div>
+    <!-- 폰이 어느 판을 받았는지 눈으로 확인할 수 있어야 한다. 안드로이드는
+         바로 받는데 아이폰은 옛 판을 물고 있는 경우가 있었다 -->
+    <div class="ver-tag" id="verTag"></div>
     <!-- 규칙은 시작하기 전에 알려 준다. 전에는 가림막 위에만 적혀 있어서
          한 번 걸려 봐야 규칙을 알 수 있었다 -->
     <div class="launch-rule">테스트를 보는 동안에는 다른 앱·사전·번역을 쓸 수 없습니다.
@@ -3102,6 +3106,11 @@ if(window.ResizeObserver){
    잡히면 연습은 그 문항을 오답으로 굳히고 넘어가고, 실전은 멈춘다.
    횟수는 결과 화면과 인쇄물에 찍힌다 — 학생이 결과를 사진 찍어
    단톡방에 올리므로, 거기 찍히면 원장님이 바로 본다. */
+/* 아이폰인가. 아이패드는 데스크톱 사파리처럼 보고하므로 터치 수로 가른다 */
+var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+             (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+var APP_VER = "v53";
+
 var PROCTOR = {
   out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
   live: function(){
@@ -3353,7 +3362,12 @@ function pracWarn(txt){
   var last = Date.now();
   /* 0.5초는 너무 빡빡하다. 낡은 폰·절전 모드·배경 내려받기로 저절로 걸린다.
      1.2초로 올린다. 앱 스위처를 열었다 닫는 데는 그보다 오래 걸린다 */
-  var GAP = 2000;
+  /* 안드로이드는 앱 스위처를 열면 blur·visibilitychange 가 울려서
+     그걸로 잡힌다. 아이폰은 그 둘이 안 울려서 이 끊김 하나로만 잡는다.
+     그런데 기준을 2초로 올려 두니, 스위처를 1~2초 안에 열었다 닫으면
+     아이폰에서는 아무것도 안 잡혔다 — 원장님이 실기기에서 확인한 것이다.
+     아이폰만 기준을 낮춘다. 아이폰은 기기가 빨라 2초씩 버벅이지 않는다 */
+  var GAP = IS_IOS ? 700 : 2000;
   function tick(){
     var now = Date.now(), gap = now - last;
     last = now;
@@ -3395,6 +3409,12 @@ document.addEventListener("click", function(e){
   var t = e.target;
   if(t && t.id === "shieldGo") shieldDown();
 });
+
+/* 판번호를 화면에 적는다. 폰이 새 판을 받았는지 여기서 확인한다 */
+(function(){
+  var el = $("verTag");
+  if(el) el.textContent = "단어발전소 " + APP_VER + " · " + (IS_IOS ? "아이폰" : "안드로이드·기타");
+})();
 /* 가로 폭이 갑자기 줄면 화면을 나눈 것이다.
    세로 높이는 자판이 올라와도 바뀌므로 보지 않는다 */
 window.addEventListener("orientationchange", function(){ PROCTOR.spin = Date.now(); });
