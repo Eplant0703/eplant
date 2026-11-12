@@ -3150,7 +3150,7 @@ if(window.ResizeObserver){
 /* 아이폰인가. 아이패드는 데스크톱 사파리처럼 보고하므로 터치 수로 가른다 */
 var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-var APP_VER = "v58";
+var APP_VER = "v59";
 
 var PROCTOR = {
   out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
@@ -3476,8 +3476,13 @@ function measure(){
      그래서 창 크기가 조금이라도 줄면 잡는다. 아이폰에서 자판은 창 크기를
      건드리지 않고 보이는 화면만 바꾸므로, 이렇게 조여도 답을 칠 때
      걸리지 않는다. 화면 돌리기는 앞에서 걸러 둔다 */
-  var shrink = Math.max((M.baseW - w) / M.baseW, (M.baseH - h) / M.baseH);
-  if(shrink > 0.03 && PROCTOR.live() && !$("shield").classList.contains("on")){
+  /* 세로(높이)는 판정에서 뺀다. 홈 화면에 설치한 앱(PWA)에서는 자판이
+     올라올 때 창 높이까지 같이 바뀐다. 사파리만 생각하고 "창 크기는
+     자판에 안 흔들린다"고 본 것이 틀렸고, 그래서 답을 칠 때마다
+     「화면이 둘로 나뉘었습니다」가 떴다. 자판은 가로 폭을 바꾸지 않으므로
+     가로만 본다 */
+  var shrink = (M.baseW - w) / (M.baseW || 1);
+  if(shrink > 0.15 && PROCTOR.live() && !$("shield").classList.contains("on")){
     M.baseW = w; M.baseH = h;
     proctorLeave("split");
   }
