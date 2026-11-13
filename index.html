@@ -176,6 +176,9 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .ptbl td.en{min-width:100px}     /* communication 이 한 줄에 들어가는 폭 */
 .ptbl td.mine{min-width:86px}
 .ptbl .ko{color:var(--ink-2);font-weight:700}
+/* 끊을 수 없는 긴 영어가 영어 칸을 244px 까지 밀면 뜻 칸이 64px 로
+   쪼그라들어 17줄이 됐다. 최소 폭을 줘서 읽히게 한다 */
+.ptbl td.ko{min-width:118px}
 .ptbl .mine{font-weight:700}
 .ptbl .mine.o{color:var(--go-ink)}   /* #0A7A56 은 흰 바탕에서 3.93:1 — 기준 미달 */
 .ptbl .mine.x{color:var(--stop-ink)}
@@ -188,16 +191,12 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
    채점 칸을 오른쪽에 붙여 두되, 머리글자도 같이 붙여야 칸이 어긋나지 않고,
    틀린 줄은 줄 색과 같아야 붉은 줄 가운데 검은 네모가 안 생긴다.
    360px 이하는 칸이 너무 좁아 고정 칸이 「내가 쓴 뜻」을 덮으므로 쓰지 않는다 */
-.ptbl .mk,.ptbl th:last-child{position:sticky;right:0;background:var(--card);
-  box-shadow:-6px 0 8px -6px rgba(0,0,0,.18)}
+/* 채점 칸을 오른쪽에 고정해 봤으나(O/X 를 늘 보이게 하려고) 고정 칸은
+   제 성질상 앞 칸 위에 떠서, 361~520px 에서 「내가 쓴 뜻」을 32.8px 덮었다.
+   폰 주력 폭이라 그대로 둘 수 없다 — 고정을 뺀다.
+   뜻이 아주 길면 표가 옆으로 밀리지만, 표는 원래 옆으로 미는 상자이고
+   밀면 모든 칸이 가림 없이 읽힌다 */
 .ptbl .mk{font-weight:800;font-size:1rem}
-.ptbl th:last-child{background:#15181D}
-:root[data-theme="dark"] .ptbl th:last-child{background:#20262F}
-.ptbl tr.no .mk{background:#FDF6F5}
-:root[data-theme="dark"] .ptbl tr.no .mk{background:#241715}
-@media(max-width:360px){
-  .ptbl .mk,.ptbl th:last-child{position:static;box-shadow:none}
-}
 .ptbl .mk.o{color:var(--go-ink)}
 .ptbl .mk.x{color:var(--stop-ink)}
 .pl-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -205,6 +204,7 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
   background:#FBFCFD;border-bottom:1px solid var(--line-2)}
 .pl-scroll{overflow-x:auto}
 @media(max-width:430px){
+  .ptbl td.ko{min-width:104px}
   .ptbl td.en{min-width:92px}
   .ptbl td.mine{min-width:74px}
   .ptbl td:first-child{width:26px}
@@ -349,7 +349,8 @@ body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
    제 줄을 차지하도록 width 와 order 를 준다 */
 .ver-tag{width:100%;order:10;margin:2px 0 0;font-size:.68rem;font-weight:700;
   color:var(--ink-3);text-align:center}
-:root[data-theme="dark"] .pres-warn{border-color:var(--stop)}
+:root[data-theme="dark"] .pres-warn,
+:root[data-theme="dark"] .res-warn{border-color:var(--stop)}
 @media print{
   /* 흑백 복사에서 이 줄만 44% 회색으로 흐렸다. 표 글자와 같게 맞춘다 */
   .pres-warn,.pres-warn *,.res-warn,.res-warn *{color:#000 !important;border-color:#000 !important}
@@ -553,6 +554,8 @@ body.nobar{padding-bottom:40px}
 .brow{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:9px;
   text-align:left;border:1px solid transparent;transition:.1s}
 .brow:hover{background:#FBFCFD;border-color:var(--line)}
+/* 어두운 화면 규칙(특이도 0,3,0)이 :hover(0,2,0)를 이겨 올림이 안 보였다 */
+:root[data-theme="dark"] .brow:hover{background:#20262F;border-color:var(--line)}
 .brow.on{background:var(--amp-soft);border-color:var(--amp)}
 .brow .bt{font-weight:700;font-size:.92rem}
 .brow .bd{margin-left:auto;font-size:.78rem;color:var(--ink-2);font-weight:600;white-space:nowrap}
@@ -696,7 +699,9 @@ body.nobar{padding-bottom:40px}
 .done-wrap{text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
 .done-t{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
 .done-d{font-size:.95rem;font-weight:600;color:var(--ink-2);line-height:1.7}
-.ans-btn{padding:17px 40px;border-radius:12px;background:var(--amp);color:#fff;
+/* color:#fff 를 빼야 아래 묶음 규칙(검은 글자)이 먹는다. 전에는 이 줄이
+   묶음보다 뒤에 있어 흰 글자가 이겼고 2.47:1 로 남아 있었다 */
+.ans-btn{padding:17px 40px;border-radius:12px;background:var(--amp);
   font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
 .ans-btn:hover{background:var(--amp-deep)}
 .spread{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
@@ -1992,6 +1997,12 @@ function fitWord(el){
   if(!el) return;
   try{
     el.style.fontSize = "";
+    /* 띄어쓰기가 없는 한 덩어리(acknowledgment 같은 영어 한 낱말)는 줄을
+       못 바꾸게 막아 둔다. 안 막으면 철자 한가운데서 두 줄로 쪼개지고,
+       쪼개진 뒤에 재면 폭이 들어간 것처럼 보여 글자를 안 줄였다.
+       띄어쓰기가 있는 글(한글 뜻 등)은 띄어쓰기에서 줄이 바뀌면 되므로 둔다 */
+    var one = !/\s/.test((el.textContent || "").trim());
+    el.style.whiteSpace = one ? "nowrap" : "";
     /* 넘쳐 나간 글자는 scrollWidth 에 안 잡힌다(overflow 가 visible 이라
        scrollWidth 가 clientWidth 와 같아진다). 글자 폭을 직접 잰다 */
     var wide = function(){
@@ -2011,7 +2022,9 @@ function fitWord(el){
     }
   }catch(e){}
 }
-window.addEventListener("resize", function(){ fitWord($("wordSlot")); });
+window.addEventListener("resize", function(){
+  fitWord($("wordSlot")); fitWord($("prQ"));
+});
 
 /* .brand 는 머리줄과 연습 결과 쪽 두 군데에 있다. querySelector 로 첫 하나만
    손봐서 결과 쪽 로고만 크기가 달랐다 — 둘 다 돈다 */
@@ -2548,6 +2561,8 @@ function pracShow(keep){
   P.shown = P.idx;
   $("prQ").textContent = askKo ? w.ko : w.en;
   $("prQ").className = "pr-q" + (askKo ? " ko" : "");
+  /* 실전에만 걸어 두어 연습에서는 acknowledgment 가 두 줄로 쪼개졌다 */
+  fitWord($("prQ"));
   $("prHint").textContent = askKo ? "영어로 적고 엔터" : "뜻을 적고 엔터";
   $("prHint").style.display = "";
   $("prMark").style.display = "none";
