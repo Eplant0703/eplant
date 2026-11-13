@@ -184,10 +184,20 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .ptbl .tag.bad{color:var(--amp-ink)}
 /* 뜻이 길면 표가 옆으로 밀려 O/X 가 화면 밖으로 나갔다(390px 127px).
    채점 칸은 오른쪽에 붙여 둔다 — 밀려도 늘 보인다 */
-.ptbl .mk{font-weight:800;font-size:1rem;position:sticky;right:0;
-  background:var(--card);box-shadow:-6px 0 8px -6px rgba(0,0,0,.18)}
+/* 뜻이 길면 표가 옆으로 밀려 O/X 가 화면 밖으로 나갔다(390px 127px).
+   채점 칸을 오른쪽에 붙여 두되, 머리글자도 같이 붙여야 칸이 어긋나지 않고,
+   틀린 줄은 줄 색과 같아야 붉은 줄 가운데 검은 네모가 안 생긴다.
+   360px 이하는 칸이 너무 좁아 고정 칸이 「내가 쓴 뜻」을 덮으므로 쓰지 않는다 */
+.ptbl .mk,.ptbl th:last-child{position:sticky;right:0;background:var(--card);
+  box-shadow:-6px 0 8px -6px rgba(0,0,0,.18)}
+.ptbl .mk{font-weight:800;font-size:1rem}
+.ptbl th:last-child{background:#15181D}
+:root[data-theme="dark"] .ptbl th:last-child{background:#20262F}
 .ptbl tr.no .mk{background:#FDF6F5}
-:root[data-theme="dark"] .ptbl tr.no .mk{background:var(--card)}
+:root[data-theme="dark"] .ptbl tr.no .mk{background:#241715}
+@media(max-width:360px){
+  .ptbl .mk,.ptbl th:last-child{position:static;box-shadow:none}
+}
 .ptbl .mk.o{color:var(--go-ink)}
 .ptbl .mk.x{color:var(--stop-ink)}
 .pl-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -331,7 +341,7 @@ body.pracing{overflow:hidden}
    기본은 숨기고 ?diag=1 로 연 사람에게만 보인다 */
 .pr-diag{display:none}
 body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
-  font-size:.56rem;font-weight:800;color:var(--ink-3);letter-spacing:0;
+  font-size:.7rem;font-weight:800;color:var(--ink-3);letter-spacing:0;
   line-height:1.25;text-align:right;word-break:break-all}
 /* 시작 줄(.launch-in)은 가로 한 줄짜리 flex 다. 여기에 width 없이 넣으면
    같은 줄을 나눠 가져서, 옆에 있는 안내 문구가 75px 로 눌려 세로로 찢어졌다.
@@ -350,7 +360,7 @@ body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
 /* 시험 중 기록은 흑백으로 뽑아도 보여야 한다 — 색만으로 알리지 않고
    테두리와 굵은 글자로도 드러낸다 */
 .pres-warn{display:none;margin-top:12px;padding:9px 12px;border:2px solid #000;
-  border-radius:9px;font-size:.84rem;font-weight:800;color:var(--stop);text-align:left;line-height:1.5}
+  border-radius:9px;font-size:.84rem;font-weight:800;color:var(--stop-ink);text-align:left;line-height:1.5}
 .pres-warn.on{display:block}
 .res-warn{margin:10px 0 0;padding:8px 11px;border:2px solid #000;border-radius:8px;
   font-size:.8rem;font-weight:800;line-height:1.5}
@@ -375,10 +385,12 @@ body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
 /* PC·태블릿에서는 .pr-mid 가 세로로 한껏 자라 단어와 입력칸 사이가 1200px 까지
    벌어졌고, 입력칸도 2451px 까지 늘어났다. 단어를 세로 가운데에 두고
    입력칸 줄에 최대 폭을 준다. 폰은 그대로 — 자판 바로 위에 붙어야 한다 */
-@media(min-width:700px){
-  .pr-mid{justify-content:center}
-  .pr-bar{max-width:720px;width:100%;margin:0 auto}
-}
+/* 입력칸 줄은 어느 폭에서나 720px 을 넘지 않는다. 폰에서는 화면이 더 좁아
+   영향이 없다. 단어를 세로 가운데에 두는 것만 520px 부터 — 폰은 자판이
+   올라오므로 위쪽에 붙어 있어야 한다.
+   전에 700px 로 잡아 600~699px 구간이 통째로 빠졌다(간격 930px) */
+.pr-bar{max-width:720px;width:100%;margin:0 auto}
+@media(min-width:520px){ .pr-mid{justify-content:center} }
 .pr-in{flex:1;min-width:0;padding:15px 16px;border:2px solid var(--line);border-radius:12px;
   background:#FBFCFD;font-size:1.12rem;font-weight:700;font-family:inherit;
   transition:border-color .12s,background .12s}
@@ -519,7 +531,7 @@ body.nobar{padding-bottom:40px}
 .cath .cnt{margin-left:auto;font-size:.8rem;color:var(--ink-3);font-weight:700}
 .cath .arw{width:17px;text-align:center;color:var(--ink-3);font-size:.84rem;font-weight:800;transition:.15s}
 .catcard.open .cath{background:var(--amp-soft)}
-.catcard.open .arw{transform:rotate(90deg);color:var(--amp-deep)}
+.catcard.open .arw{transform:rotate(90deg);color:var(--amp-ink)}
 .catb{display:none;border-top:1px solid var(--line-2);padding:12px;background:#FBFCFD}
 .catcard.open .catb{display:block}
 .catb .books{grid-template-columns:1fr}
@@ -531,7 +543,7 @@ body.nobar{padding-bottom:40px}
 .series-h .cnt{margin-left:auto;font-size:.78rem;color:var(--ink-3);font-weight:700}
 .series-h .arw{width:17px;text-align:center;color:var(--ink-3);font-size:.84rem;font-weight:800;transition:.15s}
 .series.open .series-h{background:var(--amp-soft)}
-.series.open .arw{transform:rotate(90deg);color:var(--amp-deep)}
+.series.open .arw{transform:rotate(90deg);color:var(--amp-ink)}
 .series-b{display:none;border-top:1px solid var(--line-2);padding:10px}
 .series.grp>.series-h b{font-weight:800}
 .series.grp>.series-b{background:#FBFCFD}
@@ -710,7 +722,7 @@ body.nobar{padding-bottom:40px}
 .res-meta{font-size:.9rem;color:var(--ink-2);font-weight:600;line-height:1.6;word-break:keep-all}
 .score-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line-2)}
 .score-box{background:var(--amp-soft);border:1px solid var(--line);border-radius:10px;
-  padding:11px 17px;font-weight:800;font-size:1.05rem;color:var(--amp-deep)}
+  padding:11px 17px;font-weight:800;font-size:1.05rem;color:var(--amp-ink)}
 .name-in{padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-weight:600;width:170px}
 .res-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 /* overflow:hidden 이면 표가 넓어질 때 오른쪽 칸이 잘려 사라진다.
@@ -754,6 +766,9 @@ input::placeholder,textarea::placeholder{color:var(--ink-3);opacity:1}
   background:#15181D;color:#fff;padding:12px 20px;border-radius:10px;
   border:1px solid rgba(255,255,255,.22);box-shadow:0 8px 24px rgba(0,0,0,.4);
   font-size:.88rem;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;max-width:88%}
+/* 어두운 화면에서는 상자 바탕(#15181D)과 화면 바탕(#0F1216)이 1.06:1 이라
+   상자 모양이 아예 안 드러났다. 테두리를 또렷하게 해서 가장자리로 알린다 */
+:root[data-theme="dark"] .toast{border-color:rgba(255,255,255,.55)}
 body.nobar .toast{bottom:66px}
 .toast.on{opacity:1}
 @media(max-width:640px){
