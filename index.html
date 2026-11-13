@@ -78,6 +78,10 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
    단 .launch-btn.alt(「연습 모드」)는 배경이 어두운 카드색이므로 빼야 한다.
    빼지 않으면 어두운 바탕에 검은 글자(1.04:1)가 되어, T-14 가 잡으려던
    잘못이 반대 방향으로 옮겨간다 */
+/* 위 .btn 규칙이 배경까지 덮어써서 「틀린 단어만 다시」와 「한 번 더」가
+   똑같은 회색이 됐다. 주황은 주황으로 되돌린다 */
+:root[data-theme="dark"] .btn.amp{background:var(--amp)}
+:root[data-theme="dark"] .btn.amp:hover{background:var(--logo)}
 :root[data-theme="dark"] .btn.amp,
 :root[data-theme="dark"] .launch-btn:not(.alt),
 :root[data-theme="dark"] .ans-btn,
@@ -159,14 +163,17 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .ptbl td:first-child{padding-left:10px;width:26px;color:var(--ink-3);font-weight:800;font-size:.8rem}
 .ptbl tr:last-child td{border-bottom:none}
 .ptbl tr.no td{background:#FDF6F5}
-.ptbl .en{font-weight:800;color:var(--ink);word-break:keep-all;overflow-wrap:anywhere}
+/* overflow-wrap:anywhere 가 independence 를 철자 한가운데서 잘랐다.
+   영어는 통째로 두고, 안 들어가면 표가 옆으로 밀리게(.pl-scroll) 한다 */
+.ptbl .en{font-weight:800;color:var(--ink);word-break:keep-all;overflow-wrap:normal}
 /* 영어 단어가 communication 처럼 길어도 세 토막으로 잘리지 않게 칸을 확보하되,
    다섯 칸이 폰 화면 안에 다 들어와야 채점(O/X)이 가려지지 않는다 */
 .ptbl td.en{min-width:100px}     /* communication 이 한 줄에 들어가는 폭 */
 .ptbl td.mine{min-width:86px}
 .ptbl .ko{color:var(--ink-2);font-weight:700}
 .ptbl .mine{font-weight:700}
-.ptbl .mine.o{color:#0A7A56}
+.ptbl .mine.o{color:#056046}   /* #0A7A56 은 흰 바탕에서 3.93:1 — 기준 미달 */
+:root[data-theme="dark"] .ptbl .mine.o{color:var(--go)}   /* 3.20:1 → 7.4:1 */
 .ptbl .mine.x{color:var(--stop)}
 .ptbl .tag{display:block;font-style:normal;font-size:.72rem;font-weight:700;
   color:var(--ink-3);margin-top:3px}
@@ -178,11 +185,21 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .pl-wrap .pl-h{padding:12px 16px;font-size:.82rem;font-weight:800;color:var(--ink-2);
   background:#FBFCFD;border-bottom:1px solid var(--line-2)}
 .pl-scroll{overflow-x:auto}
+@media(max-width:360px){
+  .ptbl td.en{min-width:92px}
+  .ptbl td.mine{min-width:76px}
+  .ans-table td:nth-child(3){min-width:76px}
+}
 @media(max-width:420px){
   .ptbl{font-size:.82rem}
   .ptbl td{padding:9px 6px}
   .ptbl td:first-child{padding-left:10px;width:32px}
   .ptbl th:first-child{padding-left:10px}
+}
+/* 420px 규칙 뒤에 둬야 눌리지 않는다 */
+@media(max-width:340px){
+  .ptbl{font-size:.76rem}
+  .ptbl td{padding:8px 5px}
 }
 
 .pres{display:none}
@@ -293,13 +310,19 @@ body.pracing{overflow:hidden}
 .mk-k{flex:none;min-width:72px}
 .mk-v{flex:1;font-weight:600;word-break:keep-all;overflow-wrap:anywhere}
 /* 학부모가 결과 사진을 받았을 때 '커닝했다'로만 읽히지 않게 한 줄 붙인다 */
-.pr-diag{font-size:.56rem;font-weight:800;color:var(--ink-3);letter-spacing:0;
-  margin-left:auto;margin-right:6px;line-height:1.25;text-align:right;
-  max-width:62%;word-break:break-all}
-.ver-tag{margin:-4px 0 10px;font-size:.68rem;font-weight:700;color:var(--ink-3);text-align:center}
-.launch-rule{margin:0 0 10px;padding:8px 11px;border:1px solid var(--line);
-  border-radius:9px;background:var(--amp-soft);color:var(--amp-deep);
-  font-size:.76rem;font-weight:700;line-height:1.55;text-align:left}
+/* 감독 상태 줄은 내가 아이폰을 확인하려고 넣은 것인데 학생 화면에 그대로
+   보였고, 자리를 먼저 차지해 출제조건 라벨을 14px 까지 눌러 없앴다.
+   기본은 숨기고 ?diag=1 로 연 사람에게만 보인다 */
+.pr-diag{display:none}
+body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
+  font-size:.56rem;font-weight:800;color:var(--ink-3);letter-spacing:0;
+  line-height:1.25;text-align:right;word-break:break-all}
+/* 시작 줄(.launch-in)은 가로 한 줄짜리 flex 다. 여기에 width 없이 넣으면
+   같은 줄을 나눠 가져서, 옆에 있는 안내 문구가 75px 로 눌려 세로로 찢어졌다.
+   PC 에서만 드러났다 — 폰은 폭이 좁아 어차피 줄이 바뀌어 안 보였다.
+   제 줄을 차지하도록 width 와 order 를 준다 */
+.ver-tag{width:100%;order:10;margin:2px 0 0;font-size:.68rem;font-weight:700;
+  color:var(--ink-3);text-align:center}
 :root[data-theme="dark"] .pres-warn{border-color:var(--stop)}
 @media print{
   /* 흑백 복사에서 이 줄만 44% 회색으로 흐렸다. 표 글자와 같게 맞춘다 */
@@ -333,6 +356,13 @@ body.pracing{overflow:hidden}
 .pr-bar{flex:none;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
   background:var(--card);border-top:1px solid var(--line);
   display:flex;gap:9px;align-items:center}
+/* PC·태블릿에서는 .pr-mid 가 세로로 한껏 자라 단어와 입력칸 사이가 1200px 까지
+   벌어졌고, 입력칸도 2451px 까지 늘어났다. 단어를 세로 가운데에 두고
+   입력칸 줄에 최대 폭을 준다. 폰은 그대로 — 자판 바로 위에 붙어야 한다 */
+@media(min-width:761px){
+  .pr-mid{justify-content:center}
+  .pr-bar{max-width:720px;width:100%;margin:0 auto}
+}
 .pr-in{flex:1;min-width:0;padding:15px 16px;border:2px solid var(--line);border-radius:12px;
   background:#FBFCFD;font-size:1.12rem;font-weight:700;font-family:inherit;
   transition:border-color .12s,background .12s}
@@ -356,12 +386,15 @@ body.pracing{overflow:hidden}
 }
 
 /* ===== 로그인 ===== */
+/* align-items:center 로 가운데를 맞추면, 내용이 창보다 높을 때 위로 넘친
+   부분이 스크롤 범위 밖으로 나가 영영 못 본다(1024x600 에서 로고가 통째로
+   사라졌다). 가운데 맞추기는 상자의 margin:auto 로 한다 — 이쪽은 안 잘린다 */
 #gate{position:fixed;inset:0;z-index:400;background:var(--paper);
-  display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+  display:none;justify-content:center;padding:24px;overflow-y:auto}
 #gate.on{display:flex}
 body.gated{overflow:hidden}
 body.booting .wrap,body.booting .launch{visibility:hidden}
-.gate-box{width:100%;max-width:380px}
+.gate-box{width:100%;max-width:380px;margin:auto}
 .gate-logo{display:block;width:min(62%,210px);height:auto;margin:0 auto 26px}
 .gate-card{background:var(--card);border:1px solid var(--line);border-radius:16px;
   padding:26px 22px;box-shadow:0 8px 30px rgba(21,24,29,.07)}
@@ -408,7 +441,11 @@ body.nobar{padding-bottom:40px}
 .theme-b:hover{background:var(--paper);color:var(--ink)}
 .brand .logo{margin-left:12px}
 @media(max-width:430px){.theme-b{width:30px;height:30px;font-size:.92rem}}   /* 아래 fitLogo()가 정확한 값으로 다시 잡음 */
-.logo{width:auto;display:block;flex:none}
+/* 로고는 제목 글자에 높이를 맞춘다. 그런데 flex:none 이라 줄지 않아서,
+   폭이 좁으면(320px·431px 등) 남은 자리보다 커져도 그대로 밀고 나갔다.
+   줄 수 있게 바꾸고, 아래 fitLogo() 가 남는 자리에 맞춰 높이를 다시 잡는다 */
+.logo{width:auto;display:block;flex:0 1 auto;min-width:0;max-width:100%;object-fit:contain}
+.res-logo,.stage-logo{max-width:100%;object-fit:contain}
 @media(max-width:430px){.brand{font-size:1.45rem;gap:10px}}
 .brand b{font-size:1em;font-weight:800;letter-spacing:-.025em;white-space:nowrap;line-height:1}
 .brand-rule{height:3px;background:var(--logo);width:44px;border-radius:2px;margin:12px 0 22px}
@@ -423,7 +460,7 @@ body.nobar{padding-bottom:40px}
 .recipe-line{display:flex;flex-wrap:wrap;align-items:center;gap:7px 9px;font-size:1.02rem;font-weight:600;line-height:1.8}
 .chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
   padding:3px 11px;border-radius:999px;white-space:nowrap}
-.chip.set{background:var(--amp);border-color:var(--amp);color:#fff}
+.chip.set{background:var(--amp);border-color:var(--amp);color:#1A1206}  /* 흰 글자 2.4:1 → 7:1 */
 .chip.empty{color:#AEB6C1}       /* 2.47:1 → 7.6:1 */
 .recipe-sep{color:#8E97A3;font-weight:400}
 
@@ -431,9 +468,13 @@ body.nobar{padding-bottom:40px}
 .step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
 .step.locked{opacity:.42;pointer-events:none;filter:grayscale(.4)}
 .step-head{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line-2)}
+/* 어두운 화면에서는 --ink 가 거의 흰색이라 흰 글자가 1.10:1 로 사라졌다.
+   완료(초록)도 흰 글자로는 밝은 3.39 / 어두운 2.21 — 둘 다 검은 글자로 바꾼다 */
 .step-no{width:26px;height:26px;flex:none;border-radius:7px;background:var(--ink);color:#fff;
   display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800}
-.step.done .step-no{background:var(--go)}
+:root[data-theme="dark"] .step-no{color:#11151A}
+.step.done .step-no{background:var(--go);color:#06271A}
+:root[data-theme="dark"] .step.done .step-no{color:#06271A}
 /* 제목과 메모가 글자 한가운데서 끊기지 않게 */
 .step-title{font-size:1.02rem;font-weight:700;letter-spacing:-.01em;word-break:keep-all}
 .step-note{margin-left:auto;font-size:.82rem;color:var(--ink-3);font-weight:600;
@@ -549,7 +590,14 @@ body.nobar{padding-bottom:40px}
   backdrop-filter:blur(10px);border-top:1px solid var(--line);
   padding:14px 18px calc(14px + env(safe-area-inset-bottom))}
 .launch-in{flex-wrap:wrap;max-width:940px;margin:0 auto;display:flex;align-items:center;gap:14px}
-.launch-txt{font-size:.85rem;color:var(--ink-2);font-weight:600;flex:1;line-height:1.45}
+.launch-txt{font-size:.85rem;color:var(--ink-2);font-weight:600;
+  flex:1 1 240px;min-width:220px;line-height:1.45;word-break:keep-all}
+/* 641~759px 에서는 단추 옆에 끼면 폭이 281px 까지 눌려 "단어 뜻쓰 / 기" 로
+   갈라졌다. 760px 아래서는 제 줄을 통째로 쓰게 한다 */
+@media(max-width:760px){
+  .launch-in .launch-txt{flex:1 1 100%;width:100%;order:-1;margin-bottom:0;
+    text-align:center;word-break:keep-all}
+}
 /* 두 버튼이 무엇이 다른지 — 앱이 스스로 설명하게 한다 */
 .launch-how{width:100%;order:9;font-size:.78rem;line-height:1.6;color:var(--ink-2);
   font-weight:600;border-top:1px solid var(--line-2);padding-top:8px;margin-top:2px}
@@ -594,7 +642,7 @@ body.nobar{padding-bottom:40px}
 .icon-b:hover{background:var(--line)}
 .stage-mid{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
 .word{font-size:clamp(2.6rem,11vw,6.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;
-  word-break:keep-all;max-width:96%}
+  word-break:keep-all;max-width:100%}   /* 96% 라 marathon 이 상자를 9px 넘겼다 */
 .word.ko{font-size:clamp(2rem,7.5vw,4.4rem);letter-spacing:-.02em}
 .slot{display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:16px;min-height:1px;text-align:center}
@@ -617,7 +665,7 @@ body.nobar{padding-bottom:40px}
   padding:4px 10px;font-size:.79rem;font-weight:700;color:var(--ink-2)}
 .sp-pill b{color:var(--amp-deep);font-weight:800;margin-left:4px}
 .ready{text-align:center}
-.ready-n{font-size:clamp(5rem,22vw,11rem);font-weight:800;line-height:1;color:var(--amp)}
+.ready-n{font-size:clamp(5rem,22vw,11rem);font-weight:800;line-height:1;color:var(--amp-deep)}
 .ready-t{font-size:1rem;font-weight:700;color:var(--ink-2);margin-top:12px;letter-spacing:.06em}
 /* 일시정지 중에는 단어를 아예 없앤다. opacity .18 로 흐리게만 두면
    읽힌다 — 앱 전환으로 멈춘 학생이 돌아와 그 단어를 그대로 보던 자리다.
@@ -632,7 +680,7 @@ body.nobar{padding-bottom:40px}
 .result.on{display:block}
 .res-head{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:14px}
 .res-t{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
-.res-meta{font-size:.9rem;color:var(--ink-2);font-weight:600;line-height:1.6}
+.res-meta{font-size:.9rem;color:var(--ink-2);font-weight:600;line-height:1.6;word-break:keep-all}
 .score-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line-2)}
 .score-box{background:var(--amp-soft);border:1px solid var(--line);border-radius:10px;
   padding:11px 17px;font-weight:800;font-size:1.05rem;color:var(--amp-deep)}
@@ -669,9 +717,12 @@ tr:last-child td{border-bottom:none}
 :root[data-theme="dark"] .ans-table tr.miss{background:#241715}
 .wchk{width:20px;height:20px;accent-color:var(--stop);cursor:pointer}
 
-.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:300;
+/* 96px 고정이라 PC 시작 띠(181px)를 45px 덮어 출제조건 줄을 가렸다.
+   띠 높이에 맞춰 띄운다. 띠가 없는 화면은 아래 nobar 규칙으로 */
+.toast{position:fixed;left:50%;bottom:calc(var(--launch-h, 150px) + 26px);transform:translateX(-50%);z-index:300;
   background:#15181D;color:#fff;padding:12px 20px;border-radius:10px;
   font-size:.88rem;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;max-width:88%}
+body.nobar .toast{bottom:66px}
 .toast.on{opacity:1}
 @media(max-width:640px){
   .word{font-size:clamp(2.2rem,13vw,4rem)}
@@ -998,10 +1049,8 @@ tr:last-child td{border-bottom:none}
     <!-- 폰이 어느 판을 받았는지 눈으로 확인할 수 있어야 한다. 안드로이드는
          바로 받는데 아이폰은 옛 판을 물고 있는 경우가 있었다 -->
     <div class="ver-tag" id="verTag"></div>
-    <!-- 규칙은 시작하기 전에 알려 준다. 전에는 가림막 위에만 적혀 있어서
-         한 번 걸려 봐야 규칙을 알 수 있었다 -->
-    <div class="launch-rule">테스트를 보는 동안에는 다른 앱·사전·번역을 쓸 수 없습니다.
-      넘어가면 그 문제는 틀린 것으로 넘어가고, 결과에 남습니다.</div>
+    <!-- 2026.11.13 원장님 지시 — 시작 화면의 규칙 안내 줄을 뺀다.
+         굳이 적지 않아도 되는 말. 규칙은 가림막에 뜰 때 알려 준다 -->
     <button class="launch-btn alt" id="practice" disabled>연습 모드</button>
     <button class="launch-btn" id="start" disabled>실전 테스트</button>
     <div class="launch-how">
@@ -1888,9 +1937,16 @@ function applyLink(q){
 /* ============ 로고 높이 맞추기 ============ */
 var LOGO_TEXT_RATIO = 0.723;   // 로고 이미지에서 한글이 차지하는 세로 비율
 
+/* .brand 는 머리줄과 연습 결과 쪽 두 군데에 있다. querySelector 로 첫 하나만
+   손봐서 결과 쪽 로고만 크기가 달랐다 — 둘 다 돈다 */
 function fitLogo(){
-  var b = document.querySelector(".brand b");
-  var el = document.querySelector(".brand .logo");
+  var rows = document.querySelectorAll(".brand");
+  for(var i = 0; i < rows.length; i++) fitOne(rows[i]);
+}
+
+function fitOne(row){
+  var b = row.querySelector("b");
+  var el = row.querySelector(".logo");
   if(!b || !el) return;
   try {
     var cs = getComputedStyle(b);
@@ -1899,6 +1955,17 @@ function fitLogo(){
     var m = ctx.measureText(b.textContent || "단어 테스트");
     var h = (m.actualBoundingBoxAscent || 0) + (m.actualBoundingBoxDescent || 0);
     if(h > 4) el.style.height = (h / LOGO_TEXT_RATIO) + "px";
+
+    /* 좁은 폭에서 로고가 남은 자리보다 커져 화면 밖으로 나갔다.
+       넘친 만큼 폭을 깎고, 같은 비율로 높이를 내려 비율을 지킨다 */
+    var over = row.scrollWidth - row.clientWidth;
+    if(over > 0){
+      var w = el.getBoundingClientRect().width;
+      if(w > 1){
+        var k = Math.max(0.3, (w - over) / w);
+        el.style.height = (parseFloat(el.style.height || 0) * k) + "px";
+      }
+    }
   } catch(e){}
 }
 
@@ -3153,7 +3220,7 @@ if(window.ResizeObserver){
 /* 아이폰인가. 아이패드는 데스크톱 사파리처럼 보고하므로 터치 수로 가른다 */
 var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-var APP_VER = "v60";
+var APP_VER = "v61";
 
 var PROCTOR = {
   out: 0, split: 0, swipe: 0, paste: 0, auto: 0, marks: [], last: 0, hold: 0, w0: 0,
@@ -3503,7 +3570,18 @@ if(window.visualViewport){
 }
 document.addEventListener("touchstart", function(){ PROCTOR.meas.tch++; }, {passive:true});
 
-/* 머리줄에 판번호와 감독 상태를 적는다 */
+/* 머리줄에 판번호와 감독 상태를 적는다.
+   학생 화면에는 안 보인다 — 주소 끝에 ?diag=1 을 붙인 사람에게만 보이고,
+   한 번 켜면 그 기기에 남는다. ?diag=0 으로 끈다 */
+(function(){
+  try{
+    var q = new URLSearchParams(location.search).get("diag");
+    if(q === "1") localStorage.setItem("ep_diag", "1");
+    if(q === "0") localStorage.removeItem("ep_diag");
+    if(localStorage.getItem("ep_diag")) document.body.classList.add("diag");
+  }catch(e){}
+})();
+
 function diag(){
   var el = $("prDiag");
   if(!el) return;
