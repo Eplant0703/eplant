@@ -21,6 +21,9 @@
   --line:#DCE1E8; --line-2:#EBEEF2;
   --logo:#FEBD59; --amp:#E8912A; --amp-deep:#B36A12; --amp-soft:#FFF4E3;
   --go:#0E9F6E; --stop:#D8443C; --r:14px;
+  /* 바탕이 밝을 때 쓰는 글자용 색. 위 셋은 칠(배경)용이라 글자로 쓰면
+     3.0~4.2:1 로 흐렸다. 글자에는 이쪽을 쓴다 — 흰 바탕 6.5:1 이상 */
+  --go-ink:#06684A; --stop-ink:#B3281F; --amp-ink:#8A4F08;
   color-scheme: light;
 }
 
@@ -30,6 +33,8 @@
   --line:#2A3038; --line-2:#222831;
   --logo:#FEBD59; --amp:#F0A03C; --amp-deep:#D98520; --amp-soft:#2B2113;
   --go:#34C58E; --stop:#F0655C;
+  /* 어두운 바탕에서는 칠용 색이 그대로 글자로도 밝다 */
+  --go-ink:#34C58E; --stop-ink:#F0655C; --amp-ink:#D98520;
   color-scheme: dark;
 }
 :root[data-theme="dark"] body{background:var(--paper)}
@@ -172,22 +177,31 @@ input,select{font-family:inherit;font-size:1rem;color:inherit}
 .ptbl td.mine{min-width:86px}
 .ptbl .ko{color:var(--ink-2);font-weight:700}
 .ptbl .mine{font-weight:700}
-.ptbl .mine.o{color:#056046}   /* #0A7A56 은 흰 바탕에서 3.93:1 — 기준 미달 */
-:root[data-theme="dark"] .ptbl .mine.o{color:var(--go)}   /* 3.20:1 → 7.4:1 */
-.ptbl .mine.x{color:var(--stop)}
+.ptbl .mine.o{color:var(--go-ink)}   /* #0A7A56 은 흰 바탕에서 3.93:1 — 기준 미달 */
+.ptbl .mine.x{color:var(--stop-ink)}
 .ptbl .tag{display:block;font-style:normal;font-size:.72rem;font-weight:700;
   color:var(--ink-3);margin-top:3px}
-.ptbl .tag.bad{color:var(--amp-deep)}
-.ptbl .mk{font-weight:800;font-size:1rem}
-.ptbl .mk.o{color:#0E9F6E}
-.ptbl .mk.x{color:var(--stop)}
+.ptbl .tag.bad{color:var(--amp-ink)}
+/* 뜻이 길면 표가 옆으로 밀려 O/X 가 화면 밖으로 나갔다(390px 127px).
+   채점 칸은 오른쪽에 붙여 둔다 — 밀려도 늘 보인다 */
+.ptbl .mk{font-weight:800;font-size:1rem;position:sticky;right:0;
+  background:var(--card);box-shadow:-6px 0 8px -6px rgba(0,0,0,.18)}
+.ptbl tr.no .mk{background:#FDF6F5}
+:root[data-theme="dark"] .ptbl tr.no .mk{background:var(--card)}
+.ptbl .mk.o{color:var(--go-ink)}
+.ptbl .mk.x{color:var(--stop-ink)}
 .pl-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .pl-wrap .pl-h{padding:12px 16px;font-size:.82rem;font-weight:800;color:var(--ink-2);
   background:#FBFCFD;border-bottom:1px solid var(--line-2)}
 .pl-scroll{overflow-x:auto}
-@media(max-width:360px){
+@media(max-width:430px){
   .ptbl td.en{min-width:92px}
-  .ptbl td.mine{min-width:76px}
+  .ptbl td.mine{min-width:74px}
+  .ptbl td:first-child{width:26px}
+}
+@media(max-width:360px){
+  .ptbl td.en{min-width:86px}
+  .ptbl td.mine{min-width:68px}
   .ans-table td:nth-child(3){min-width:76px}
 }
 @media(max-width:420px){
@@ -251,7 +265,9 @@ body.pracing{overflow:hidden}
 .pr-gauge{height:4px;background:var(--line-2);flex:none}
 .pr-gauge i{display:block;height:100%;background:var(--amp);width:0;transition:width .2s}
 
-.pr-top{flex:none;display:flex;align-items:center;gap:10px;padding:11px 16px;
+/* 감독 상태 줄을 width:100% 로 넣었더니 줄바꿈이 없어 출제조건 라벨이 0px 로
+   사라지고 「1 / 30」이 세로로 찢어졌다. 줄을 넘길 수 있게 한다 */
+.pr-top{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:11px 16px;
   border-bottom:1px solid var(--line-2);background:var(--card)}
 .pr-n{font-size:.95rem;font-weight:800;color:var(--ink)}
 .pr-n i{font-style:normal;color:var(--ink-3);font-weight:700}
@@ -341,10 +357,10 @@ body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
 
 /* 정답/오답 표시 */
 .pr-mark{margin-top:14px;font-size:.95rem;font-weight:800;line-height:1.6}
-.pr-mark.ok{color:#0E9F6E}
-.pr-mark.no{color:var(--stop)}
+.pr-mark.ok{color:var(--go-ink)}
+.pr-mark.no{color:var(--stop-ink)}
 /* 채점이 아닌 안내 (빈칸으로 확인, 영어 칸에 한글 등) */
-.pr-mark.tip{color:var(--amp-deep);font-weight:700;font-size:.9rem}
+.pr-mark.tip{color:var(--amp-ink);font-weight:700;font-size:.9rem}
 @keyframes epShake{0%,100%{transform:translateX(0)}
   20%{transform:translateX(-5px)}40%{transform:translateX(5px)}
   60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
@@ -359,7 +375,7 @@ body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
 /* PC·태블릿에서는 .pr-mid 가 세로로 한껏 자라 단어와 입력칸 사이가 1200px 까지
    벌어졌고, 입력칸도 2451px 까지 늘어났다. 단어를 세로 가운데에 두고
    입력칸 줄에 최대 폭을 준다. 폰은 그대로 — 자판 바로 위에 붙어야 한다 */
-@media(min-width:761px){
+@media(min-width:700px){
   .pr-mid{justify-content:center}
   .pr-bar{max-width:720px;width:100%;margin:0 auto}
 }
@@ -407,7 +423,7 @@ body.booting .wrap,body.booting .launch{visibility:hidden}
   background:#FBFCFD;font-weight:700;font-size:1rem;transition:.12s}
 .gf input:focus{background:#fff;border-color:var(--amp);outline:none;
   box-shadow:0 0 0 3px rgba(255,122,0,.13)}
-.gf input::placeholder{color:#B6BDC6;font-weight:600}
+.gf input::placeholder{color:#5F6773;font-weight:600}   /* #B6BDC6 은 1.84:1 */
 #gCode{letter-spacing:.14em;text-transform:uppercase;font-size:1.1rem}
 .gate-btn{width:100%;padding:16px;border-radius:12px;background:var(--amp);color:#fff;
   font-weight:800;font-size:1.05rem;margin-top:8px;transition:.13s}
@@ -446,7 +462,10 @@ body.nobar{padding-bottom:40px}
    줄 수 있게 바꾸고, 아래 fitLogo() 가 남는 자리에 맞춰 높이를 다시 잡는다 */
 .logo{width:auto;display:block;flex:0 1 auto;min-width:0;max-width:100%;object-fit:contain}
 .res-logo,.stage-logo{max-width:100%;object-fit:contain}
-@media(max-width:430px){.brand{font-size:1.45rem;gap:10px}}
+/* 430px 에서 431px 로 1px 넘어가면 제목 글자가 1.45 → 1.85rem 으로 뛰어
+   로고 자리를 빼앗았다(로고 높이 35 vs 39). 경계를 넓혀 완만하게 */
+@media(max-width:560px){.brand{font-size:1.45rem;gap:10px}}
+@media(max-width:360px){.brand{font-size:1.3rem;gap:8px}}
 .brand b{font-size:1em;font-weight:800;letter-spacing:-.025em;white-space:nowrap;line-height:1}
 .brand-rule{height:3px;background:var(--logo);width:44px;border-radius:2px;margin:12px 0 22px}
 .res-logo{height:34px;width:auto;display:block;margin-bottom:14px}
@@ -528,7 +547,8 @@ body.nobar{padding-bottom:40px}
 .empty-note{padding:26px 18px;text-align:center;color:var(--ink-2);font-size:.9rem;font-weight:600;
   background:#FBFCFD;border:1px dashed var(--line);border-radius:11px;line-height:1.7}
 
-.btn{padding:11px 18px;border-radius:9px;font-weight:700;font-size:.92rem;background:var(--ink);color:#fff;transition:.13s}
+.btn{padding:11px 18px;border-radius:9px;font-weight:700;font-size:.92rem;background:var(--ink);color:#fff;
+  word-break:keep-all;transition:.13s}
 .btn:hover{background:#000}
 .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .btn.ghost:hover{background:var(--paper)}
@@ -547,11 +567,11 @@ body.nobar{padding-bottom:40px}
 .tabs{display:inline-flex;background:#EDF0F4;border-radius:10px;padding:4px;gap:4px;margin-bottom:14px}
 .tab{padding:8px 16px;border-radius:7px;font-size:.87rem;font-weight:700;color:var(--ink-2)}
 .tab.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(21,24,29,.1)}
-.pick-n{display:block;margin-top:7px;font-size:.8rem;font-weight:800;color:var(--amp-deep)}
+.pick-n{display:block;margin-top:7px;font-size:.8rem;font-weight:800;color:var(--amp-ink)}
 .pick.off .pick-n{color:var(--ink-3)}
 .rq-lab{font-weight:700;font-size:.92rem;color:var(--ink-2)}
 .picked-note{margin-top:13px;font-size:.87rem;font-weight:700;color:var(--ink-2)}
-.picked-note b{color:var(--amp-deep)}
+.picked-note b{color:var(--amp-ink)}
 .range-quick{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .range-quick input{width:74px;padding:9px;border:1px solid var(--line);border-radius:8px;text-align:center;font-weight:700}
 /* 칩마다 너비가 달라 열이 들쭉날쭉했다 — 격자로 세로줄을 맞춘다.
@@ -566,7 +586,7 @@ body.nobar{padding-bottom:40px}
   border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;
   font-size:.86rem;font-weight:700;color:var(--ink-2);transition:.1s;user-select:none}
 .unit input{width:16px;height:16px;margin:0;accent-color:var(--amp);cursor:pointer}
-.unit.on{background:var(--amp-soft);border-color:var(--amp);color:var(--amp-deep)}
+.unit.on{background:var(--amp-soft);border-color:var(--amp);color:var(--amp-ink)}
 
 .picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
 .pick{border:1px solid var(--line);border-radius:11px;padding:15px 16px;background:#fff;text-align:left;transition:.12s}
@@ -619,6 +639,13 @@ body.nobar{padding-bottom:40px}
 .launch-btn:hover{background:var(--amp-deep)}
 .launch-btn:disabled{background:#C6CCD4;color:#474E58;cursor:not-allowed}
 
+/* 흰 글자 + 주황 바탕은 2.47:1 이다. 어두운 화면은 이미 검은 글자로
+   고쳐 뒀으므로 밝은 쪽도 같게 맞춘다 — 실전 테스트·로그인하기·정답 확인·
+   틀린 단어만 다시, 앱에서 제일 큰 단추들이다.
+   개별 규칙(.gate-btn 등)보다 뒤에 둬야 흰 글자를 이긴다 */
+.btn.amp,.launch-btn:not(.alt):not(:disabled),
+.gate-btn,.ans-btn,.pr-go{color:#2A1703}
+
 .stage{position:fixed;inset:0;z-index:200;background:var(--paper);display:none;
   flex-direction:column;color:var(--ink)}
 .stage.on{display:flex}
@@ -663,7 +690,7 @@ body.nobar{padding-bottom:40px}
 .spread{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
 .sp-pill{background:var(--line-2);border:1px solid var(--line);border-radius:7px;
   padding:4px 10px;font-size:.79rem;font-weight:700;color:var(--ink-2)}
-.sp-pill b{color:var(--amp-deep);font-weight:800;margin-left:4px}
+.sp-pill b{color:var(--amp-ink);font-weight:800;margin-left:4px}
 .ready{text-align:center}
 .ready-n{font-size:clamp(5rem,22vw,11rem);font-weight:800;line-height:1;color:var(--amp-deep)}
 .ready-t{font-size:1rem;font-weight:700;color:var(--ink-2);margin-top:12px;letter-spacing:.06em}
@@ -719,8 +746,13 @@ tr:last-child td{border-bottom:none}
 
 /* 96px 고정이라 PC 시작 띠(181px)를 45px 덮어 출제조건 줄을 가렸다.
    띠 높이에 맞춰 띄운다. 띠가 없는 화면은 아래 nobar 규칙으로 */
+/* 색을 안 준 입력칸은 브라우저 기본 #757575 라 어두운 화면에서 3.8:1 이었다 */
+input::placeholder,textarea::placeholder{color:var(--ink-3);opacity:1}
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder{color:#9AA3AE}
 .toast{position:fixed;left:50%;bottom:calc(var(--launch-h, 150px) + 26px);transform:translateX(-50%);z-index:300;
   background:#15181D;color:#fff;padding:12px 20px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.22);box-shadow:0 8px 24px rgba(0,0,0,.4);
   font-size:.88rem;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;max-width:88%}
 body.nobar .toast{bottom:66px}
 .toast.on{opacity:1}
@@ -1688,6 +1720,7 @@ function nextWord(){
   ws.className = "word" + (showKo ? " ko" : "");
   ws.textContent = showKo ? w.ko : w.en;
   ws.style.visibility = "visible";
+  fitWord(ws);
   $("writeTxt").textContent = "";
   $("tick").textContent = "";
 
@@ -1937,6 +1970,34 @@ function applyLink(q){
 /* ============ 로고 높이 맞추기 ============ */
 var LOGO_TEXT_RATIO = 0.723;   // 로고 이미지에서 한글이 차지하는 세로 비율
 
+/* 긴 단어가 상자를 양옆으로 넘겨 학생이 문제를 못 읽었다 —
+   acknowledgment 는 320px 폰에서 좌우로 412px 나갔다. 영어는 한 덩어리로
+   둬야 읽히므로 자르지 않고, 들어갈 때까지 글자를 줄인다 */
+function fitWord(el){
+  if(!el) return;
+  try{
+    el.style.fontSize = "";
+    /* 넘쳐 나간 글자는 scrollWidth 에 안 잡힌다(overflow 가 visible 이라
+       scrollWidth 가 clientWidth 와 같아진다). 글자 폭을 직접 잰다 */
+    var wide = function(){
+      var r = document.createRange();
+      r.selectNodeContents(el);
+      return r.getBoundingClientRect().width;
+    };
+    var room = (window.innerWidth || 0) - 28;      /* 좌우 14px 씩 남긴다 */
+    var box = el.parentNode;
+    if(box && box.clientWidth > 40) room = Math.min(room, box.clientWidth);
+    if(room < 40) return;
+    var size = parseFloat(getComputedStyle(el).fontSize) || 0;
+    var guard = 0;
+    while(wide() > room && size > 15 && guard++ < 80){
+      size = Math.max(15, size * 0.94);
+      el.style.fontSize = size + "px";
+    }
+  }catch(e){}
+}
+window.addEventListener("resize", function(){ fitWord($("wordSlot")); });
+
 /* .brand 는 머리줄과 연습 결과 쪽 두 군데에 있다. querySelector 로 첫 하나만
    손봐서 결과 쪽 로고만 크기가 달랐다 — 둘 다 돈다 */
 function fitLogo(){
@@ -1957,15 +2018,21 @@ function fitOne(row){
     if(h > 4) el.style.height = (h / LOGO_TEXT_RATIO) + "px";
 
     /* 좁은 폭에서 로고가 남은 자리보다 커져 화면 밖으로 나갔다.
-       넘친 만큼 폭을 깎고, 같은 비율로 높이를 내려 비율을 지킨다 */
-    var over = row.scrollWidth - row.clientWidth;
-    if(over > 0){
-      var w = el.getBoundingClientRect().width;
-      if(w > 1){
-        var k = Math.max(0.3, (w - over) / w);
-        el.style.height = (parseFloat(el.style.height || 0) * k) + "px";
-      }
+       전에는 넘친 뒤에 깎았는데, max-width 가 먼저 폭을 잘라 버려서
+       넘침이 0 으로 보였고(머리줄은 밝기 단추까지 있어 더 좁다) 보정이
+       아예 돌지 않았다 — 로고만 세로로 비어 작아 보였다.
+       넘치기를 기다리지 말고 남는 자리를 먼저 재서 거기에 맞춘다 */
+    var ratio = (el.naturalWidth && el.naturalHeight)
+              ? (el.naturalWidth / el.naturalHeight) : 5.2;
+    var kids = row.children, used = 0, others = 0;
+    for(var j = 0; j < kids.length; j++){
+      if(kids[j] === el) continue;
+      used += kids[j].getBoundingClientRect().width; others++;
     }
+    var gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    var room = row.clientWidth - used - (gap * others) - 1;
+    var want = parseFloat(el.style.height || 0);
+    if(room > 16 && want * ratio > room) el.style.height = (room / ratio) + "px";
   } catch(e){}
 }
 
