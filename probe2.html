@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>스위처 확인 2판</title>
+<style>
+  :root{ --bg:#0b0f14; --card:#151b23; --line:#273040; --ink:#f2f5f9;
+         --ink2:#aeb8c6; --go:#2fd27a; --no:#ff6b6b; --amp:#f5a524; }
+  *{box-sizing:border-box;-webkit-text-size-adjust:100%}
+  body{margin:0;padding:14px;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+    font-size:15px;line-height:1.55}
+  h1{font-size:1.05rem;margin:0 0 2px;font-weight:800}
+  .sub{color:var(--ink2);font-size:.8rem;margin-bottom:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:12px 13px;margin-bottom:10px}
+  .card h2{font-size:.8rem;margin:0 0 8px;color:var(--amp);font-weight:800}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:2px 0;
+    font-variant-numeric:tabular-nums}
+  .k{color:var(--ink2);font-size:.8rem}
+  .v{font-weight:800;font-size:.9rem;text-align:right}
+  .big{font-size:1.35rem;font-weight:800;text-align:center;padding:6px 0}
+  .go{color:var(--go)} .no{color:var(--no)} .amp{color:var(--amp)}
+  button{width:100%;padding:12px;border-radius:10px;border:0;font-size:.92rem;
+    font-weight:800;background:var(--amp);color:#1a1205;margin-bottom:8px;
+    font-family:inherit;-webkit-tap-highlight-color:transparent}
+  button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+  th,td{padding:2px 3px;text-align:right;font-size:.72rem;
+    font-family:ui-monospace,Menlo,monospace}
+  th{color:var(--amp);font-size:.66rem;border-bottom:1px solid var(--line)}
+  tr.bad td{background:#3a1420;color:#ffb4c0}
+  tr.warn td{background:#3a2d14;color:#ffdf9b}
+  .log{font-family:ui-monospace,Menlo,monospace;font-size:.7rem;color:var(--ink2);
+    white-space:pre-wrap;word-break:break-all;max-height:230px;overflow:auto}
+  .note{font-size:.74rem;color:var(--ink2);margin-top:4px}
+  ol{margin:5px 0 0;padding-left:18px} li{margin-bottom:4px;font-size:.82rem}
+  video{position:fixed;left:-9999px;width:8px;height:8px}
+</style>
+</head>
+<body>
+
+<h1>스위처 확인 2판 — 시간대별</h1>
+<div class="sub">앱 스위처가 열려 있던 그 구간만 떼어 봅니다.</div>
+
+<div class="card">
+  <h2>이렇게 하십시오 (1분)</h2>
+  <ol>
+    <li>이 화면이 뜨면 <b>이미 재고 있습니다.</b></li>
+    <li><b>[소리시계 켜기]</b>를 한 번 누릅니다.</li>
+    <li>10초쯤 가만히 둡니다. (기준값 쌓기)</li>
+    <li>앱 스위처를 열고 <b>속으로 다섯을 셉니다.</b></li>
+    <li>돌아와서 <b>[표 보기]</b>를 누릅니다.</li>
+  </ol>
+  <div class="note">표에서 빨간 줄이 뭉쳐 있으면 그게 스위처 구간입니다.</div>
+</div>
+
+<button id="audioBtn">소리시계 켜기</button>
+<button id="showBtn" class="ghost">표 보기</button>
+
+<div class="card">
+  <h2>판정</h2>
+  <div class="big amp" id="verdict">재는 중…</div>
+  <div class="note" id="why">10초 두었다가 스위처를 여십시오.</div>
+</div>
+
+<div class="card">
+  <h2>시간대별 기록 (최근 40초, 한 줄 = 0.1초)</h2>
+  <div id="tableWrap" style="max-height:380px;overflow:auto">
+    <div class="note">[표 보기]를 누르면 나옵니다.</div>
+  </div>
+  <div class="note">
+    rAF = 0.1초 동안 그린 장수(정상 6). 本 = 본줄 타이머(정상 10).
+    워커 = 딴줄 타이머(정상 10). 소리 = 소리시계가 간 ms(정상 100).
+    애니 = 애니메이션 시계가 간 ms(정상 100). 영상 = 영상 프레임 수.
+  </div>
+</div>
+
+<div class="card">
+  <h2>신호 기록 (무슨 일이 몇 초에)</h2>
+  <div class="log" id="log">—</div>
+</div>
+
+<button id="camBtn" class="ghost">카메라 켜고 보기 (권한창 1회)</button>
+<button id="scrBtn" class="ghost">화면캡처 켜고 보기 (iOS 27+)</button>
+
+<div class="card">
+  <h2>기기</h2>
+  <div class="row"><span class="k">홈 화면 앱인가</span><span class="v" id="pwa">—</span></div>
+  <div class="row"><span class="k">requestIdleCallback</span><span class="v" id="ric">—</span></div>
+  <div class="row"><span class="k">rVFC(영상프레임)</span><span class="v" id="rvfc">—</span></div>
+  <div class="row"><span class="k">화면캡처 가능</span><span class="v" id="gdm">—</span></div>
+  <div class="row"><span class="k">브라우저</span><span class="v" id="ua" style="font-size:.6rem">—</span></div>
+</div>
+
+<video id="vid" muted playsinline loop autoplay></video>
+
+<script>
+"use strict";
+var $ = function(id){ return document.getElementById(id); };
+var T0 = Date.now();
+var el = function(ms){ return ((ms - T0)/1000).toFixed(2) + "s"; };
+
+/* ---------- 기록 통 ---------- */
+var SLOT = 100;        /* 0.1초 */
+var KEEP = 400;        /* 40초 */
+var slots = [];        /* 본줄이 0.1초마다 밀어 넣는다 */
+var wslots = [];       /* 워커가 따로 밀어 넣는다 */
+var logs = [];
+
+function note(s){
+  /* 화면 숨김·포커스 잃음·페이지 내림만 「신호」로 센다.
+     터치나 단추 누름은 신호가 아니다 */
+  if(/hidden|visibilitychange|blur|pagehide|freeze|MUTE/i.test(s)){
+    window.__sigCount = (window.__sigCount || 0) + 1;
+  }
+  logs.push(el(Date.now()) + "  " + s);
+  if(logs.length > 300) logs.shift();
+  $("log").textContent = logs.slice(-60).reverse().join("\n");
+}
+
+/* ---------- 1. rAF ---------- */
+var rafN = 0, rafLast = 0, rafMaxGap = 0;
+function raf(){
+  var now = performance.now();
+  if(rafLast){ var g = now - rafLast; if(g > rafMaxGap) rafMaxGap = g; }
+  rafLast = now; rafN++;
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+/* ---------- 2. 본줄 타이머 ---------- */
+var tmrN = 0;
+setInterval(judge, 1000);
+setInterval(function(){ tmrN++; }, 10);
+
+/* ---------- 3. setTimeout 사슬 ---------- */
+var toN = 0;
+(function chain(){ toN++; setTimeout(chain, 10); })();
+
+/* ---------- 4. 애니메이션 시계 ---------- */
+var anim = null, animLast = 0;
+(function(){
+  var d = document.createElement("div");
+  d.style.cssText = "position:fixed;left:-9999px;width:8px;height:8px;background:#000";
+  document.body.appendChild(d);
+  try{
+    anim = d.animate([{opacity:0},{opacity:1}],
+      {duration:600000, iterations:1, easing:"linear"});
+  }catch(e){}
+})();
+
+/* ---------- 5. 소리 시계 ---------- */
+var actx = null, actxLast = 0;
+$("audioBtn").onclick = function(){
+  try{
+    var AC = window.AudioContext || window.webkitAudioContext;
+    actx = new AC();
+    var osc = actx.createOscillator();
+    var g = actx.createGain();
+    g.gain.value = 0.0001;              /* 사실상 무음 */
+    osc.frequency.value = 40;
+    osc.connect(g); g.connect(actx.destination);
+    osc.start();
+    actx.resume();
+    actx.onstatechange = function(){ note("소리시계 상태 → " + actx.state); };
+    actxLast = actx.currentTime;
+    note("소리시계 켬 (" + actx.state + ")");
+    $("audioBtn").textContent = "소리시계 켜짐";
+  }catch(e){ note("소리시계 실패: " + e.message); }
+};
+
+/* ---------- 6. 영상 프레임 ---------- */
+var vfN = 0, vidOK = false;
+(function(){
+  var v = $("vid");
+  /* 1프레임짜리가 아니라 계속 도는 아주 작은 영상 */
+  var c = document.createElement("canvas"); c.width = 16; c.height = 16;
+  try{
+    var st = c.captureStream ? c.captureStream(30) : null;
+    if(st){ v.srcObject = st; v.play().catch(function(){}); vidOK = true; }
+  }catch(e){}
+  if(v.requestVideoFrameCallback){
+    $("rvfc").textContent = "있음";
+    var cb = function(){ vfN++; v.requestVideoFrameCallback(cb); };
+    v.requestVideoFrameCallback(cb);
+  } else { $("rvfc").textContent = "없음"; }
+  /* 캔버스를 계속 그려야 스트림이 흐른다 */
+  var ctx = c.getContext("2d"), k = 0;
+  setInterval(function(){ k++; ctx.fillStyle = (k%2)?"#000":"#fff"; ctx.fillRect(0,0,16,16); }, 33);
+})();
+
+/* ---------- 7. 워커 (딴 줄) ---------- */
+var worker = null;
+try{
+  var src =
+    "var a=[];" +
+    "setInterval(function(){a.push(Date.now());if(a.length>600)a.shift();},100);" +
+    "onmessage=function(){postMessage(a);};";
+  worker = new Worker(URL.createObjectURL(new Blob([src],{type:"text/javascript"})));
+  worker.onmessage = function(e){ wslots = e.data; render(); };
+}catch(e){ note("워커 못 씀: " + e.message); }
+
+/* ---------- 8. 0.1초마다 한 줄씩 ---------- */
+setInterval(function(){
+  var now = Date.now();
+  var ac = 0, an = 0;
+  if(actx){ ac = (actx.currentTime - actxLast)*1000; actxLast = actx.currentTime; }
+  if(anim){ try{ var c = anim.currentTime || 0; an = c - animLast; animLast = c; }catch(e){} }
+  slots.push({ t:now, raf:rafN, tmr:tmrN, to:toN, ac:Math.round(ac),
+               an:Math.round(an), vf:vfN });
+  rafN = 0; tmrN = 0; toN = 0; vfN = 0;
+  if(slots.length > KEEP) slots.shift();
+}, SLOT);
+
+/* ---------- 9. 신호 듣기 ---------- */
+["visibilitychange"].forEach(function(n){
+  document.addEventListener(n, function(){ note("visibilitychange → " + document.visibilityState); });
+});
+["blur","focus","pagehide","pageshow","freeze","resume","resize",
+ "orientationchange","offline","online"].forEach(function(n){
+  window.addEventListener(n, function(){ note("window " + n); });
+});
+["focusin","focusout"].forEach(function(n){
+  document.addEventListener(n, function(){ note("document " + n); });
+});
+if(window.visualViewport){
+  ["resize","scroll"].forEach(function(n){
+    visualViewport.addEventListener(n, function(){ note("visualViewport " + n); });
+  });
+}
+["touchstart","touchend","touchcancel"].forEach(function(n){
+  window.addEventListener(n, function(e){
+    var t = e.changedTouches && e.changedTouches[0];
+    note(n + (t ? " y=" + Math.round(t.clientY) : ""));
+  }, {passive:true});
+});
+document.addEventListener("gesturestart", function(){ note("gesturestart"); });
+
+/* ---------- 10. 카메라 (선택) ---------- */
+$("camBtn").onclick = function(){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    note("카메라 못 씀"); return;
+  }
+  navigator.mediaDevices.getUserMedia({video:{width:160,height:120}}).then(function(s){
+    note("카메라 켬");
+    s.getTracks().forEach(function(tr){
+      tr.onmute = function(){ note("카메라 track MUTE"); };
+      tr.onunmute = function(){ note("카메라 track UNMUTE"); };
+      tr.onended = function(){ note("카메라 track ENDED"); };
+    });
+    setInterval(function(){
+      var tr = s.getVideoTracks()[0];
+      if(tr) slots.length && (slots[slots.length-1].cam = tr.muted ? 1 : 0);
+    }, 100);
+    $("camBtn").textContent = "카메라 켜짐";
+  }).catch(function(e){ note("카메라 거부/실패: " + e.name); });
+};
+
+/* ---------- 11. 화면캡처 (선택, iOS 27+) ---------- */
+$("gdm").textContent = (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) ? "있음" : "없음";
+$("scrBtn").onclick = function(){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia){
+    note("화면캡처 못 씀"); return;
+  }
+  navigator.mediaDevices.getDisplayMedia({video:true}).then(function(s){
+    note("화면캡처 켬");
+    var v = document.createElement("video");
+    v.muted = true; v.playsInline = true; v.srcObject = s;
+    v.play().catch(function(){});
+    s.getTracks().forEach(function(tr){
+      tr.onmute = function(){ note("화면캡처 track MUTE"); };
+      tr.onunmute = function(){ note("화면캡처 track UNMUTE"); };
+      tr.onended = function(){ note("화면캡처 track ENDED"); };
+    });
+    if(v.requestVideoFrameCallback){
+      var cb = function(){
+        if(slots.length) slots[slots.length-1].scr = (slots[slots.length-1].scr||0) + 1;
+        v.requestVideoFrameCallback(cb);
+      };
+      v.requestVideoFrameCallback(cb);
+    }
+    /* 화면이 바뀌었는지: 잡힌 그림의 평균 밝기를 0.1초마다 잰다 */
+    var cc = document.createElement("canvas"); cc.width = 24; cc.height = 48;
+    var cx = cc.getContext("2d", {willReadFrequently:true});
+    setInterval(function(){
+      try{
+        cx.drawImage(v, 0, 0, 24, 48);
+        var d = cx.getImageData(0,0,24,48).data, sum = 0;
+        for(var i=0;i<d.length;i+=4) sum += d[i] + d[i+1] + d[i+2];
+        var br = Math.round(sum / (d.length/4) / 3);
+        if(slots.length) slots[slots.length-1].br = br;
+      }catch(e){}
+    }, 100);
+    $("scrBtn").textContent = "화면캡처 켜짐";
+  }).catch(function(e){ note("화면캡처 거부/실패: " + e.name); });
+};
+
+/* ---------- 12. 표 그리기 ---------- */
+/* 판정만 따로 뗀다. 표를 누르지 않아도 1초마다 스스로 판단해야 한다.
+   원장님이 표를 읽을 일이 없어야 쓸 수 있다 */
+function judge(){
+  var n = slots.length;
+  if(n < 20){ return; }
+  /* 본줄이 눌린 구간 — 타이머가 절반 아래로 떨어진 0.1초 칸이 이어진 곳 */
+  var runs = [], cur = 0, longest = 0, maxGap = 0;
+  for(var i=1;i<n;i++){
+    var s2 = slots[i], p2 = slots[i-1];
+    var gap = s2.t - p2.t;
+    if(gap > maxGap) maxGap = gap;
+    var slowed = (s2.tmr <= 5) || (gap > 300);
+    if(slowed){ cur++; if(cur > longest) longest = cur; }
+    else { if(cur >= 2) runs.push(cur); cur = 0; }
+  }
+  if(cur >= 2) runs.push(cur);
+  /* 워커도 같이 멈췄나 — 같이 멈췄으면 앱 전체가 멈춘 것 */
+  var maxW = 0;
+  for(var j=1;j<wslots.length;j++){
+    var wg = wslots[j] - wslots[j-1];
+    if(wg > maxW) maxW = wg;
+  }
+  var v = $("verdict"), w = $("why");
+  var sig = (window.__sigCount || 0);
+  if(sig > 0){
+    v.textContent = "신호가 왔습니다"; v.className = "big go";
+    w.textContent = "화면 숨김이나 포커스 잃음이 울렸습니다. 이것만으로 잡을 수 있습니다.";
+  } else if(longest >= 5 || maxGap >= 500){
+    v.textContent = "잡을 수 있습니다"; v.className = "big go";
+    w.textContent = "본줄이 눌린 구간이 있습니다. 가장 길게 멈춘 것 "
+      + Math.round(maxGap) + "ms, 눌린 칸 " + longest + "개(0.1초 단위). "
+      + "워커 최대 멈춤 " + Math.round(maxW) + "ms. "
+      + (maxW < maxGap * 0.5 ? "본줄만 눌렸으므로 신호로 쓸 수 있습니다."
+                              : "워커도 같이 멈췄습니다 — 앱 전체가 멈춘 것일 수 있습니다.");
+  } else if(longest >= 2){
+    v.textContent = "애매합니다"; v.className = "big amp";
+    w.textContent = "눌린 칸이 " + longest + "개뿐입니다. 평소 버벅임과 구분이 어렵습니다. "
+      + "스위처를 더 오래(다섯을 셀 동안) 열어 두고 다시 해 보십시오.";
+  } else {
+    v.textContent = "아직 안 눌렸습니다"; v.className = "big no";
+    w.textContent = "지금까지는 평소 속도 그대로입니다. 스위처를 열고 다섯을 센 뒤 돌아오십시오. "
+      + "그래도 이 글이 그대로면 이 길은 막힌 것입니다.";
+  }
+}
+
+function render(){
+  var n = slots.length;
+  if(!n){ return; }
+  var bad = 0, runs = [], cur = null;
+  var wp = 0;                              /* 워커 타임스탬프 포인터 */
+  var maxMainGap = 0, maxWorkGap = 0;
+  for(var i=1;i<wslots.length;i++){
+    var wg = wslots[i] - wslots[i-1];
+    if(wg > maxWorkGap) maxWorkGap = wg;
+  }
+
+  var html = "<table><thead><tr><th>초</th><th>간격</th><th>rAF</th><th>本</th>"
+           + "<th>sT</th><th>워커</th><th>소리</th><th>애니</th><th>영상</th>"
+           + "<th>캡</th><th>밝기</th><th>캠</th></tr></thead><tbody>";
+  for(var i=1;i<n;i++){
+    var s = slots[i], p = slots[i-1];
+    var gap = s.t - p.t;
+    if(gap > maxMainGap) maxMainGap = gap;
+    /* 이 0.1초 사이에 워커가 몇 번 뛰었나 */
+    var w = 0;
+    while(wp < wslots.length && wslots[wp] < p.t) wp++;
+    while(wp < wslots.length && wslots[wp] < s.t){ w++; wp++; }
+    var isBad  = (s.raf <= 2) || (gap >= 200) || (s.tmr <= 5) || (s.to <= 5);
+    var isWarn = !isBad && (s.raf <= 4 || gap >= 150 || s.tmr <= 8 || s.to <= 8);
+    if(isBad){ bad++; if(!cur) cur = {a:s.t,b:s.t}; else cur.b = s.t; }
+    else if(cur){ runs.push(cur); cur = null; }
+    html += "<tr class='" + (isBad?"bad":(isWarn?"warn":"")) + "'>"
+         + "<td>" + ((s.t-T0)/1000).toFixed(1) + "</td>"
+         + "<td>" + gap + "</td>"
+         + "<td>" + s.raf + "</td>"
+         + "<td>" + s.tmr + "</td>"
+         + "<td>" + s.to + "</td>"
+         + "<td>" + w + "</td>"
+         + "<td>" + (actx ? s.ac : "-") + "</td>"
+         + "<td>" + s.an + "</td>"
+         + "<td>" + s.vf + "</td>"
+         + "<td>" + (s.scr === undefined ? "-" : s.scr) + "</td>"
+         + "<td>" + (s.br === undefined ? "-" : s.br) + "</td>"
+         + "<td>" + (s.cam === undefined ? "-" : (s.cam ? "꺼짐" : "ON")) + "</td>"
+         + "</tr>";
+  }
+  if(cur) runs.push(cur);
+  html += "</tbody></table>";
+  $("tableWrap").innerHTML = html;
+
+  /* 판정 */
+  var longest = 0;
+  runs.forEach(function(r){ var d = r.b - r.a + 100; if(d > longest) longest = d; });
+  var tail = " · 본줄 최대멈춤 " + maxMainGap + "ms · 워커 최대멈춤 " + maxWorkGap
+           + "ms · rAF 최대간격 " + Math.round(rafMaxGap) + "ms";
+  if(!runs.length){
+    $("verdict").textContent = "느려진 구간 없음";
+    $("verdict").className = "big no";
+    $("why").textContent = "스위처 동안에도 화면이 정상 속도로 돌았다는 뜻입니다. "
+      + "rAF 로는 못 잡습니다. 표에서 '워커'와 '本'이 같이 떨어진 줄이 있는지 보십시오." + tail;
+  } else {
+    $("verdict").textContent = "느려진 구간 " + runs.length + "회 / 가장 긴 것 " + longest + "ms";
+    $("verdict").className = "big go";
+    $("why").textContent = "빨간 줄이 스위처를 열어 둔 시간과 맞으면 이 신호를 쓸 수 있습니다. "
+      + "가장 긴 구간 길이가 실제로 스위처를 열어 둔 시간과 비슷한지 보십시오." + tail;
+  }
+}
+
+$("showBtn").onclick = function(){
+  if(worker) worker.postMessage("gimme");   /* 워커 답이 오면 render() */
+  else render();
+};
+
+/* ---------- 13. 기기 ---------- */
+$("pwa").textContent = (window.navigator.standalone ||
+  (window.matchMedia && matchMedia("(display-mode: standalone)").matches)) ? "예" : "아니오";
+$("ric").textContent = window.requestIdleCallback ? "있음" : "없음";
+$("ua").textContent = navigator.userAgent;
+note("시작");
+</script>
+</body>
+</html>
