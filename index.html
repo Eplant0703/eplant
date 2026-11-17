@@ -365,8 +365,11 @@ body.diag .pr-diag{display:block;width:100%;order:9;margin:3px 0 0;
    같은 줄을 나눠 가져서, 옆에 있는 안내 문구가 75px 로 눌려 세로로 찢어졌다.
    PC 에서만 드러났다 — 폰은 폭이 좁아 어차피 줄이 바뀌어 안 보였다.
    제 줄을 차지하도록 width 와 order 를 준다 */
-.ver-tag{width:100%;order:10;margin:2px 0 0;font-size:.68rem;font-weight:700;
-  color:var(--ink-3);text-align:center}
+/* 2026.11.17 원장님 지시 — 판번호 줄을 학생 화면에서 없앤다.
+   다만 배포가 폰에 닿았는지 확인할 길은 남겨 둔다 — ?diag=1 에서만 보인다 */
+.ver-tag{display:none}
+body.diag .ver-tag{display:block;width:100%;order:10;margin:2px 0 0;
+  font-size:.68rem;font-weight:700;color:var(--ink-3);text-align:center}
 :root[data-theme="dark"] .pres-warn,
 :root[data-theme="dark"] .res-warn{border-color:var(--stop)}
 @media print{
@@ -655,7 +658,10 @@ body.nobar{padding-bottom:40px}
 .launch{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.94);
   backdrop-filter:blur(10px);border-top:1px solid var(--line);
   padding:14px 18px calc(14px + env(safe-area-inset-bottom))}
-.launch-in{flex-wrap:wrap;max-width:940px;margin:0 auto;display:flex;align-items:center;gap:14px}
+/* 안내 글을 빼고 나니 단추가 왼쪽에 몰렸다 — 가운데로 맞춘다.
+   단어장을 고르면 출제조건 글이 자리를 차지하므로 전과 같이 양끝으로 간다 */
+.launch-in{flex-wrap:wrap;max-width:940px;margin:0 auto;display:flex;
+  align-items:center;justify-content:center;gap:14px}
 .launch-txt{font-size:.85rem;color:var(--ink-2);font-weight:600;
   flex:1 1 240px;min-width:220px;line-height:1.45;word-break:keep-all}
 /* 641~759px 에서는 단추 옆에 끼면 폭이 281px 까지 눌려 "단어 뜻쓰 / 기" 로
@@ -665,9 +671,8 @@ body.nobar{padding-bottom:40px}
     text-align:center;word-break:keep-all}
 }
 /* 두 버튼이 무엇이 다른지 — 앱이 스스로 설명하게 한다 */
-.launch-how{width:100%;order:9;font-size:.86rem;line-height:1.6;color:var(--ink-2);
-  font-weight:600;border-top:1px solid var(--line-2);padding-top:8px;margin-top:2px}
-.launch-how b{color:var(--ink);font-weight:800}
+/* 2026.11.17 원장님 지시 — 연습/실전 설명 두 줄을 뺀다.
+   단추 이름이 이미 말해 주고, 띠만 두꺼워졌다 */
 /* 짧은 안내글 — 단계 안에서 쓴다 */
 .howto{font-size:.84rem;line-height:1.7;color:var(--ink-2);font-weight:600;
   background:#FBFCFD;border:1px solid var(--line-2);border-radius:9px;
@@ -845,7 +850,6 @@ body.nobar .toast{bottom:66px}
   .launch-in .launch-txt{flex:1 1 100%;width:100%;order:-1;margin-bottom:0;
     font-size:.8rem;line-height:1.4;text-align:center;word-break:keep-all}
   .launch-btn{flex:1 1 0;width:auto;padding:13px 6px;font-size:.96rem}
-  .launch-how{flex:1 1 100%;font-size:.74rem;line-height:1.5;padding-top:7px}
   .toast{bottom:calc(var(--launch-h, 150px) + 26px)}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -1142,18 +1146,13 @@ body.nobar .toast{bottom:66px}
 
 <div class="launch" id="launch">
   <div class="launch-in">
-    <div class="launch-txt" id="launchTxt">단어장을 고르면 시작할 수 있습니다.</div>
-    <!-- 폰이 어느 판을 받았는지 눈으로 확인할 수 있어야 한다. 안드로이드는
-         바로 받는데 아이폰은 옛 판을 물고 있는 경우가 있었다 -->
+    <div class="launch-txt" id="launchTxt"></div>
+    <!-- 판번호는 ?diag=1 로 열었을 때만 보인다 -->
     <div class="ver-tag" id="verTag"></div>
     <!-- 2026.11.13 원장님 지시 — 시작 화면의 규칙 안내 줄을 뺀다.
          굳이 적지 않아도 되는 말. 규칙은 가림막에 뜰 때 알려 준다 -->
     <button class="launch-btn alt" id="practice" disabled>연습 모드</button>
     <button class="launch-btn" id="start" disabled>실전 테스트</button>
-    <div class="launch-how">
-      <b>연습 모드</b> — 폰에 답을 치면 바로 채점합니다<br>
-      <b>실전 테스트</b> — 종이에 쓰고, 끝나고 정답을 봅니다
-    </div>
   </div>
 </div>
 
@@ -1661,7 +1660,7 @@ function refresh(){
   var recipe = [S.bookName, rangeText(),
                 S.hasType ? typeTxt(S.wordType) : "전체 단어",
                 MODE_TXT[S.mode], c + "개"].join(" · ");
-  $("launchTxt").textContent = !ready ? "단어장을 고르면 시작할 수 있습니다."
+  $("launchTxt").textContent = !ready ? ""
     : !S.picked.length ? "2단계에서 시험 볼 범위를 골라 주세요."
     : !max ? "고른 범위에 해당하는 단어가 없습니다."
     : (c > 0 && c <= max) ? recipe
